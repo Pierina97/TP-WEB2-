@@ -15,17 +15,18 @@ class AuthHelper
             header("Location: " . BASE_URL . "login");
             die();
         }else{
-             $this->checkIsAdmin();
+           $isAdmin= $this->checkIsAdmin();
+           return $isAdmin;
         }
     }
     function checkIsAdmin(){   //checkLoggedInBoolean
-        $respuesta = "false";
+        $idAdmin = "false";
         if (isset($_SESSION['rol']) == 'admin'){
-            $respuesta = "true";
+            $idAdmin = "true";
         }else{
-            $respuesta = "false";
+            $idAdmin= "false";
         }
-        return $respuesta;
+        return  $idAdmin;
     }
     
     // public function checkSession()

@@ -2,7 +2,9 @@
 
 <div class="container-fluid w-100 d-flex justify-content-center">
   <div>
-    {if $idAdmin=="true"} <h1> EDITAR Y BORRAR MATERIAS</h1> {/if}
+    {* {if $idAdmin=="true"} *}
+     <h1> EDITAR Y BORRAR MATERIAS</h1> 
+    {* {/if} *}
     <table class="my-4 table">
        <thead>
 

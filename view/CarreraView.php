@@ -10,6 +10,8 @@ class CarreraView {
     public function __construct() {
         $this->smarty = new Smarty();
         $this->helper = new AuthHelper();
+        $this->smarty->assign('mostrarTodo', true);
+        $this->smarty->assign('nombre_carrera', "");
       
     }
 

@@ -22,9 +22,6 @@ class MateriaModel
         return $sentencia->fetch(PDO::FETCH_OBJ);
     }
 
-
-    
-    //OBTENER LAS MATERIAS PARA EL SELECT
     public function getSubject()
     {
         $sentencia = $this->db->prepare("SELECT nombre, id_materia FROM materia");

@@ -2,7 +2,7 @@
 
 <div class="container-fluid w-100 d-flex justify-content-center">
       <div>
-            {if $logged} <h1> EDITAR Y BORRAR CARRERAS</h1> {/if}
+            <h1> EDITAR Y BORRAR CARRERAS</h1> 
             <table class="my-4 table">
                <thead>
 
