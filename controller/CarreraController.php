@@ -22,9 +22,7 @@ class CarreraController
     public function showHome()
     {
         $carreras = $this->model->getDegreeProgram();
-        $logged = $this->helper->checkLoggedIn();
-
-        $this->view->showHome($carreras, $logged);
+        $this->view->showHome($carreras);
     }
 
 
@@ -40,17 +38,14 @@ class CarreraController
     //VISTA FORMULARIO AGREGAR CARRERA
     public function formDegreeProgram()
     {
-        if ($this->helper->checkIsAdmin() && $this->helper->checkLoggedIn())
+       
             $this->view->FormAddDegreeProgram();
-        else
+    
             $this->showHome();
     }
     //AGREGAR CARRERA
     public function addDegreeProgram()
     {
-        $this->helper->checkSession();
-
-        $this->helper->checkLoggedIn();
         if (isset($_POST['nombre'], $_POST['duracion'])) {
             $this->model->addDegreeProgram($_POST['nombre'], $_POST['duracion']);
             $this->view->showLocationToAddFormDegreeProgram();
@@ -60,18 +55,15 @@ class CarreraController
     //TABLA EDITAR Y BORRAR CARRERA
     public function showTableOfDegreePrograms()
     {
-        // $this->helper->checkSession();
-        $isAdmin = $this->helper->checkIsAdmin();
+      
 
         $tablasCarrera = $this->model->getTableDegreeProgram();
-        $this->view->renderTableDegreePrograms($tablasCarrera, $isAdmin, $this->helper->checkLoggedIn(), "");
+        $this->view->renderTableDegreePrograms($tablasCarrera);
     }
     //borrar carrera
     public function deleteDegreeProgram($id_carrera)
     {
 
-
-        if ($this->helper->checkIsAdmin() === "true") {
             $materiasAsociadas = $this->model_materia->searchIdDegreeProgramByTableSubjects($id_carrera);
 
             if (count($materiasAsociadas) == 0) {
@@ -83,13 +75,11 @@ class CarreraController
                 $tablasCarreras =  $this->model->getTableDegreeProgram();
                 $this->view->renderTableDegreePrograms($tablasCarreras, $this->helper->checkLoggedIn(),"", "La carrera que ha seleccionado no se puede borrar ya que tiene asociada materias,");
             }
-        } else {
-            $this->redirectHome();
-        }
-    }
+        } 
+    
     public function editDegreeProgram($id_carrera)
     {
-        $this->helper->checkSession();
+   
         $this->model->editDegreeProgram($_POST['nombre'], $_POST['duracion'], $id_carrera);
         $this->view->renderTableOfLocationDegreePrograms();
     }

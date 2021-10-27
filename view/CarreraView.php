@@ -5,19 +5,16 @@ require_once "./libs/smarty-3.1.39/libs/Smarty.class.php";
 class CarreraView {
 
     private $smarty;
-   private $helper;
+ 
 
     public function __construct() {
         $this->smarty = new Smarty();
         $this->helper = new AuthHelper();
-        $this->smarty->assign('mostrarTodo', true);
-        $this->smarty->assign('nombre_carrera', "");
+      
     }
 
-    public function showHome($carreras, $logged){
+    public function showHome($carreras=""){
         $this->smarty->assign('carreras', $carreras);
-        $this->smarty->assign('logged', $logged);
-        $this->smarty->assign('rol', $this->helper->checkIsAdmin());
         $this->smarty->display('templates/carreras.tpl');
     }
 
@@ -39,11 +36,11 @@ class CarreraView {
     
 
      //   -----------------------------VISTA TABLAS CARRERA----------------------------------------
-     public function renderTableDegreePrograms($tablaCarreras="",$isAdmin="", $logged="",$aviso=""){
+     public function renderTableDegreePrograms($tablaCarreras="",$aviso=""){
         $this->smarty->assign('tablaCarreras', $tablaCarreras);
-        $this->smarty->assign('logged', $logged);
+      
         $this->smarty->assign('aviso', $aviso);
-             $this->smarty->assign('isAdmin', $isAdmin);
+   
         $this->smarty->display("templates/editarborrarcarrera.tpl");
     }
       //   ----------------------------location carreras----------------------------------------    

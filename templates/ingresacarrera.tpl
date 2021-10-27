@@ -10,7 +10,9 @@
             <div class="col-auto mb-2">
                 <input class="form-control" placeholder="Duracion.." type="text" name="duracion" id="duracion" required>
             </div>
-        {if $rol=="true"} <input type="submit" class="btn btn-primary">{/if}
+        {* {if $rol=="true"}  *}
+        <input type="submit" class="btn btn-primary">
+    {* {/if} *}
         </form>
     </div>
 </div>

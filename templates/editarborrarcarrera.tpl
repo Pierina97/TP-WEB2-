@@ -9,10 +9,10 @@
                  <tr>
                     <th class="col">Carrera</th> 
                     <th class="col">Duracion</th>
-                  {if $smarty.session.rol == "admin"}
+                  {* {if $smarty.session.rol == "admin"} *}
                     <th class="col" > BORRAR</th>  
                     <th class="col">EDITAR</th>
-                    {/if}
+                    {* {/if} *}
 
 
                  </tr>
@@ -26,10 +26,10 @@
                       <tr>
                         <td><input class="form-control" type="text" name="nombre" value="{$item->nombre}"></td>
                         <td><input class="form-control" type="number" name="duracion" value="{$item->duracion}"></td>
-               {if $smarty.session.rol == "admin"}
+               {* {if $smarty.session.rol == "admin"} *}
                               <td><a class="btn btn-primary" id="borrar" href="borrarcarrera/{$item->id_carrera}">borrar</a></td>
                               <td><button type="submit" class="btn btn-primary">editar</button></td>    
-                        {/if}   
+                        {* {/if}    *}
                 </form>
                      </tr>
              {/foreach}

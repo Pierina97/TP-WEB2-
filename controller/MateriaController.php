@@ -30,6 +30,9 @@ class MateriaController
         else
             $this->redirectHome();
     }
+
+
+
     //MOSTRAR FORMULARIO INSERTAR MATERIA
     public function formSubject()
     {
@@ -37,6 +40,8 @@ class MateriaController
         $carreras = $this->carrera_model->getDegreeProgram();
         $this->view->renderFormSubject($carreras);
     }
+
+
     //INSERTAR MATERIA
     public function addSubject()
     {
@@ -68,30 +73,26 @@ class MateriaController
     public function showTableOfSubjects()
     {
 
-        $logged =  $this->helper->checkLoggedIn();
+
         $tablasMaterias = $this->model->getTableOfSubjects();
-        $this->view->renderTableSubjects($tablasMaterias, $logged);
+        $this->view->renderTableSubjects($tablasMaterias);
     }
     //   BORRAR MATERIA
     public function deleteSubject($id)
     {
+        $this->model->deleteSubject($id);
+        $this->view->renderTableOfLocationSubjects();
 
-        if ($this->helper->checkIsAdmin() === "true") {
-            $this->model->deleteSubject($id);
-            $this->view->renderTableOfLocationSubjects();
-        } else {
-            $this->view->renderTableOfLocationSubjects();
-        }
+        $this->view->renderTableOfLocationSubjects();
     }
 
     //EDITAR MATERIA
     public function editSubject($id_materia)
     {
-        $this->helper->checkSession();
-        // if ($this->helper->checkLoggedIn()) {
+
         $this->model->editSubject($_POST['nombre'], $_POST['profesor'], $_POST['id_carrera'], $id_materia);
         $this->view->renderTableOfLocationSubjects();
-        // }
+        
     }
     public function redirectHome()
     {
