@@ -1,65 +1,44 @@
 <?php
+
 class AuthHelper
 {
 
     public function __construct()
     {
     }
-    
-    public function checkSession()
+
+
+    function checkLoggedIn()
     {
         session_start();
-        
-        if (  $this->checkIsAdmin()=="true"  ) {  //true
-            session_abort();
-            header("Location: ".BASE_URL."carreras");
+        if (!isset($_SESSION['email'])) {
+            header("Location: " . BASE_URL . "login");
+            die();
+        } else {
+
+            $isAdmin = $this->checkIsAdmin();
+            return $isAdmin;
         }
-       
     }
-
-
-    public function checkLoggedIn()
+    function checkIsAdmin()
     {
-        
-        $respuesta = "false";
-        session_start();
-        if (!empty($_SESSION['email'])) {
-            if (isset($_SESSION['email'])) {
-                $respuesta = "true";
-            } else {
-                $respuesta = "false";
-            }
+        if (($_SESSION['rol']) == "admin") {
+            return true;
+        } else {
+            return false;
         }
+
         session_abort();
-        return $respuesta;
     }
- 
 
-    public function checkIsAdmin()
+    function chequearIdAdmin($id_usuario)
     {
-        session_abort();
-        $respuesta = "false";
-        session_start();
-        if (!empty($_SESSION['rol'])) {
-            if ($_SESSION['rol'] == "admin" ) {
-                $respuesta = "true";
-            } else {
-                $respuesta = "false";
-            }
-        }
-       session_abort();
-        return $respuesta;
-    }
-    // public function getRol()
-    // {
-    //     session_start();
-    //     if (isset($_SESSION['rol'])) {
-    //         $rol = $_SESSION['rol'];
-    //      } else{
-    //         $rol =  null;
-    //     session_abort();
-    //     return $rol;
-    //      }
-    //     }
+        //  el id que yo quiero borrar tiene que ser distinto al id de la sesion actual
+        if (($_SESSION['id_usuario']) == $id_usuario) {
 
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -1,19 +1,18 @@
 <?php
 
-require_once "helpers/AuthHelper.php";
+
 require_once "./libs/smarty-3.1.39/libs/Smarty.class.php";
 
 class MateriaView
 {
 
     private $smarty;
-    private $helper;
+  
 
     public function __construct()
     {
         $this->smarty = new Smarty();
 
-        $this->helper = new AuthHelper();
     }
 
 
@@ -22,14 +21,17 @@ class MateriaView
         $this->smarty->assign('materia', $materia);
         $this->smarty->display("templates/detalle.tpl");
     }
+
+
+
     //   --------------------------FORMULARIO---------------------------------------
     //   -------------------VISTAS AGREGAR-----------------------------------
 
     //VISTA FORMULARIO PARA INGRESAR MATERIA ->ESTAN LAS CARRERAS PARA EL SELECT.
-    public function renderFormSubject($carreras)
+    public function renderFormSubject($carreras,$isAdmin)
     {
         $this->smarty->assign('carreras', $carreras);
-        $this->smarty->assign('rol', $this->helper->checkIsAdmin());
+        $this->smarty->assign('isAdmin', $isAdmin);
         $this->smarty->display("templates/ingresamateria.tpl");
     }
     public function showLocationToAddFormSubjects()
@@ -38,11 +40,12 @@ class MateriaView
     }
 
     //   -----------------------------VISTA TABLAS MATERIA----------------------------------------
-    public function renderTableSubjects($tablaMaterias, $logged)
+    public function renderTableSubjects($tablaMaterias,$isAdmin)
     {
+        
+        $this->smarty->assign('isAdmin', $isAdmin);
         $this->smarty->assign('tablaMaterias', $tablaMaterias);
-        $this->smarty->assign('logged', $logged);
-        $this->smarty->assign('rol', $this->helper->checkIsAdmin());
+    
         $this->smarty->display("templates/editarborrarmateria.tpl");
     }
 

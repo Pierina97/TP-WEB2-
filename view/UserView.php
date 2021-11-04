@@ -23,10 +23,16 @@ class UserView{
     public function showHome(){
         header("Location: ".BASE_URL."carreras");
     }  
+    public function panelLocation(){
+        header("Location: ".BASE_URL."panel");
+    }  
 
-    public function renderPanel($users){
+    public function renderPanel($isAdmin,$aviso="",$users=""){
+       $this->smarty->assign('isAdmin', $isAdmin);
         $this->smarty->assign('users', $users);
+        $this->smarty->assign('aviso', $aviso);
         $this->smarty->display("templates/panel.tpl");
     }
+    
 
 }

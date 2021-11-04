@@ -3,7 +3,9 @@
 <div class="container-fluid container d-flex justify-content-center">
 <div class="w-25 mt-4 container-lg">
 {if $mostrarTodo}
+   
     <h1 class="display-5">{$nombre_carrera}</h1>
+    
 {else}
     <h1 class="display-5">Materias</h1>
 {/if}    

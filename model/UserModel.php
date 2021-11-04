@@ -8,25 +8,34 @@ class UserModel{
         $this->db = new PDO('mysql:host=localhost;' . 'dbname=db_carreras;charset=utf8', 'root', '');
     }
  
-    public function insertUser($email, $passwd, $nombre, $rol = 'usuario'){
-        $template = $this->db->prepare("INSERT INTO usuario(email, passwd, nombre, rol) VALUES(?, ?, ?, ?)");
-        $template->execute(array($email, $passwd, $nombre, $rol));
+    public function insertUser($email, $passwd, $nombre){
+        $sentencia = $this->db->prepare("INSERT INTO usuario(email, passwd, nombre) VALUES(?, ?, ?)");
+        $sentencia->execute(array($email, $passwd, $nombre));
     }
 
     public function getUser($email){
-        $template = $this->db->prepare("SELECT * FROM usuario WHERE email = ?");
-        $template->execute(array($email));
-        return $template->fetch(PDO::FETCH_OBJ);
+        $sentencia = $this->db->prepare("SELECT * FROM usuario WHERE email = ?");
+        $sentencia->execute(array($email));
+        return $sentencia->fetch(PDO::FETCH_OBJ);
     }
 
     public function getUsers(){
-        $template = $this->db->prepare("SELECT nombre, rol, email FROM usuario");
-        $template->execute();
-        return $template->fetchAll(PDO::FETCH_OBJ);
+        $sentencia = $this->db->prepare("SELECT * FROM usuario");
+        $sentencia->execute();
+        return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function updateRol($email, $nuevoRol){
-        $template = $this->db->prepare("UPDATE usuario SET rol= ? WHERE email = ?");
-        $template->execute(array($nuevoRol, $email));
+    public function updateRol($rol,$id_usuario){
+ 
+        $sentencia = $this->db->prepare("UPDATE usuario SET rol=? WHERE id_usuario=?");
+    
+        $sentencia->execute(array($rol,$id_usuario));
+    }
+
+    function borrarUsuario($id_usuario)
+    {
+        $sentencia = $this->db->prepare("DELETE FROM usuario WHERE id_usuario=?");
+        $sentencia->execute(array($id_usuario));
+      
     }
 }
