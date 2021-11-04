@@ -10,7 +10,7 @@ define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'
 if (!empty($_GET['action']))
     $action = $_GET['action'];
 else
-    $action = 'home';     // acción por defecto si no envían
+    $action = 'carreras';     // acción por defecto si no envían
 
 $params = explode('/', $action);
 
@@ -31,7 +31,7 @@ switch ($params[0]) {
         if (isset($params[1]) && isset($params[2]))
             $carreraController->filterDegreeProgram($params[1], $params[2]);
         else
-            $carreraController->redirectHome();
+        $materiaController->redirectHome();
         break;
 
     case 'materias':
@@ -68,16 +68,17 @@ switch ($params[0]) {
         $userController->registrarUsuario();
         break;
 
-    case 'cambiar-rol':
-        if (isset($params[1]))
-            $userController->modifyRol($params[1]);
-        else
-            $userController->redirectHome();
-        break;
-
+    case 'modifyrol':
+        if (isset($params[1])){
+           $userController->modifyRol($params[1]); 
+        }
+        
     case 'panel':
         $userController->showPanel();
         break;
+     case 'borrarusuario':
+            $userController->borrarUsuario($params[1]);
+            break;
         //   ------------------------------VISTA AGREGAR MATERIA CARRERA------------------------------------------------
 
     case 'agregarcarrera':
@@ -102,8 +103,7 @@ switch ($params[0]) {
     case 'borrarcarrera':
         if (isset($params[1]))
             $carreraController->deleteDegreeProgram($params[1]);
-        else
-            $carreraController->redirectHome();
+     
         break;
 
     case 'editarcarrera':

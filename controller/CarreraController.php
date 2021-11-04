@@ -3,11 +3,12 @@ require_once "helpers/AuthHelper.php";
 require_once "model\CarreraModel.php";
 require_once "model\MateriaModel.php";
 require_once "view\CarreraView.php";
-
+require_once "view\UserView.php";
 class CarreraController
 {
     private $model;
     private $view;
+    private $view_user;
     private $helper;
     private $model_materia;
 
@@ -17,6 +18,7 @@ class CarreraController
         $this->view = new CarreraView();
         $this->helper = new AuthHelper();
         $this->model_materia = new MateriaModel();
+        $this->view_user = new UserView();
     }
 
     public function showHome()
@@ -33,59 +35,63 @@ class CarreraController
         if (!empty($materias))
             $this->view->renderDegreeProgram($materias, $nombre_con_espacios);
         else
-            $this->redirectHome();
+            $this->view->showHomeLocation();
     }
     //VISTA FORMULARIO AGREGAR CARRERA
     public function formDegreeProgram()
     {
-       
-            $this->view->FormAddDegreeProgram();
-    
-            $this->showHome();
+        $isAdmin = $this->helper->checkLoggedIn();
+        $this->view->FormAddDegreeProgram("",$isAdmin);
     }
     //AGREGAR CARRERA
     public function addDegreeProgram()
     {
-        if (isset($_POST['nombre'], $_POST['duracion'])) {
-            $this->model->addDegreeProgram($_POST['nombre'], $_POST['duracion']);
-            $this->view->showLocationToAddFormDegreeProgram();
-        } else
-            $this->showHome();
+
+          $isAdmin = $this->helper->checkLoggedIn();
+        // if (isset($_POST['nombre'], $_POST['duracion'])) {
+            if (!empty($_POST['nombre']) && !empty($_POST['duracion'])) {
+                $this->model->addDegreeProgram($_POST['nombre'], $_POST['duracion']);
+                $this->view->showLocationToAddFormDegreeProgram();
+            
+        }else{
+           $this->view->formAddDegreeProgram("faltan completar campos",$isAdmin);
+       // }
     }
+}
     //TABLA EDITAR Y BORRAR CARRERA
     public function showTableOfDegreePrograms()
     {
-      
-
-        $tablasCarrera = $this->model->getTableDegreeProgram();
-        $this->view->renderTableDegreePrograms($tablasCarrera);
+        $isAdmin = $this->helper->checkLoggedIn();
+        $tablaCarreras = $this->model->getTableDegreeProgram();
+        $this->view->renderTableDegreePrograms($isAdmin, $tablaCarreras);
     }
     //borrar carrera
     public function deleteDegreeProgram($id_carrera)
     {
-
+        $isAdmin = $this->helper->checkLoggedIn();
+        if ($isAdmin == true) {
             $materiasAsociadas = $this->model_materia->searchIdDegreeProgramByTableSubjects($id_carrera);
-
+         
             if (count($materiasAsociadas) == 0) {
-
                 $this->model->deleteDegreeProgram($id_carrera);
                 $this->view->renderTableOfLocationDegreePrograms();
             } else {
 
-                $tablasCarreras =  $this->model->getTableDegreeProgram();
-                $this->view->renderTableDegreePrograms($tablasCarreras, $this->helper->checkLoggedIn(),"", "La carrera que ha seleccionado no se puede borrar ya que tiene asociada materias,");
+                $tablaCarreras =  $this->model->getTableDegreeProgram();
+                $this->view->renderTableDegreePrograms($isAdmin, $tablaCarreras, "La carrera que ha seleccionado no se puede borrar ya que tiene asociada materias");
             }
-        } 
-    
+        } else {
+            $this->view_user->renderLogin();
+        }
+    }
     public function editDegreeProgram($id_carrera)
     {
-   
-        $this->model->editDegreeProgram($_POST['nombre'], $_POST['duracion'], $id_carrera);
-        $this->view->renderTableOfLocationDegreePrograms();
-    }
-
-    public function redirectHome()
-    {
-        $this->view->showHomeLocation();
+        $isAdmin = $this->helper->checkLoggedIn();
+        if ($isAdmin == true) {
+            $this->model->editDegreeProgram($_POST['nombre'], $_POST['duracion'], $id_carrera);
+            $this->view->renderTableOfLocationDegreePrograms();
+        } else {
+            $this->view_user->renderLogin();
+        }
     }
 }

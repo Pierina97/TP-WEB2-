@@ -30,15 +30,17 @@ class CarreraView {
     //   -------------------------------FORMULARIO---------------------------------------
     //   -------------------VISTAS AGREGAR-----------------------------------
     //vista carrera
-    public function formAddDegreeProgram(){
-        $this->smarty->assign('rol', $this->helper->checkIsAdmin());
+    public function formAddDegreeProgram($aviso="",$isAdmin=""){
+        $this->smarty->assign('isAdmin', $isAdmin);
+        $this->smarty->assign('aviso', $aviso);
         $this->smarty->display("templates/ingresacarrera.tpl");
     }
 
     
 
      //   -----------------------------VISTA TABLAS CARRERA----------------------------------------
-     public function renderTableDegreePrograms($tablaCarreras="",$aviso=""){
+     public function renderTableDegreePrograms($isAdmin,$tablaCarreras,$aviso=""){
+        $this->smarty->assign('isAdmin', $isAdmin);
         $this->smarty->assign('tablaCarreras', $tablaCarreras);
       
         $this->smarty->assign('aviso', $aviso);

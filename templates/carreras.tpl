@@ -4,19 +4,19 @@
 
 <a href="materias" class="m-3"><button type="button" class="btn btn-info">Ver materias</button></a>
 
-{* {if $logged == "true"} *}
+ {* {if $isAdmin }  *}
     <a href="tablacarreras" class="m-3"><button type="button" class="btn btn-info">Editar carreras</button></a>
     <a href="tablamaterias" class="m-3"><button type="button" class="btn btn-info">Editar materias</button></a>
+{* {/if}  *}
+{* {if $rol == "true"} *}
+    <a href="panel" class="m-3"><button type="button" class="btn btn-danger">Panel Admin</button></a>
 {* {/if} *}
-    {* {if $rol == "true"} *}
-        <a href="panel" class="m-3"><button type="button" class="btn btn-danger">Panel Admin</button></a>
-    {* {/if} *}
-   <a href="logout" class="m-3"><button type="button" class="btn btn-danger">Log Out</button></a>
+<a href="logout" class="m-3"><button type="button" class="btn btn-danger">Log Out</button></a>
 
-    {* {if $rol == "true"} *}
+{* {if $rol == "true"} *}
     <a href="agregarcarrera" class="m-3"><button type="button" class="btn btn-info">Agregar carrera</button></a>
-        <a href="agregarmateria" class="m-3"><button type="button" class="btn btn-info">Agregar materia</button></a>
-   {* {/if} *}
+    <a href="agregarmateria" class="m-3"><button type="button" class="btn btn-info">Agregar materia</button></a>
+{* {/if} *}
 
 {* {if $logged == "false"} *}
     <a href="registro" class="m-3"><button type="button" class="btn btn-success">Registrarse</button></a>

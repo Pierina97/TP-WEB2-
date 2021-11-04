@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 class AuthHelper
 {
 
@@ -10,79 +10,35 @@ class AuthHelper
 
     function checkLoggedIn()
     {
-
-        if (!isset($_SESSION['user'])) {
+        session_start();
+        if (!isset($_SESSION['email'])) {
             header("Location: " . BASE_URL . "login");
             die();
-        }else{
-           $isAdmin= $this->checkIsAdmin();
-           return $isAdmin;
+        } else {
+
+            $isAdmin = $this->checkIsAdmin();
+            return $isAdmin;
         }
     }
-    function checkIsAdmin(){   //checkLoggedInBoolean
-        $idAdmin = "false";
-        if (isset($_SESSION['rol']) == 'admin'){
-            $idAdmin = "true";
-        }else{
-            $idAdmin= "false";
+    function checkIsAdmin()
+    {
+        if (($_SESSION['rol']) == "admin") {
+            return true;
+        } else {
+            return false;
         }
-        return  $idAdmin;
+
+        session_abort();
     }
-    
-    // public function checkSession()
-    // {
-    //     session_start();
 
-    //     if (  $this->checkIsAdmin()=="true"  ) {  //true
-    //         session_abort();
-    //         header("Location: ".BASE_URL."carreras");
-    //     }
+    function chequearIdAdmin($id_usuario)
+    {
+        //  el id que yo quiero borrar tiene que ser distinto al id de la sesion actual
+        if (($_SESSION['id_usuario']) == $id_usuario) {
 
-    // }
-
-
-    // public function checkLoggedIn()
-    // {
-
-    //     $respuesta = "false";
-    //     session_start();
-    //     if (!empty($_SESSION['email'])) {
-    //         if (isset($_SESSION['email'])) {
-    //             $respuesta = "true";
-    //         } else {
-    //             $respuesta = "false";
-    //         }
-    //     }
-    //     session_abort();
-    //     return $respuesta;
-    // }
-
-
-    // public function checkIsAdmin()
-    // {
-    //     session_abort();
-    //     $respuesta = "false";
-    //     session_start();
-    //     if (!empty($_SESSION['rol'])) {
-    //         if ($_SESSION['rol'] == "admin" ) {
-    //             $respuesta = "true";
-    //         } else {
-    //             $respuesta = "false";
-    //         }
-    //     }
-    //    session_abort();
-    //     return $respuesta;
-    // }
-    // public function getRol()
-    // {
-    //     session_start();
-    //     if (isset($_SESSION['rol'])) {
-    //         $rol = $_SESSION['rol'];
-    //      } else{
-    //         $rol =  null;
-    //     session_abort();
-    //     return $rol;
-    //      }
-    //     }
-
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -15,9 +15,9 @@
                     {/foreach}
                 </select>
                 <br>
-              {* {if $rol=="true"}  *}
+              {if $isAdmin} 
              <input type="submit" class="btn btn-primary">
-            {* {/if} *}
+             {/if} 
             </form>
     </div>
 

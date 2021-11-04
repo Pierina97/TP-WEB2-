@@ -28,10 +28,10 @@ class MateriaView
     //   -------------------VISTAS AGREGAR-----------------------------------
 
     //VISTA FORMULARIO PARA INGRESAR MATERIA ->ESTAN LAS CARRERAS PARA EL SELECT.
-    public function renderFormSubject($carreras)
+    public function renderFormSubject($carreras,$isAdmin)
     {
         $this->smarty->assign('carreras', $carreras);
-
+        $this->smarty->assign('isAdmin', $isAdmin);
         $this->smarty->display("templates/ingresamateria.tpl");
     }
     public function showLocationToAddFormSubjects()
@@ -40,8 +40,10 @@ class MateriaView
     }
 
     //   -----------------------------VISTA TABLAS MATERIA----------------------------------------
-    public function renderTableSubjects($tablaMaterias)
+    public function renderTableSubjects($tablaMaterias,$isAdmin)
     {
+        
+        $this->smarty->assign('isAdmin', $isAdmin);
         $this->smarty->assign('tablaMaterias', $tablaMaterias);
     
         $this->smarty->display("templates/editarborrarmateria.tpl");
