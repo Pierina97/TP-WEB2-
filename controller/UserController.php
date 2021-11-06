@@ -48,14 +48,14 @@ class UserController
                 $this->view->panelLocation();
             } else {
                 $users = $this->model->getUsers();
-                $this->view->renderPanel($isAdmin, "No se puede cambiar su propio estado", $users);
+                $this->view->renderPanel($isAdmin, "No se puede borrar su propio estado", $users);
             }
         } else {
             $this->view->showHome();
         }
     }
 
-    public function modifyRol($id_usuario)
+    public function editarRol($id_usuario)
     {
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
@@ -67,6 +67,10 @@ class UserController
                     $this->model->updateRol($_POST['rol'], $id_usuario);
                     $this->view->panelLocation();
                 }
+            }else{
+                $users = $this->model->getUsers();
+                $this->view->renderPanel($isAdmin, "No se puede editar su propio estado", $users);
+            
             }
         }
     }

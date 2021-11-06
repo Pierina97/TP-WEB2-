@@ -70,7 +70,7 @@ switch ($params[0]) {
 
     case 'modifyrol':
         if (isset($params[1])){
-           $userController->modifyRol($params[1]); 
+           $userController->editarRol($params[1]); 
         }
         
     case 'panel':
