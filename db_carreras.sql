@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2021 a las 23:18:46
+-- Tiempo de generación: 07-11-2021 a las 19:33:48
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -84,9 +84,9 @@ INSERT INTO `comentario` (`id_comentario`, `comentario`, `puntaje`, `id_materia`
 
 CREATE TABLE `materia` (
   `id_materia` int(11) NOT NULL,
-  `nombre` varchar(45) DEFAULT NULL,
+  `nombre` varchar(45) NOT NULL,
   `profesor` varchar(45) NOT NULL,
-  `imagen` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `imagen` varchar(50) CHARACTER SET latin1,
   `id_carrera` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

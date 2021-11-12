@@ -3,9 +3,37 @@
 <div class="container mt-2">
 
     <ul class="list-group">
-        <li class="list-group-item mb-3">Materia | {$materia->nombre}</li>
-        <li class="list-group-item">Profesor | {$materia->profesor}</li>
+        <li class="list-group-item mb-3" id= "{$materia->nombre}">Materia | {$materia->nombre}</li>
+        <button id="materia">
+            <li class="list-group-item">Profesor | {$materia->profesor}</li>
+        </button>
     </ul>
 </div>
-  <a href="carrera" class="volver">VOLVER</a>  
+{if isset($materia->imagen)}
+    <img src="{$materia->imagen}" />
+{/if}
+
+<table>
+    <thead>
+        <tr>
+        <td>Usuario</td>
+            <td>Comentario</td>
+            <td>Puntaje</td>        
+            <td></td>
+
+        </tr>
+    </thead>
+    <tbody id="tbody">
+    </tbody>
+</table>
+
+<form id="form-comentarios" data-idMateria="{$materia->id_materia}" data-idUsuario="{$id_usuario}"  class="formulario-comentarios">
+    <input type="text" name="comentario" id="comentario" value="" placeholder="escriba aqui su comentario" required>
+    <input type="number" name="puntaje" id="puntaje" value="" placeholder="puntaje" required>
+    <button type="submit" id="btn-comentar" class="btn btn-primary">Enviar Consulta</button>
+</form>
+
+</div>
+
+<a href="carrera" class="volver">VOLVER</a>
 {include file="templates/footer.tpl"}

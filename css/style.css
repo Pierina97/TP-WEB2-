@@ -39,7 +39,22 @@ select{
 .volver{
    font-size:40px;
 }
-
+table, tr, td {
+	border: 3px solid  rgb(0,204,204);
+	border-collapse: collapse;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+table {
+	height: 40px;
+	text-align: center;
+	width: 40%;
+	margin:100px;
+}
+.formulario-comentarios{
+    display:flex;
+    justify-content: center;
+}
 @media (min-width: 750px){
     .carrera {
         margin-top: 40px;

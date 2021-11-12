@@ -14,7 +14,7 @@ class MateriaModel
         $this->db = null;
     }
 
-        //----------MATERIAS POR id----------
+    //----------MATERIAS POR id----------
     public function getSubjectById($id_materia)
     {
         $sentencia = $this->db->prepare("SELECT * FROM materia WHERE id_materia = ?");
@@ -30,30 +30,43 @@ class MateriaModel
         return $materias;
     }
 
-     function getSubjects()
+    function getSubjects()
     {
         $sentencia = $this->db->prepare('SELECT * FROM materia');
         $sentencia->execute(array());
         return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
 
-   function searchForMatches($id_carrera, $nombre){
-    {
-        $sentencia = $this->db->prepare('SELECT nombre, id_carrera FROM materia WHERE id_carrera = ? AND nombre = ?');    
-        $sentencia->execute(array($id_carrera, $nombre));
-        $carreras = $sentencia->fetch(PDO::FETCH_OBJ);
-        return  $carreras;
+    function searchForMatches($id_carrera, $nombre)
+    { {
+            $sentencia = $this->db->prepare('SELECT nombre, id_carrera FROM materia WHERE id_carrera = ? AND nombre = ?');
+            $sentencia->execute(array($id_carrera, $nombre));
+            $carreras = $sentencia->fetch(PDO::FETCH_OBJ);
+            return  $carreras;
+        }
     }
-   }
-        //-----------------------INSERTAR materia ------------------------------------------------     
+    //-----------------------INSERTAR materia ------------------------------------------------     
 
-    function  addSubject($nombre, $profesor, $id_carrera)
+    function  addSubject($nombre, $profesor, $id_carrera, $imagen = null)
     {
-        $sentencia = $this->db->prepare("INSERT INTO materia(nombre,profesor,id_carrera) VALUES(?,?,?)");
-        $sentencia->execute(array($nombre, $profesor, $id_carrera));
+        $pathImg = null;
+        if ($imagen)
+            $pathImg = $this->uploadImage($imagen);
+        $sentencia = $this->db->prepare("INSERT INTO materia(nombre,profesor,imagen,id_carrera) VALUES(?,?,?,?)");
+        $sentencia->execute(array($nombre, $profesor, $id_carrera, $pathImg));
+    }
+
+    private function uploadImage($image)
+    {
+        $target = "img/materias." . uniqid() . "." . strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));  
+        move_uploaded_file($image['tmp_name'], $target);
+        return $target;
 
     }
-        function getTableOfSubjects()
+
+
+
+    function getTableOfSubjects()
     {
         $sentencia = $this->db->prepare('SELECT * FROM materia');
         $sentencia->execute(array());
@@ -61,7 +74,7 @@ class MateriaModel
         return  $tablaMaterias;
     }
 
-        //   ------------------------------EDITAR BORRAR MATERIAS----------------------------------------------       
+    //   ------------------------------EDITAR BORRAR MATERIAS----------------------------------------------       
 
     //BORRAR MATERIA
     public function deleteSubject($id_materia)
@@ -81,7 +94,5 @@ class MateriaModel
         $sentencia = $this->db->prepare("SELECT id_carrera FROM `materia` WHERE id_carrera=?");
         $sentencia->execute(array($id_carrera));
         return $sentencia->fetchAll(PDO::FETCH_OBJ);
-      
     }
- 
 }

@@ -31,7 +31,7 @@ switch ($params[0]) {
         if (isset($params[1]) && isset($params[2]))
             $carreraController->filterDegreeProgram($params[1], $params[2]);
         else
-        $materiaController->redirectHome();
+            $materiaController->redirectHome();
         break;
 
     case 'materias':
@@ -42,10 +42,10 @@ switch ($params[0]) {
         break;
 
     case 'detalle':
-        if (isset($params[2], $params[1]))
+        // if (isset($params[2], $params[1]))
             $materiaController->filterSubject($params[2], $params[1]);
-        else
-            $materiaController->redirectHome();
+        // else
+        //     $materiaController->redirectHome();
         break;
 
     case 'login':
@@ -69,16 +69,18 @@ switch ($params[0]) {
         break;
 
     case 'modifyrol':
-        if (isset($params[1])){
-           $userController->editarRol($params[1]); 
+        if (isset($params[1])) {
+            $userController->editarRol($params[1]);
         }
-        
+
     case 'panel':
         $userController->showPanel();
         break;
-     case 'borrarusuario':
-            $userController->borrarUsuario($params[1]);
-            break;
+    case 'borrarusuario':
+        $userController->borrarUsuario($params[1]);
+        break;
+
+
         //   ------------------------------VISTA AGREGAR MATERIA CARRERA------------------------------------------------
 
     case 'agregarcarrera':
@@ -103,14 +105,13 @@ switch ($params[0]) {
     case 'borrarcarrera':
         if (isset($params[1]))
             $carreraController->deleteDegreeProgram($params[1]);
-     
+
         break;
 
     case 'editarcarrera':
-        if (isset($params[1])) {
+        if (isset($params[1])) 
             $carreraController->editDegreeProgram($params[1]);
-        } else
-            $carreraController->redirectHome();
+        
         break;
         //   ------------------------------EDITAR BORRAR MATERIA------------------------------------------------
     case 'tablamaterias':

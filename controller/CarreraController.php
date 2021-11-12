@@ -41,29 +41,28 @@ class CarreraController
     public function formDegreeProgram()
     {
         $isAdmin = $this->helper->checkLoggedIn();
-        $this->view->FormAddDegreeProgram("",$isAdmin);
+        $this->view->FormAddDegreeProgram("", $isAdmin);
     }
     //AGREGAR CARRERA
     public function addDegreeProgram()
     {
 
-          $isAdmin = $this->helper->checkLoggedIn();
+        $isAdmin = $this->helper->checkLoggedIn();
         // if (isset($_POST['nombre'], $_POST['duracion'])) {
-            if (!empty($_POST['nombre']) && !empty($_POST['duracion'])) {
-                $this->model->addDegreeProgram($_POST['nombre'], $_POST['duracion']);
-                $this->view->showLocationToAddFormDegreeProgram();
-            
-        }else{
-           $this->view->formAddDegreeProgram("faltan completar campos",$isAdmin);
-       // }
+        if (!empty($_POST['nombre']) && !empty($_POST['duracion'])) {
+            $this->model->addDegreeProgram($_POST['nombre'], $_POST['duracion']);
+            $this->view->showLocationToAddFormDegreeProgram();
+        } else {
+            $this->view->formAddDegreeProgram("faltan completar campos", $isAdmin);
+            // }
+        }
     }
-}
-    //TABLA EDITAR Y BORRAR CARRERA
-    public function showTableOfDegreePrograms()
+    //MOSTRAR TABLA EDITAR Y BORRAR CARRERA
+    public function showTableOfDegreePrograms($aviso = "")
     {
         $isAdmin = $this->helper->checkLoggedIn();
         $tablaCarreras = $this->model->getTableDegreeProgram();
-        $this->view->renderTableDegreePrograms($isAdmin, $tablaCarreras);
+        $this->view->renderTableDegreePrograms($isAdmin,$tablaCarreras, $aviso);
     }
     //borrar carrera
     public function deleteDegreeProgram($id_carrera)
@@ -71,14 +70,12 @@ class CarreraController
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
             $materiasAsociadas = $this->model_materia->searchIdDegreeProgramByTableSubjects($id_carrera);
-         
+
             if (count($materiasAsociadas) == 0) {
                 $this->model->deleteDegreeProgram($id_carrera);
                 $this->view->renderTableOfLocationDegreePrograms();
             } else {
-
-                $tablaCarreras =  $this->model->getTableDegreeProgram();
-                $this->view->renderTableDegreePrograms($isAdmin, $tablaCarreras, "La carrera que ha seleccionado no se puede borrar ya que tiene asociada materias");
+                $this->showTableOfDegreePrograms("La carrera que ha seleccionado no se puede borrar ya que tiene asociada materias");
             }
         } else {
             $this->view_user->renderLogin();

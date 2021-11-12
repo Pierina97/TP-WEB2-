@@ -19,6 +19,7 @@ class ApiComentarioController extends ApiController
         $id_materia = $params[":ID"];
 
         $comentario = $this->model->mostrarComentarios($id_materia);
+   
         if ($comentario) {
             $this->view->response($comentario, 200);
         } else {
@@ -63,12 +64,12 @@ class ApiComentarioController extends ApiController
     public function  sortCommentsByAge($params = null)
     {
         $id_materia = $params[":ID"];
-  
+
         $comentarios = $this->model->sortCommentsByAge($id_materia);
         if ($comentarios) {
             $this->view->response($comentarios, 200);
-        }else{
-            $this->view->response("No hay comentarios para mostrar",404);
+        } else {
+            $this->view->response("No hay comentarios para mostrar", 404);
         }
     }
 

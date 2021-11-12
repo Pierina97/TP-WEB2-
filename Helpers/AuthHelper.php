@@ -1,8 +1,8 @@
 <?php
- session_start();
+session_start();
 class AuthHelper
 {
-   
+
     public function __construct()
     {
     }
@@ -10,7 +10,7 @@ class AuthHelper
 
     function checkLoggedIn()
     {
-      
+
         if (!isset($_SESSION['email'])) {
             header("Location: " . BASE_URL . "login");
             die();
@@ -25,11 +25,11 @@ class AuthHelper
             return true;
         } else {
             return false;
-        } 
+        }
     }
 
     function chequearIdAdmin($id_usuario)
-    {      
+    {
         //  el id que yo quiero borrar tiene que ser distinto al id de la sesion actual
         if (($_SESSION['id_usuario']) == $id_usuario) {
 
@@ -37,8 +37,14 @@ class AuthHelper
         } else {
             return false;
         }
-      
     }
-   
+    function userId()
+    {
+      
+        if (isset($_SESSION['id_usuario'])) {
+            $id_usuario = $_SESSION['id_usuario'];
+            return $id_usuario;
+        }
+    }
 }
 session_abort();

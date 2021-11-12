@@ -16,8 +16,9 @@ class MateriaView
     }
 
 
-    public function renderSubject($materia)
+    public function renderSubject($materia,$id_usuario)
     {
+        $this->smarty->assign('id_usuario', $id_usuario);
         $this->smarty->assign('materia', $materia);
         $this->smarty->display("templates/detalle.tpl");
     }
@@ -28,12 +29,14 @@ class MateriaView
     //   -------------------VISTAS AGREGAR-----------------------------------
 
     //VISTA FORMULARIO PARA INGRESAR MATERIA ->ESTAN LAS CARRERAS PARA EL SELECT.
-    public function renderFormSubject($carreras,$isAdmin)
+    public function renderFormSubject($carreras="",$isAdmin="",$aviso="")
     {
+        $this->smarty->assign('aviso', $aviso);
         $this->smarty->assign('carreras', $carreras);
         $this->smarty->assign('isAdmin', $isAdmin);
         $this->smarty->display("templates/ingresamateria.tpl");
     }
+
     public function showLocationToAddFormSubjects()
     {
         header("Location: " . BASE_URL . "agregarmateria");
@@ -66,4 +69,7 @@ class MateriaView
         $this->smarty->assign('mostrarTodo', $mostrarTodo);
         $this->smarty->display("templates/materias.tpl");
     }
+
+    
+
 }

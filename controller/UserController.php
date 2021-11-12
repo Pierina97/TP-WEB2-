@@ -28,11 +28,11 @@ class UserController
 
 
 
-    public function showPanel()
+    public function showPanel($aviso = "")
     {
         $isAdmin = $this->helper->checkLoggedIn();
         $users = $this->model->getUsers();
-        $this->view->renderPanel($isAdmin, "", $users);
+        $this->view->renderPanel($isAdmin, $aviso, $users);
     }
 
 
@@ -47,8 +47,8 @@ class UserController
                 $this->model->borrarUsuario($id_usuario);
                 $this->view->panelLocation();
             } else {
-                $users = $this->model->getUsers();
-                $this->view->renderPanel($isAdmin, "No se puede borrar su propio estado", $users);
+
+                $this->showPanel("No  puede borrar su propio estado");
             }
         } else {
             $this->view->showHome();
@@ -67,10 +67,9 @@ class UserController
                     $this->model->updateRol($_POST['rol'], $id_usuario);
                     $this->view->panelLocation();
                 }
-            }else{
-                $users = $this->model->getUsers();
-                $this->view->renderPanel($isAdmin, "No se puede editar su propio estado", $users);
-            
+            } else {
+
+                $this->showPanel("No  puede editar su propio estado");
             }
         }
     }
