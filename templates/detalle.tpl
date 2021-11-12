@@ -29,6 +29,7 @@
 
 <form id="form-comentarios" data-idMateria="{$materia->id_materia}" data-idUsuario="{$id_usuario}"  class="formulario-comentarios">
     <input type="text" name="comentario" id="comentario" value="" placeholder="escriba aqui su comentario" required>
+    {* <textarea rows="2" name="detalle" placeholder="Ingresa su comentario"></textarea> *}
     <input type="number" name="puntaje" id="puntaje" value="" placeholder="puntaje" required>
     <button type="submit" id="btn-comentar" class="btn btn-primary">Enviar Consulta</button>
 </form>
