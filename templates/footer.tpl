@@ -4,6 +4,7 @@
     - <p>Facultad de Ciencias Exactas </p>
 
 </footer>
+
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/comentarios.js"></script>
 

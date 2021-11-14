@@ -9,6 +9,7 @@ class ApiComentarioController extends ApiController
     {
         parent::__construct();
         $this->model = new ComentarioModel();
+
         $this->helper = new AuthHelper();
     }
 
@@ -19,7 +20,7 @@ class ApiComentarioController extends ApiController
         $id_materia = $params[":ID"];
 
         $comentario = $this->model->mostrarComentarios($id_materia);
-   
+
         if ($comentario) {
             $this->view->response($comentario, 200);
         } else {
@@ -38,26 +39,27 @@ class ApiComentarioController extends ApiController
         } else {
             $this->view->response("El comentario no se pudo enviar", 500);
         }
-        // }
     }
+
 
     function deleteComment($params = null)
     {
-        // $isAdmin = $this->helper->checkLoggedIn();
-        // if ($isAdmin == true) {
-        $id_comentario = $params[":ID"];
+        $isAdmin = $this->helper->checkLoggedIn();
+        if ($isAdmin == true) {
+            $id_comentario = $params[":ID"];
 
-        //primero hay que ver si esta
-        $comentario = $this->model->getComment($id_comentario);
+            //primero hay que ver si esta
+            $comentario = $this->model->getComment($id_comentario);
 
-        if ($comentario) {
-            $this->model->deleteComment($id_comentario);
-            $this->view->response("La comentario con el id=  $id_comentario fue borrada", 200);
-        } else {
-            $this->view->response("La comentario con el id=  $id_comentario no existe", 404);
+            if ($comentario) {
+                $this->model->deleteComment($id_comentario);
+                $this->view->response("La comentario con el id=  $id_comentario fue borrada", 200);
+            } else {
+                $this->view->response("La comentario con el id=  $id_comentario no existe", 404);
+            }
         }
-        //  }
     }
+
     // Como usuario quiero poder ordenar los comentarios por antigüedad o puntaje,
     // ascendente o descendente. (Via API REST)
     //ordenar los comentarios por antiguedad 

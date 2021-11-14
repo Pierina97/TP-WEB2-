@@ -2,6 +2,7 @@
 require_once "controller/CarreraController.php";
 require_once "controller/MateriaController.php";
 require_once "controller/UserController.php";
+require_once "route.php";
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 
 

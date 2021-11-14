@@ -16,6 +16,7 @@
 <table>
     <thead>
         <tr>
+        <td>Hora</td>  
         <td>Usuario</td>
             <td>Comentario</td>
             <td>Puntaje</td>        
@@ -27,7 +28,7 @@
     </tbody>
 </table>
 
-<form id="form-comentarios" data-idMateria="{$materia->id_materia}" data-idUsuario="{$id_usuario}"  class="formulario-comentarios">
+<form id="form-comentarios" data-idMateria="{$materia->id_materia}" data-idUsuario="{$id_usuario}"  data-idHorario="{$id_usuario}"  class="formulario-comentarios">
     <input type="text" name="comentario" id="comentario" value="" placeholder="escriba aqui su comentario" required>
     {* <textarea rows="2" name="detalle" placeholder="Ingresa su comentario"></textarea> *}
     <input type="number" name="puntaje" id="puntaje" value="" placeholder="puntaje" required>
