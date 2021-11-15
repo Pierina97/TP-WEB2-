@@ -61,11 +61,14 @@ class ComentarioModel
     // Como usuario quiero poder ordenar los comentarios por antigüedad o puntaje,
     // ascendente o descendente. (Via API REST)
     //ordenar los comentarios por antiguedad 
-    public  function sortCommentsByAge($id_materia)
+    public function sortCommentsByAge($id_materia)
     {
-        $sentencia = $this->db->prepare("SELECT comentario FROM comentario  WHERE id_materia=? ORDER BY fecha ASC");
+        $sentencia = $this->db->prepare("SELECT  usuario.nombre, comentario.comentario, comentario.puntaje, comentario.id_comentario, comentario.fecha FROM usuario INNER JOIN comentario 
+                                        ON usuario.id_usuario = comentario.id_usuario  WHERE id_materia=? ORDER BY comentario.fecha DESC");
         $sentencia->execute([$id_materia]);
         $comentarios = $sentencia->fetchAll(PDO::FETCH_OBJ);
         return $comentarios;
+  
     }
 }
+// SELECT comentario FROM comentario  WHERE id_materia=? ORDER BY fecha ASC

@@ -27,6 +27,7 @@
     <tbody id="tbody">
     </tbody>
 </table>
+<button type="" id="btn-ordenar" class="btn btn-primary">ordenar ASC</button>
 
 <form id="form-comentarios" data-idMateria="{$materia->id_materia}" data-idUsuario="{$id_usuario}"  data-idHorario="{$id_usuario}"  class="formulario-comentarios">
     <input type="text" name="comentario" id="comentario" value="" placeholder="escriba aqui su comentario" required>

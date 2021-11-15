@@ -9,7 +9,6 @@ class ApiComentarioController extends ApiController
     {
         parent::__construct();
         $this->model = new ComentarioModel();
-
         $this->helper = new AuthHelper();
     }
 
@@ -30,15 +29,14 @@ class ApiComentarioController extends ApiController
 
     public function  addComments()
     {
-        // $isAdmin = $this->helper->checkLoggedIn();
-        //  if ($isAdmin == false) {
+        $this->helper->checkLoggedIn();   
         $body = $this->getData();
         $id = $this->model->addComments($body->comentario, $body->puntaje, $body->id_materia, $body->id_usuario);
         if ($id != 0) {
             $this->view->response("El comentario  se insertó correctamente", 200);
         } else {
             $this->view->response("El comentario no se pudo enviar", 500);
-        }
+        }   
     }
 
 
@@ -62,11 +60,14 @@ class ApiComentarioController extends ApiController
 
     // Como usuario quiero poder ordenar los comentarios por antigüedad o puntaje,
     // ascendente o descendente. (Via API REST)
-    //ordenar los comentarios por antiguedad 
-    public function  sortCommentsByAge($params = null)
-    {
-        $id_materia = $params[":ID"];
 
+
+    //ordenar los comentarios por antiguedad 
+    public function  sortCommentsByAge($params = [])
+    {
+        // $this->helper->checkLoggedIn();
+        $id_materia = $params[":ID"];    
+               
         $comentarios = $this->model->sortCommentsByAge($id_materia);
         if ($comentarios) {
             $this->view->response($comentarios, 200);
@@ -82,6 +83,7 @@ class ApiComentarioController extends ApiController
 
         $puntaje = $params[":puntaje"];
         $comentarios = $this->model->filterCommentsByScore($puntaje);
+
         if ($comentarios) {
             $this->view->response($comentarios, 200);
         } else {

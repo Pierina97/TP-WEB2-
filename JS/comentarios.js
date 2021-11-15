@@ -8,13 +8,17 @@
 const API_URL = `http://localhost/TRABAJOPRACTICOESPECIALWEB2/api/comentarios`;
 const form_comentarios = document.querySelector("#form-comentarios");
 let comentarios = [];
+
 /*GET*/
-async function cargaComentarios() {
+let id_materia = form_comentarios.getAttribute('data-idMateria');
+let url = `${API_URL}/materia/${id_materia}`;
+
+async function cargaComentarios(url) {
 
     try {
-
-        let id_materia = form_comentarios.getAttribute('data-idMateria');
-        let response = await fetch(`${API_URL}/materia/${id_materia}`);
+           let id_materia = form_comentarios.getAttribute('data-idMateria');
+     
+        let response = await fetch(url);
         if (response.ok) {
 
             comentarios = await response.json();
@@ -31,7 +35,7 @@ async function cargaComentarios() {
     }
 
 }
-cargaComentarios();
+cargaComentarios(url);
 
 function mostrarTabla(comentario) {
 
@@ -95,7 +99,7 @@ async function añadirComentario() {
         if (response.ok) {
             console.log("http 200");
             console.log(objeto);
-            cargaComentarios();
+            cargaComentarios(url);
             mostrarTabla(objeto);
         } else if (response.status == 201) {
             console.log("http 201");
@@ -141,12 +145,23 @@ async function borrarComentario() {
             }
         });
         if (response.ok) {
-            cargaComentarios();
+            cargaComentarios(url);
         } else {
             console.log("No se pudo eliminar");
         }
     } catch (error) {
         console.log(error);
     }
-
 }
+
+let btn_ordenar=document.querySelector("#btn-ordenar");
+
+btn_ordenar.addEventListener('click', e => {
+     console.log("test1");
+
+    let id_materia = form_comentarios.getAttribute('data-idMateria');
+    let url=`${API_URL}/materia/${id_materia}/fecha/asc`;
+    cargaComentarios(url);
+});
+
+
