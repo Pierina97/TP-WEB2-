@@ -12,7 +12,7 @@ $router->addRoute('comentarios', 'POST', 'ApiComentarioController','addComments'
 $router->addRoute('comentarios/:ID', 'DELETE', 'ApiComentarioController','deleteComment');
 $router->addRoute('comentarios/materia/:ID', 'GET', 'ApiComentarioController','viewCommentsBySubjects');
 //filtro por puntos
-$router->addRoute('comentarios/puntaje/:puntaje', 'GET', 'ApiComentarioController','filterCommentsByScore');
+$router->addRoute('comentarios/materia/:ID/puntaje/:puntaje', 'GET', 'ApiComentarioController','filterCommentsByScore');
 //ordenar comentarios por antiguedad
 $router->addRoute('comentarios/materia/:ID/fecha/asc', 'GET', 'ApiComentarioController','sortCommentsByAge');
 

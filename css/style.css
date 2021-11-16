@@ -40,20 +40,31 @@ select{
    font-size:40px;
 }
 table, tr, td {
-	border: 3px solid  rgb(0,204,204);
+	border: 1px solid  rgb(0,204,204);
 	border-collapse: collapse;
-	padding: 10px;
-	margin-bottom: 10px;
+	padding: 2px;
+	/* margin-bottom: 10px; */
 }
 table {
 	height: 40px;
 	text-align: center;
-	width: 40%;
-	margin:100px;
+	width: 90%;
+	margin: 0 100px;
+    
 }
 .formulario-comentarios{
+   width:90%;
+   margin: 0px 100px ;
+   border: 1px solid  rgb(0,204,204);
+   padding: 30px;
+}
+.container-filtros{
     display:flex;
     justify-content: center;
+    width: 90%;
+    margin:100px;
+    padding: 30px;
+    border: 1px solid  rgb(0,204,204);
 }
 @media (min-width: 750px){
     .carrera {

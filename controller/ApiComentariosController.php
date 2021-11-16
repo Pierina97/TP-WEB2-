@@ -80,9 +80,9 @@ class ApiComentarioController extends ApiController
     //filtrar comentarios por puntaje
     public function filterCommentsByScore($params = null)
     {
-
+        $id_materia = $params[":ID"];  
         $puntaje = $params[":puntaje"];
-        $comentarios = $this->model->filterCommentsByScore($puntaje);
+        $comentarios = $this->model->filterCommentsByScore($puntaje,$id_materia);
 
         if ($comentarios) {
             $this->view->response($comentarios, 200);

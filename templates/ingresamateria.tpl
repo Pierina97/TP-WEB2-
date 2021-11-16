@@ -15,6 +15,7 @@
                 {/foreach}
             </select>
             <br>
+            <p>Agregar Imagen</p>
             <input type="file" name="imagen" id="imageToUpload">
 
             {if $isAdmin}
