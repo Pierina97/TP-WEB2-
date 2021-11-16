@@ -9,8 +9,8 @@
         </button>
     </ul>
 </div>
-{if isset($materia->imagen)}
-    <img src="{$materia->imagen}" />
+{if  {$materia->imagen} }
+    <img src="img/materia/{$materia->imagen}">
 {/if}
 
 <table>
@@ -31,7 +31,7 @@
 
 <form id="form-comentarios" data-idMateria="{$materia->id_materia}" data-idUsuario="{$id_usuario}"
     data-idHorario="{$id_usuario}" class="formulario-comentarios">
-    
+
     <div class="form-group">
         <label>Comentar</label>
         <input type="text" name="comentario" id="comentario" value="" placeholder="escriba aqui su comentario"
@@ -40,11 +40,11 @@
     <div class="form-group">
         <label>Puntaje</label>
         <select id="puntaje" class="form-control" required>
-        <option value="1">★</option>
-        <option value="2">★★</option>
-        <option value="3">★★★</option>
-        <option value="4">★★★★</option>
-        <option value="5">★★★★★</option>
+            <option value="1">★</option>
+            <option value="2">★★</option>
+            <option value="3">★★★</option>
+            <option value="4">★★★★</option>
+            <option value="5">★★★★★</option>
         </select>
     </div>
     <button type="submit" id="btn-comentar" class="btn btn-primary">comentar</button>
@@ -64,7 +64,6 @@
 
     </form>
 
-
     <div class="filtros">
         <label>Ordenar por fecha</label>
         <button type="" id="btn-ordenar" class="btn btn-primary">ordenar</button>
@@ -74,6 +73,7 @@
         <button type="" id="deshacer_filtro" class="btn btn-primary">Deshacer</button>
     </div>
 </div>
+
 <a href="carrera" class="volver">VOLVER</a>
 
 {include file="templates/footer.tpl"}

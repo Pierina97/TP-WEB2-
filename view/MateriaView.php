@@ -18,6 +18,7 @@ class MateriaView
 
     public function renderSubject($materia,$id_usuario)
     {
+
         $this->smarty->assign('id_usuario', $id_usuario);
         $this->smarty->assign('materia', $materia);
         $this->smarty->display("templates/detalle.tpl");

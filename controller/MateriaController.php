@@ -58,38 +58,34 @@ class MateriaController
     //INSERTAR MATERIA
     public function addSubject()
     {
+        if (!$this->searchForMatches()) {
+            if (
+                isset($_POST['nombre']) && isset($_POST['profesor']) &&
+                isset($_POST['id_carrera'])
+            ) {
 
-        if (isset($_POST['nombre'], $_POST['profesor'], $_POST['id_carrera'])) {
-            if (!empty($_POST['nombre']) &&  !empty($_POST['profesor']) &&
-             !empty($_POST['id_carrera'])) {
-                if (!$this->searchForMatches()) {
+                if (
+                    $_FILES['input_name']['type'] == "image/jpg" ||
+                    $_FILES['input_name']['type'] == "image/jpeg" ||
+                    $_FILES['input_name']['type'] == "image/png"
+                ) {
+                    // Se guarda el nombre y la ruta de la imagen.
+                    $img = $_FILES['image']['name'];
+                    $ruta = $_FILES['image']['tmp_name'];
+                    $destino = "img/materia/" . $img;
+                    // Se mueve la imagen a la carpeta img.
+                    copy($ruta, $destino);
+                    // Se insertan las imagenes.
 
-                    if (!empty($_FILES['imagen']['type'])) {
-
-                        // $fileTemp = $_FILES["imagen"]["tmp_name"];
-
-
-
-
-                        if (
-                            $_FILES['imagen']['type'] == "image/jpg" ||
-                            $_FILES['imagen']['type'] == "image/jpeg" ||
-                            $_FILES['imagen']['type'] == "image/png"
-                        ) {
-
-                            $this->model->addSubject($_POST['nombre'], $_POST['profesor'], $_POST['id_carrera'], $_FILES['imagen']);
-
-                            $this->view->showLocationToAddFormSubjects();
-                        }
-                    } else {
-                        $this->model->addSubject($_POST['nombre'], $_POST['profesor'], $_POST['id_carrera']);
-                        $this->view->showLocationToAddFormSubjects();
-                    }
+                    $this->model->addSubject($_POST['nombre'], $_POST['profesor'], $img, $_POST['id_carrera']);
+                    $this->view->showLocationToAddFormSubjects();
                 }
             }
-            $this->formSubject("Faltan completar Campos");
         }
     }
+
+
+
 
 
     //buscamos si hay coincidencias (ya una materia con ese nombre y ese ID)
