@@ -34,10 +34,11 @@ class ComentarioModel
         return $sentencia->rowCount();
     }
 
-    public function addComments($comentario, $puntaje, $id_materia, $id_usuario)
+    public function addComments($comentario, $puntaje, $id_materia, $id_usuario,$fecha)
     {
-        $sentencia = $this->db->prepare("INSERT INTO comentario(comentario,puntaje,id_materia,id_usuario) VALUES(?,?,?,?)");
-        $sentencia->execute(array($comentario, $puntaje, $id_materia, $id_usuario));
+
+        $sentencia = $this->db->prepare("INSERT INTO comentario(comentario,puntaje,id_materia,id_usuario,fecha) VALUES(?,?,?,?,?)");
+        $sentencia->execute(array($comentario, $puntaje, $id_materia, $id_usuario,$fecha));
         return $this->db->lastInsertId();
     }
 
@@ -64,6 +65,7 @@ class ComentarioModel
     //ordenar los comentarios por antiguedad 
     public function sortCommentsByAge($id_materia)
     {
+        
         $sentencia = $this->db->prepare("SELECT  usuario.nombre, comentario.comentario, comentario.puntaje, comentario.id_comentario, comentario.fecha FROM usuario INNER JOIN comentario 
                                         ON usuario.id_usuario = comentario.id_usuario  WHERE id_materia=? ORDER BY comentario.fecha DESC");
         $sentencia->execute([$id_materia]);

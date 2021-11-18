@@ -1,17 +1,20 @@
 {include file="templates/header.tpl"}
 
-<div class="container mt-2">
 
-    <ul class="list-group">
-        <li class="list-group-item mb-3" id="{$materia->nombre}">Materia | {$materia->nombre}</li>
-        <button id="materia">
+<div class="container-materias">
+    <div class="text-center mt-3">
+        {if  {$materia->imagen} }
+            <img src="img/materia/{$materia->imagen}" class="imagen-item">
+        {/if}
+    </div>
+
+    <div class="text-center mt-2">
+        <ul>
+            <li class="list-group-item mb-3" id="{$materia->nombre}">Materia | {$materia->nombre}</li>
             <li class="list-group-item">Profesor | {$materia->profesor}</li>
-        </button>
-    </ul>
+        </ul>
+    </div>
 </div>
-{if  {$materia->imagen} }
-    <img src="img/materia/{$materia->imagen}">
-{/if}
 
 <table>
     <thead>
@@ -34,8 +37,8 @@
 
     <div class="form-group">
         <label>Comentar</label>
-        <input type="text" name="comentario" id="comentario" value="" placeholder="escriba aqui su comentario"
-            class="form-control" required>
+        <textarea type="text" name="comentario" id="comentario" value="" placeholder="escriba aqui su comentario"
+            class="form-control" required></textarea>
     </div>
     <div class="form-group">
         <label>Puntaje</label>
@@ -63,7 +66,6 @@
         <button type="" id="btn_puntaje" class="btn btn-primary">ordenar por puntaje</button>
 
     </form>
-
     <div class="filtros">
         <label>Ordenar por fecha</label>
         <button type="" id="btn-ordenar" class="btn btn-primary">ordenar</button>

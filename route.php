@@ -125,13 +125,18 @@ switch ($params[0]) {
         else
             $materiaController->redirectHome();
         break;
-
+    
     case 'editarmateria':
         if (isset($params[1]))
             $materiaController->editSubject($params[1]);
         else
             $materiaController->redirectHome();
         break;
+        
+        case 'filtroavanzado':
+                $materiaController->filtroAvanzado();
+         break;
+
         //   ------------------------------AGREGAR CARRERA MATERIA------------------------------------------------
 
     case 'agregarcarrera':

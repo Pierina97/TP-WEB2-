@@ -131,10 +131,17 @@ class MateriaController
         }
     }
 
-
+    public function filtroAvanzado()
+    {
+        $isAdmin = $this->helper->checkLoggedIn();
+        $tablasMaterias = $this->model->filtroModel($_POST['materia-filtro'],$_POST['profesor-filtro'],$_POST['carrera-filtro']);
+        $this->view->renderTableSubjects($tablasMaterias,$isAdmin);
+    }
 
     public function redirectHome()
     {
         $this->view->showHome();
     }
+
+    
 }

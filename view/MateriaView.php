@@ -7,17 +7,17 @@ class MateriaView
 {
 
     private $smarty;
-  
+
 
     public function __construct()
     {
         $this->smarty = new Smarty();
-
     }
 
 
-    public function renderSubject($materia,$id_usuario)
+    public function renderSubject($materia, $id_usuario)
     {
+
 
         $this->smarty->assign('id_usuario', $id_usuario);
         $this->smarty->assign('materia', $materia);
@@ -30,7 +30,7 @@ class MateriaView
     //   -------------------VISTAS AGREGAR-----------------------------------
 
     //VISTA FORMULARIO PARA INGRESAR MATERIA ->ESTAN LAS CARRERAS PARA EL SELECT.
-    public function renderFormSubject($carreras="",$isAdmin="",$aviso="")
+    public function renderFormSubject($carreras = "", $isAdmin = "", $aviso = "")
     {
         $this->smarty->assign('aviso', $aviso);
         $this->smarty->assign('carreras', $carreras);
@@ -44,12 +44,11 @@ class MateriaView
     }
 
     //   -----------------------------VISTA TABLAS MATERIA----------------------------------------
-    public function renderTableSubjects($tablaMaterias,$isAdmin)
+    public function renderTableSubjects($tablaMaterias="",$isAdmin)
     {
-        
+      
         $this->smarty->assign('isAdmin', $isAdmin);
         $this->smarty->assign('tablaMaterias', $tablaMaterias);
-    
         $this->smarty->display("templates/editarborrarmateria.tpl");
     }
 
@@ -70,7 +69,4 @@ class MateriaView
         $this->smarty->assign('mostrarTodo', $mostrarTodo);
         $this->smarty->display("templates/materias.tpl");
     }
-
-    
-
 }

@@ -31,7 +31,9 @@ class ApiComentarioController extends ApiController
     {
         $this->helper->checkLoggedIn();   
         $body = $this->getData();
-        $id = $this->model->addComments($body->comentario, $body->puntaje, $body->id_materia, $body->id_usuario);
+        $fecha = date("Y-m-d H:i:s");
+
+        $id = $this->model->addComments($body->comentario, $body->puntaje, $body->id_materia, $body->id_usuario,$fecha);
         if ($id != 0) {
             $this->view->response("El comentario  se insertó correctamente", 200);
         } else {
@@ -67,7 +69,7 @@ class ApiComentarioController extends ApiController
     {
         // $this->helper->checkLoggedIn();
         $id_materia = $params[":ID"];    
-               
+  
         $comentarios = $this->model->sortCommentsByAge($id_materia);
         if ($comentarios) {
             $this->view->response($comentarios, 200);
@@ -79,6 +81,19 @@ class ApiComentarioController extends ApiController
     // Como usuario quiero poder filtrar los comentarios por cantidad de puntos.  (Via API REST)
     //filtrar comentarios por puntaje
     public function filterCommentsByScore($params = null)
+    {
+        $id_materia = $params[":ID"];  
+        $puntaje = $params[":puntaje"];
+        $comentarios = $this->model->filterCommentsByScore($puntaje,$id_materia);
+
+        if ($comentarios) {
+            $this->view->response($comentarios, 200);
+        } else {
+            $this->view->response("No hay comentarios con puntaje $puntaje", 404);
+        }
+    }
+
+    public function filtroAvanzado($params = null)
     {
         $id_materia = $params[":ID"];  
         $puntaje = $params[":puntaje"];
