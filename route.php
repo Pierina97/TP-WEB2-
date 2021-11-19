@@ -137,7 +137,7 @@ switch ($params[0]) {
         $materiaController->filtroAvanzado();
         break;
     case 'paginado':
-        $materiaController->paginarMaterias($params[1]);
+        $materiaController->paginaMaterias($params[1]);
         break;
 
         //   ------------------------------AGREGAR CARRERA MATERIA------------------------------------------------

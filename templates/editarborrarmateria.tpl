@@ -2,7 +2,6 @@
 
 <div class="container-fluid w-100 d-flex justify-content-center">
     <div>
-
         <h1> EDITAR Y BORRAR MATERIAS</h1>
         <table class="my-4 table">
             <thead>
@@ -15,7 +14,6 @@
                         <th class="col">editar</th>
                     {/if}
                 </tr>
-
             </thead>
 
             {foreach from=$tablaMaterias  item=item}
@@ -33,20 +31,18 @@
                         {/if}
                     </tr>
                 </form>
-
             {/foreach}
-
         </table>
 
         <div class="contenedor-paginacion">
             <ul class="paginacion">
 
 
-                <li><a href="paginado/-5" class="pagina-link">
-                  <ion-icon name="chevron-back-outline"></ion-icon>
+                <li><a href="paginado/{$nroDePagina}" class="pagina-link">
+                        <ion-icon name="chevron-back-outline"></ion-icon>
                     </a></li>
-                 
-                <li><a href="paginado/5" class="pagina-link">
+
+                <li><a href="paginado/{$nroDePagina}" class="pagina-link">
                         <ion-icon name="chevron-forward-outline"></ion-icon>
                     </a></li>
             </ul>
@@ -55,14 +51,14 @@
     </div>
 </div>
 <form action="filtroavanzado" method="POST" id="formulario-filtro" class="form-alta">
-    <div class="col-auto mb-2">
+    <div class="form-group">
         <label>Materia</label>
         <input type="text" name="materia-filtro">
     </div>
-    <div class="col-auto mb-2">
+    <div class="form-group">
         <label>Profesor</label>
         <input type="text" name="profesor-filtro">
-        <div class="col-auto mb-2">
+        <div class="form-group">
             <label>Carrera</label>
             <input type="text" name="carrera-filtro">
         </div>

@@ -99,12 +99,16 @@ class MateriaModel
         return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function paginarMaterias($paginas)
+    public function paginarMaterias($offset)
     {
-
+        
         $sentencia = $this->db->prepare("SELECT materia.id_materia, materia.nombre, materia.profesor, carrera.nombre as nombre_carrera
-        FROM materia INNER JOIN carrera ON carrera.id_carrera=materia.id_carrera ORDER BY materia.id_materia ASC LIMIT 5 OFFSET $paginas");
-        $sentencia->execute();
-        return $sentencia->fetchAll(PDO::FETCH_OBJ);
+        FROM materia INNER JOIN carrera ON carrera.id_carrera=materia.id_carrera ORDER BY materia.id_materia ASC LIMIT 5 OFFSET $offset");
+        // $sentencia->bindValue(':offset',(int) $offset, PDO::PARAM_INT);
+        $sentencia->execute(array());
+       return $sentencia->fetchAll(PDO::FETCH_OBJ);
+
+        // var_dump($query);
+        // die();
     }
 }
