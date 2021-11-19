@@ -75,7 +75,31 @@ table {
     height: 200px;
     width: 400px;
 }
-
+.contenedor-paginacion {
+    margin-top: 2%;
+    display: flex;
+    align-items: center;
+    }
+    
+    .paginacion {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+    }
+    
+    .pagina-link {
+    color: #4a4a4a;
+    padding: 0.5rem 0.75rem;
+    line-height: 1.25;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    }
+    
+    .pagina-link:hover {
+    color: #fff;
+    background-color: blanchedalmond;
+    }
 @media (min-width: 750px){
     .carrera {
         margin-top: 40px;

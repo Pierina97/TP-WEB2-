@@ -44,7 +44,7 @@ switch ($params[0]) {
 
     case 'detalle':
         // if (isset($params[2], $params[1]))
-            $materiaController->filterSubject($params[2], $params[1]);
+        $materiaController->filterSubject($params[2], $params[1]);
         // else
         //     $materiaController->redirectHome();
         break;
@@ -110,9 +110,9 @@ switch ($params[0]) {
         break;
 
     case 'editarcarrera':
-        if (isset($params[1])) 
+        if (isset($params[1]))
             $carreraController->editDegreeProgram($params[1]);
-        
+
         break;
         //   ------------------------------EDITAR BORRAR MATERIA------------------------------------------------
     case 'tablamaterias':
@@ -125,17 +125,20 @@ switch ($params[0]) {
         else
             $materiaController->redirectHome();
         break;
-    
+
     case 'editarmateria':
         if (isset($params[1]))
             $materiaController->editSubject($params[1]);
         else
             $materiaController->redirectHome();
         break;
-        
-        case 'filtroavanzado':
-                $materiaController->filtroAvanzado();
-         break;
+
+    case 'filtroavanzado':
+        $materiaController->filtroAvanzado();
+        break;
+    case 'paginado':
+        $materiaController->paginarMaterias($params[1]);
+        break;
 
         //   ------------------------------AGREGAR CARRERA MATERIA------------------------------------------------
 

@@ -68,8 +68,7 @@ class ApiComentarioController extends ApiController
     public function  sortCommentsByAge($params = [])
     {
         // $this->helper->checkLoggedIn();
-        $id_materia = $params[":ID"];    
-  
+        $id_materia = $params[":ID"];     
         $comentarios = $this->model->sortCommentsByAge($id_materia);
         if ($comentarios) {
             $this->view->response($comentarios, 200);
@@ -105,4 +104,6 @@ class ApiComentarioController extends ApiController
             $this->view->response("No hay comentarios con puntaje $puntaje", 404);
         }
     }
+
+   
 }

@@ -20,13 +20,6 @@ class ComentarioModel
         $id = $sentencia->fetch(PDO::FETCH_OBJ);
         return $id;
     }
-    // public  function getComments(){
-    //     $sentencia = $this->db->prepare("SELECT * FROM comentario");
-    //     $sentencia->execute();
-    //     $comentario = $sentencia->fetchAll(PDO::FETCH_OBJ);
-    //     return $comentario;
-    // }
-
     function deleteComment($id_comentario)
     {
         $sentencia = $this->db->prepare("DELETE FROM comentario  WHERE id_comentario=?");

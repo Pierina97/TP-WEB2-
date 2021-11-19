@@ -12,6 +12,7 @@ class MateriaController
     private $view_user;
     private $helper;
     private $carrera_model;
+ 
 
     public function __construct()
     {
@@ -21,6 +22,7 @@ class MateriaController
         $this->view = new MateriaView();
         $this->view_user = new UserView();
         $this->helper = new AuthHelper();
+
     }
 
 
@@ -105,6 +107,7 @@ class MateriaController
 
         $isAdmin = $this->helper->checkLoggedIn();
         $tablasMaterias = $this->model->getTableOfSubjects();
+        
         $this->view->renderTableSubjects($tablasMaterias, $isAdmin);
     }
     //   BORRAR MATERIA
@@ -130,12 +133,21 @@ class MateriaController
             $this->view_user->renderLogin();
         }
     }
-
+  //filtro avanzado
     public function filtroAvanzado()
     {
         $isAdmin = $this->helper->checkLoggedIn();
         $tablasMaterias = $this->model->filtroModel($_POST['materia-filtro'],$_POST['profesor-filtro'],$_POST['carrera-filtro']);
         $this->view->renderTableSubjects($tablasMaterias,$isAdmin);
+    }
+    //paginacion
+     
+    public function paginarMaterias($paginas){
+       
+        $isAdmin = $this->helper->checkLoggedIn();   
+        $tablasMaterias = $this->model->paginarMaterias($paginas);
+        $this->view->renderTableSubjects($tablasMaterias,$isAdmin);
+        
     }
 
     public function redirectHome()

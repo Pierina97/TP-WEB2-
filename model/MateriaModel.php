@@ -46,17 +46,16 @@ class MateriaModel
         }
     }
     //-----------------------INSERTAR materia ------------------------------------------------     
-//   //Insertar una imagen.
-//   public function insertarImagen($imagen, $id_noticia)
-//   {
-//       $sentencia = $this->db->prepare("INSERT INTO imagen (imagen,id_noticia) VALUES (?, ?)");
-//       $sentencia->execute([$imagen, $id_noticia]);
-//   }
-    function  addSubject($nombre,$profesor,$imagen=null,$id_carrera)
+    //   //Insertar una imagen.
+    //   public function insertarImagen($imagen, $id_noticia)
+    //   {
+    //       $sentencia = $this->db->prepare("INSERT INTO imagen (imagen,id_noticia) VALUES (?, ?)");
+    //       $sentencia->execute([$imagen, $id_noticia]);
+    //   }
+    function  addSubject($nombre, $profesor, $imagen = null, $id_carrera)
     {
         $sentencia = $this->db->prepare("INSERT INTO materia(nombre,profesor,imagen,id_carrera) VALUES(?,?,?,?)");
-        $sentencia->execute(array($nombre,$profesor,$imagen,$id_carrera));    
-  
+        $sentencia->execute(array($nombre, $profesor, $imagen, $id_carrera));
     }
 
 
@@ -69,7 +68,6 @@ class MateriaModel
         $sentencia->execute(array());
         $tablaMaterias = $sentencia->fetchAll(PDO::FETCH_OBJ);
         return  $tablaMaterias;
-     
     }
 
     //   ------------------------------EDITAR BORRAR MATERIAS----------------------------------------------       
@@ -81,10 +79,10 @@ class MateriaModel
         $sentencia->execute(array($id_materia));
     }
 
-    public function editSubject($nombre,$profesor,$id_carrera,$id_materia)
+    public function editSubject($nombre, $profesor, $id_carrera, $id_materia)
     {
         $sentencia = $this->db->prepare("UPDATE `materia` SET `nombre`=?,`profesor`=?,`id_carrera`=? WHERE `id_materia`=?");
-        $sentencia->execute(array($nombre, $profesor,$id_carrera,$id_materia));
+        $sentencia->execute(array($nombre, $profesor, $id_carrera, $id_materia));
     }
     // buscarIdCarreraEnTablaMateria
     public function searchIdDegreeProgramByTableSubjects($id_carrera)
@@ -93,15 +91,20 @@ class MateriaModel
         $sentencia->execute(array($id_carrera));
         return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
-    public function filtroModel($nombre,$profesor,$carrera)
+    public function filtroModel($nombre, $profesor, $carrera)
     {
         $sentencia = $this->db->prepare(" SELECT materia.id_materia, materia.nombre, materia.profesor, carrera.nombre as nombre_carrera
         FROM materia INNER JOIN carrera ON carrera.id_carrera=materia.id_carrera WHERE materia.nombre LIKE ? AND materia.profesor LIKE ? AND carrera.nombre LIKE ?  ");
-        $sentencia->execute(array("%$nombre%","%$profesor%","%$carrera%"));
+        $sentencia->execute(array("%$nombre%", "%$profesor%", "%$carrera%"));
+        return $sentencia->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function paginarMaterias($paginas)
+    {
+
+        $sentencia = $this->db->prepare("SELECT materia.id_materia, materia.nombre, materia.profesor, carrera.nombre as nombre_carrera
+        FROM materia INNER JOIN carrera ON carrera.id_carrera=materia.id_carrera ORDER BY materia.id_materia ASC LIMIT 5 OFFSET $paginas");
+        $sentencia->execute();
         return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
 }
-// $sentencia = $this->bd->prepare('SELECT noti.id_noticia, noti.titulo, noti.detalle, noti.fecha_subida, sec.id_seccion, sec.nombre, img.imagen FROM noticia AS noti
-//         INNER JOIN seccion AS sec ON noti.id_seccion = sec.id_seccion INNER JOIN imagen AS img ON noti.id_noticia = img.id_noticia WHERE noti.titulo 
-//         LIKE ? AND noti.detalle LIKE ? AND noti.fecha_subida LIKE ? ORDER BY noti.fecha_subida');
-//         $sentencia->execute(array("%$titulo%", "%$detalle%", "%$fecha%"))

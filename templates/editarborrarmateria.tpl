@@ -38,11 +38,22 @@
 
         </table>
 
+        <div class="contenedor-paginacion">
+            <ul class="paginacion">
+
+
+                <li><a href="paginado/-5" class="pagina-link">
+                  <ion-icon name="chevron-back-outline"></ion-icon>
+                    </a></li>
+                 
+                <li><a href="paginado/5" class="pagina-link">
+                        <ion-icon name="chevron-forward-outline"></ion-icon>
+                    </a></li>
+            </ul>
+        </div>
+
     </div>
 </div>
-
-
-
 <form action="filtroavanzado" method="POST" id="formulario-filtro" class="form-alta">
     <div class="col-auto mb-2">
         <label>Materia</label>
@@ -59,6 +70,9 @@
 
 </form>
 <a href="tablamaterias" class="btn btn-primary">Deshacer filtro</a>
+
+
+
 
 <a href="carreras" class="btn btn-primary">VOLVER</a>
 
