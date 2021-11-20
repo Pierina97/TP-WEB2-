@@ -47,7 +47,7 @@ class ApiComentarioController extends ApiController
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
             $id_comentario = $params[":ID"];
-
+                 
             //primero hay que ver si esta
             $comentario = $this->model->getComment($id_comentario);
 

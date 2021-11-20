@@ -36,16 +36,22 @@
 
         <div class="contenedor-paginacion">
             <ul class="paginacion">
-
-
-                <li><a href="paginado/{$nroDePagina}" class="pagina-link">
+            
+            <p>anterior</p>
+  
+          
+                <li><a href="tablamaterias?pagina-anterior={$anterior}" class="pagina-link">
+  
                         <ion-icon name="chevron-back-outline"></ion-icon>
                     </a></li>
-
-                <li><a href="paginado/{$nroDePagina}" class="pagina-link">
+             
+                <li><a href="tablamaterias?pagina-siguiente={$siguiente}" class="pagina-link">
+      
                         <ion-icon name="chevron-forward-outline"></ion-icon>
                     </a></li>
+                    <p>siguiente</p>
             </ul>
+         
         </div>
 
     </div>

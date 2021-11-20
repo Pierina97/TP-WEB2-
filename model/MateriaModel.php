@@ -58,9 +58,6 @@ class MateriaModel
         $sentencia->execute(array($nombre, $profesor, $imagen, $id_carrera));
     }
 
-
-
-
     function getTableOfSubjects()
     {
         $sentencia = $this->db->prepare('SELECT materia.id_materia, materia.nombre, materia.profesor, carrera.nombre as nombre_carrera
@@ -104,7 +101,7 @@ class MateriaModel
         
         $sentencia = $this->db->prepare("SELECT materia.id_materia, materia.nombre, materia.profesor, carrera.nombre as nombre_carrera
         FROM materia INNER JOIN carrera ON carrera.id_carrera=materia.id_carrera ORDER BY materia.id_materia ASC LIMIT 5 OFFSET $offset");
-        // $sentencia->bindValue(':offset',(int) $offset, PDO::PARAM_INT);
+ 
         $sentencia->execute(array());
        return $sentencia->fetchAll(PDO::FETCH_OBJ);
 

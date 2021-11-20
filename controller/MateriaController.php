@@ -70,6 +70,7 @@ class MateriaController
                     $_FILES['input_name']['type'] == "image/jpeg" ||
                     $_FILES['input_name']['type'] == "image/png"
                 ) {
+
                     // Se guarda el nombre y la ruta de la imagen.
                     $img = $_FILES['image']['name'];
                     $ruta = $_FILES['image']['tmp_name'];
@@ -119,7 +120,7 @@ class MateriaController
 
     //   ------------------------------EDITAR BORRAR MATERIAS----------------------------------------------
 
- 
+
 
     //paginacion
     //nro de pagina deberia ser 1 , 2 ,3
@@ -127,20 +128,35 @@ class MateriaController
     {
         $isAdmin = $this->helper->checkLoggedIn();
         $offset = ($nroDePagina - 1) * 5;
+        //controlar offset por inyeccion sql
         $tablasMaterias = $this->model->paginarMaterias($offset);
         $nroDePagina += 1;
         $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $nroDePagina);
     }
 
-    //MOSTRAR TABLA BORRAR EDITAR MATERIAS
-    public function showTableOfSubjects($nroDePagina = "")
+    //MOSTRAR TABLA BORRAR EDITAR MATERIAS + paginacion
+    public function showTableOfSubjects()
     {
-
         $isAdmin = $this->helper->checkLoggedIn();
-        $tablasMaterias = $this->model->getTableOfSubjects();
-        $nroDePagina = 1;
-        $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $nroDePagina);
+        $siguiente = $_GET['pagina-siguiente'];
+        $anterior=$_GET['pagina-anterior'];
+        if (!isset($siguiente)) {   
+            $siguiente=1;       
+        }
+
+        if (isset($anterior)) {   
+             $anterior-=1;
+             $anterior=$siguiente;
+        }else{
+            $anterior=$siguiente-1;
+        }
+        $offset = ($siguiente - 1) * 5;    
+        $tablasMaterias = $this->model->paginarMaterias($offset);
+        $siguiente+=1;     
+       
+        $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $siguiente ,$anterior);
     }
+
     //filtro avanzado
     public function filtroAvanzado()
     {
