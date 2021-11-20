@@ -37,21 +37,21 @@
         <div class="contenedor-paginacion">
             <ul class="paginacion">
             
-            <p>anterior</p>
-  
-          
-                <li><a href="tablamaterias?pagina-anterior={$anterior}" class="pagina-link">
+    
+       {if $nroPagina>1}
+                <li><a href="tablamaterias?nroPagina={$nroPagina-1}" class="pagina-link">
   
                         <ion-icon name="chevron-back-outline"></ion-icon>
                     </a></li>
-             
-                <li><a href="tablamaterias?pagina-siguiente={$siguiente}" class="pagina-link">
+       {/if}       
+       {if $nroPagina< $nroPagMax}
+                <li><a href="tablamaterias?nroPagina={$nroPagina+1}" class="pagina-link">
       
                         <ion-icon name="chevron-forward-outline"></ion-icon>
                     </a></li>
-                    <p>siguiente</p>
+       
             </ul>
-         
+        {/if} 
         </div>
 
     </div>

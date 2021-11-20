@@ -135,34 +135,57 @@ class MateriaController
     }
 
     //MOSTRAR TABLA BORRAR EDITAR MATERIAS + paginacion
-    public function showTableOfSubjects()
+    // public function showTableOfSubjects()
+    // {
+    //     $isAdmin = $this->helper->checkLoggedIn();
+    //     $siguiente = $_GET['pagina-siguiente'];
+    //     $anterior=$_GET['pagina-anterior'];
+
+    //     if (!isset($siguiente)) {   
+    //         $siguiente=1;       
+    //     }
+
+    //     if (isset($anterior)) {   
+    //          $anterior-=1;
+    //          $anterior=$siguiente;
+    //     }else{
+    //         $anterior=$siguiente-1;
+    //     }
+    //     $offset = ($siguiente - 1) * 5;
+    //     $tablasMaterias = $this->model->paginarMaterias($offset);
+    //     $siguiente+=1;     
+
+    //     $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $siguiente ,$anterior);
+    // }
+
+
+    public function showTableOfSubjects($tablasMaterias = null)
     {
         $isAdmin = $this->helper->checkLoggedIn();
-        $siguiente = $_GET['pagina-siguiente'];
-        $anterior=$_GET['pagina-anterior'];
-        if (!isset($siguiente)) {   
-            $siguiente=1;       
-        }
+        $nroPagina = $_GET['nroPagina'];
 
-        if (isset($anterior)) {   
-             $anterior-=1;
-             $anterior=$siguiente;
-        }else{
-            $anterior=$siguiente-1;
+
+        if (!isset($nroPagina)) {
+            $nroPagina = 1;
         }
-        $offset = ($siguiente - 1) * 5;    
-        $tablasMaterias = $this->model->paginarMaterias($offset);
-        $siguiente+=1;     
-       
-        $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $siguiente ,$anterior);
+        $offset = ($nroPagina - 1) * 5;
+        //si no te mandaron materias se tienen que obtener materias
+        if (empty($tablasMaterias)) {
+            $tablasMaterias = $this->model->paginarMaterias($offset);
+        }
+        $cantidadTotalDeMaterias = $this->model->obtenerCantidadDeMaterias();
+        //esto me permie que si tengo 11 materias la q sigue me la muestre en un registro y luego el boton desaparece
+        $nroPagMax = ceil($cantidadTotalDeMaterias / 5);      
+        $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $nroPagina,$nroPagMax);
     }
 
     //filtro avanzado
     public function filtroAvanzado()
     {
-        $isAdmin = $this->helper->checkLoggedIn();
+        
         $tablasMaterias = $this->model->filtroModel($_POST['materia-filtro'], $_POST['profesor-filtro'], $_POST['carrera-filtro']);
-        $this->view->renderTableSubjects($tablasMaterias, $isAdmin);
+        $this->showTableOfSubjects($tablasMaterias);
+   
     }
 
 

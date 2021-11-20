@@ -105,7 +105,13 @@ class MateriaModel
         $sentencia->execute(array());
        return $sentencia->fetchAll(PDO::FETCH_OBJ);
 
-        // var_dump($query);
-        // die();
+   
+    }
+    
+    public function obtenerCantidadDeMaterias()
+    {      
+        $sentencia = $this->db->prepare( "SELECT COUNT(*) FROM materia");
+        $sentencia->execute();
+        return $sentencia->fetchColumn();   //retorna la primera columna de la primera fila (0,0)
     }
 }

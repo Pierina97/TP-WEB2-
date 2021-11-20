@@ -6,7 +6,7 @@
 
  {* {if $isAdmin }  *}
     <a href="tablacarreras" class="m-3"><button type="button" class="btn btn-info">Editar carreras</button></a>
-    <a href="tablamaterias" class="m-3"><button type="button" class="btn btn-info">Editar materias</button></a>
+    <a href="tablamaterias?nroPagina=1" class="m-3"><button type="button" class="btn btn-info">Editar materias</button></a>
 {* {/if}  *}
 {* {if $rol == "true"} *}
     <a href="panel" class="m-3"><button type="button" class="btn btn-danger">Panel Admin</button></a>

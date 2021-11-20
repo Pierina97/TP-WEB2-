@@ -44,11 +44,10 @@ class MateriaView
     }
 
     //   -----------------------------VISTA TABLAS MATERIA----------------------------------------
-    public function renderTableSubjects($tablaMaterias="",$isAdmin,$siguiente="",$anterior="")
+    public function renderTableSubjects($tablaMaterias="",$isAdmin,$nroPagina=1,$nroPagMax="")
     {
-        
-        $this->smarty->assign('anterior', $anterior);
-        $this->smarty->assign('siguiente', $siguiente);
+        $this->smarty->assign('nroPagMax', $nroPagMax);
+        $this->smarty->assign('nroPagina', $nroPagina);
         $this->smarty->assign('isAdmin', $isAdmin);
         $this->smarty->assign('tablaMaterias', $tablaMaterias);
         $this->smarty->display("templates/editarborrarmateria.tpl");
