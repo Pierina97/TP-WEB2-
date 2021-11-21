@@ -20,7 +20,7 @@
             </select>
             <br>
             <p>Agregar Imagen</p>
-            {* <input type="file" name="imagen" id="imageToUpload"> *}
+         
             <input type="file" class="form-control" id="image" name="image" multiple>
             {if $isAdmin}
                 <input type="submit" class="btn btn-primary">
@@ -29,12 +29,6 @@
     </div>
     <p>{$aviso}</p>
 
-    {* <div class="imagen">
-        <form action="cargarimagen" method="POST" enctype="multipart/form-data"> 
-            <input type="file" name="imagen" id="imageToUpload">
-            <input type="submit" valu="Enviar Imagen">
-        </form>
-    </div> *}
 
 </div>
 <a href="carreras" class="volver">VOLVER</a>

@@ -36,27 +36,27 @@
 
         <div class="contenedor-paginacion">
             <ul class="paginacion">
-            
-    
-       {if $nroPagina>1}
-                <li><a href="tablamaterias?nroPagina={$nroPagina-1}" class="pagina-link">
-  
-                        <ion-icon name="chevron-back-outline"></ion-icon>
-                    </a></li>
-       {/if}       
-       {if $nroPagina< $nroPagMax}
-                <li><a href="tablamaterias?nroPagina={$nroPagina+1}" class="pagina-link">
-      
-                        <ion-icon name="chevron-forward-outline"></ion-icon>
-                    </a></li>
-       
-            </ul>
-        {/if} 
+
+
+                {if $nroPagina>1}
+                    <li><a href="tablamaterias?nroPagina={$nroPagina-1}" class="pagina-link">
+
+                            <ion-icon name="chevron-back-outline"></ion-icon>
+                        </a></li>
+                {/if}
+                {if $nroPagina< $nroPagMax}
+                    <li><a href="tablamaterias?nroPagina={$nroPagina+1}" class="pagina-link">
+
+                            <ion-icon name="chevron-forward-outline"></ion-icon>
+                        </a></li>
+
+                </ul>
+            {/if}
         </div>
 
     </div>
 </div>
-<form action="filtroavanzado" method="POST" id="formulario-filtro" class="form-alta">
+<form action="tablamaterias/nroPagina={$nroPagina}" method="GET" id="formulario-filtro" class="form-alta">
     <div class="form-group">
         <label>Materia</label>
         <input type="text" name="materia-filtro">
@@ -71,7 +71,7 @@
         <button type="submit" class="btn btn-primary">Buscar</button>
 
 </form>
-<a href="tablamaterias" class="btn btn-primary">Deshacer filtro</a>
+<a href="tablamaterias?nroPagina={$nroPagina}" class="btn btn-primary">Deshacer filtro</a>
 
 
 

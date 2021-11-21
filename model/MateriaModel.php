@@ -54,10 +54,18 @@ class MateriaModel
     //   }
     function  addSubject($nombre, $profesor, $imagen = null, $id_carrera)
     {
+        $pathImg = null;
+        if ($imagen)
+            $pathImg = $this->uploadImage($imagen);
         $sentencia = $this->db->prepare("INSERT INTO materia(nombre,profesor,imagen,id_carrera) VALUES(?,?,?,?)");
-        $sentencia->execute(array($nombre, $profesor, $imagen, $id_carrera));
+        $sentencia->execute(array($nombre, $profesor, $pathImg, $id_carrera));
     }
-
+    private function uploadImage($image)
+    {
+        $target = "img/materia." . uniqid() . "." . strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
+        move_uploaded_file($image['tmp_name'], $target);
+        return $target;
+    }
     function getTableOfSubjects()
     {
         $sentencia = $this->db->prepare('SELECT materia.id_materia, materia.nombre, materia.profesor, carrera.nombre as nombre_carrera
@@ -76,10 +84,11 @@ class MateriaModel
         $sentencia->execute(array($id_materia));
     }
 
-    public function editSubject($nombre, $profesor, $id_carrera, $id_materia)
+    public function editSubject($nombre, $profesor, $id_materia)
     {
-        $sentencia = $this->db->prepare("UPDATE `materia` SET `nombre`=?,`profesor`=?,`id_carrera`=? WHERE `id_materia`=?");
-        $sentencia->execute(array($nombre, $profesor, $id_carrera, $id_materia));
+
+        $sentencia = $this->db->prepare("UPDATE `materia` SET `nombre`=?,`profesor`=?WHERE `id_materia`=?");
+        $sentencia->execute(array($nombre, $profesor, $id_materia));
     }
     // buscarIdCarreraEnTablaMateria
     public function searchIdDegreeProgramByTableSubjects($id_carrera)
@@ -98,19 +107,17 @@ class MateriaModel
 
     public function paginarMaterias($offset)
     {
-        
+
         $sentencia = $this->db->prepare("SELECT materia.id_materia, materia.nombre, materia.profesor, carrera.nombre as nombre_carrera
         FROM materia INNER JOIN carrera ON carrera.id_carrera=materia.id_carrera ORDER BY materia.id_materia ASC LIMIT 5 OFFSET $offset");
- 
-        $sentencia->execute(array());
-       return $sentencia->fetchAll(PDO::FETCH_OBJ);
 
-   
+        $sentencia->execute(array());
+        return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
-    
+
     public function obtenerCantidadDeMaterias()
-    {      
-        $sentencia = $this->db->prepare( "SELECT COUNT(*) FROM materia");
+    {
+        $sentencia = $this->db->prepare("SELECT COUNT(*) FROM materia");
         $sentencia->execute();
         return $sentencia->fetchColumn();   //retorna la primera columna de la primera fila (0,0)
     }

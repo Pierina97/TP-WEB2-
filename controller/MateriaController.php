@@ -55,7 +55,6 @@ class MateriaController
         $carreras = $this->carrera_model->getDegreeProgram();
         $this->view->renderFormSubject($carreras, $isAdmin, $aviso);
     }
-
     //INSERTAR MATERIA
     public function addSubject()
     {
@@ -66,46 +65,43 @@ class MateriaController
             ) {
 
                 if (
-                    $_FILES['input_name']['type'] == "image/jpg" ||
-                    $_FILES['input_name']['type'] == "image/jpeg" ||
-                    $_FILES['input_name']['type'] == "image/png"
+                    $_FILES['image']['type'] == "image/jpg" ||
+                    $_FILES['image']['type'] == "image/jpeg" ||
+                    $_FILES['image']['type'] == "image/png"
                 ) {
-
-                    // Se guarda el nombre y la ruta de la imagen.
-                    $img = $_FILES['image']['name'];
-                    $ruta = $_FILES['image']['tmp_name'];
-                    $destino = "img/materia/" . $img;
-                    // Se mueve la imagen a la carpeta img.
-                    copy($ruta, $destino);
-                    // Se insertan las imagenes.
-
-                    $this->model->addSubject($_POST['nombre'], $_POST['profesor'], $img, $_POST['id_carrera']);
+                    $this->model->addSubject($_POST['nombre'], $_POST['profesor'], $_FILES['image'],
+                                                                              $_POST['id_carrera']);
                     $this->view->showLocationToAddFormSubjects();
                 }
             }
         }
     }
 
+
     //   BORRAR MATERIA
     public function deleteSubject($id)
     {
         $isAdmin = $this->helper->checkLoggedIn();
-        if ($isAdmin == true) {
-            $this->model->deleteSubject($id);
-            $this->view->renderTableOfLocationSubjects();
-        } else {
-            $this->view_user->renderLogin();
+            if ($isAdmin == true) {
+                if (isset($id)) {
+                $this->model->deleteSubject($id);
+                $this->showTableOfSubjects();
+            }else{
+                $this->redirectHome();
+            }
         }
     }
     //EDITAR MATERIA
     public function editSubject($id_materia)
     {
         $isAdmin = $this->helper->checkLoggedIn();
-        if ($isAdmin == true) {
-            $this->model->editSubject($_POST['nombre'], $_POST['profesor'], $_POST['id_carrera'], $id_materia);
-            $this->view->renderTableOfLocationSubjects();
-        } else {
-            $this->view_user->renderLogin();
+            if ($isAdmin == true) {
+                if (isset($id)) {
+                $this->model->editSubject($_POST['nombre'], $_POST['profesor'], $id_materia);
+                $this->showTableOfSubjects();
+            }else{
+                $this->redirectHome();
+            }
         }
     }
 
@@ -117,56 +113,22 @@ class MateriaController
         return !empty($carrera);
     }
 
-
     //   ------------------------------EDITAR BORRAR MATERIAS----------------------------------------------
 
-
-
-    //paginacion
-    //nro de pagina deberia ser 1 , 2 ,3
-    public function paginaMaterias($nroDePagina)
-    {
-        $isAdmin = $this->helper->checkLoggedIn();
-        $offset = ($nroDePagina - 1) * 5;
-        //controlar offset por inyeccion sql
-        $tablasMaterias = $this->model->paginarMaterias($offset);
-        $nroDePagina += 1;
-        $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $nroDePagina);
-    }
-
-    //MOSTRAR TABLA BORRAR EDITAR MATERIAS + paginacion
-    // public function showTableOfSubjects()
-    // {
-    //     $isAdmin = $this->helper->checkLoggedIn();
-    //     $siguiente = $_GET['pagina-siguiente'];
-    //     $anterior=$_GET['pagina-anterior'];
-
-    //     if (!isset($siguiente)) {   
-    //         $siguiente=1;       
-    //     }
-
-    //     if (isset($anterior)) {   
-    //          $anterior-=1;
-    //          $anterior=$siguiente;
-    //     }else{
-    //         $anterior=$siguiente-1;
-    //     }
-    //     $offset = ($siguiente - 1) * 5;
-    //     $tablasMaterias = $this->model->paginarMaterias($offset);
-    //     $siguiente+=1;     
-
-    //     $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $siguiente ,$anterior);
-    // }
 
 
     public function showTableOfSubjects($tablasMaterias = null)
     {
         $isAdmin = $this->helper->checkLoggedIn();
-        $nroPagina = $_GET['nroPagina'];
+        if (isset($_GET['materia-filtro']) || isset($_GET['profesor-filtro']) || isset($_GET['carrera-filtro'])) {
+            $this->filtroAvanzado($isAdmin);
+        }
+     
 
-
-        if (!isset($nroPagina)) {
+        if (!isset($_GET['nroPagina'])) {
             $nroPagina = 1;
+        } else {
+            $nroPagina = $_GET['nroPagina'];
         }
         $offset = ($nroPagina - 1) * 5;
         //si no te mandaron materias se tienen que obtener materias
@@ -174,18 +136,19 @@ class MateriaController
             $tablasMaterias = $this->model->paginarMaterias($offset);
         }
         $cantidadTotalDeMaterias = $this->model->obtenerCantidadDeMaterias();
-        //esto me permie que si tengo 11 materias la q sigue me la muestre en un registro y luego el boton desaparece
-        $nroPagMax = ceil($cantidadTotalDeMaterias / 5);      
-        $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $nroPagina,$nroPagMax);
+        //esto me permie que si tengo 11 materias la q sigue me la muestre 
+        //en un registro y luego el boton desaparece
+        $nroPagMax = ceil($cantidadTotalDeMaterias / 5);
+        $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $nroPagina, $nroPagMax);
     }
 
     //filtro avanzado
-    public function filtroAvanzado()
+    public function filtroAvanzado($isAdmin)
     {
-        
-        $tablasMaterias = $this->model->filtroModel($_POST['materia-filtro'], $_POST['profesor-filtro'], $_POST['carrera-filtro']);
-        $this->showTableOfSubjects($tablasMaterias);
-   
+        if (isset($_GET['materia-filtro']) || isset($_GET['profesor-filtro']) || isset($_GET['carrera-filtro'])) {
+            $tablasMaterias = $this->model->filtroModel($_GET['materia-filtro'], $_GET['profesor-filtro'], $_GET['carrera-filtro']);
+            $this->view->renderTableSubjects($tablasMaterias, $isAdmin);
+        }
     }
 
 

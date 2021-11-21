@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-11-2021 a las 17:28:08
+-- Tiempo de generación: 20-11-2021 a las 19:51:23
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -60,7 +60,7 @@ CREATE TABLE `comentario` (
   `puntaje` int(1) NOT NULL,
   `id_materia` int(50) NOT NULL,
   `id_usuario` int(50) NOT NULL,
-  `fecha` datetime DEFAULT current_timestamp()
+  `fecha` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -74,12 +74,16 @@ INSERT INTO `comentario` (`id_comentario`, `comentario`, `puntaje`, `id_materia`
 (21, 'muy buena materia', 3, 7, 2, '2021-11-06 18:38:33'),
 (22, 'muy buena materia', 2, 7, 2, '2021-11-06 18:38:37'),
 (24, 'muy buena materia', 2, 7, 2, '2021-11-11 15:28:52'),
-(106, 'test3', 1, 1, 1, '2021-11-14 10:42:37'),
 (127, 'test2', 4, 1, 1, '2021-11-15 09:34:57'),
-(146, 'prueba2', 2, 1, 1, '2021-11-15 15:50:17'),
-(152, 'la materia es una ca', 3, 1, 1, '2021-11-15 16:41:13'),
 (159, 'prueba3', 3, 1, 1, '2021-11-16 10:01:47'),
-(160, 'prueba1', 2, 8, 1, '2021-11-16 10:04:49');
+(160, 'prueba1', 2, 8, 1, '2021-11-16 10:04:49'),
+(161, 'prueba1', 3, 1, 1, '2021-11-16 16:22:09'),
+(164, 'prueba2', 3, 1, 1, '2021-11-16 19:01:39'),
+(165, 'genial', 3, 1, 1, '2021-11-17 12:09:20'),
+(166, 'test3', 2, 1, 1, '2021-11-18 20:44:34'),
+(167, 'test4', 5, 1, 1, '2021-11-18 20:45:30'),
+(168, 'test5', 1, 1, 1, '2021-11-18 21:00:52'),
+(169, 'test6', 3, 1, 1, '2021-11-19 13:33:49');
 
 -- --------------------------------------------------------
 
@@ -100,11 +104,11 @@ CREATE TABLE `materia` (
 --
 
 INSERT INTO `materia` (`id_materia`, `nombre`, `profesor`, `imagen`, `id_carrera`) VALUES
-(1, 'Algebra Lineal', 'Karina Paz', '', 1),
-(2, 'POO', 'Luis Berdun', '', 1),
-(6, 'Web2', 'Javier Romero', '', 2),
-(7, 'Deep learning', 'Giru', '', 5),
-(8, 'Integracion continua', 'Roco el Barbaro', '', 3),
+(1, 'Algebra Lineal', 'Karina Paz', 'algebralineal1.png', 1),
+(2, 'POO', 'Luis Berdun', 'poo.jpeg', 1),
+(3, 'Web2', 'Javier Romero', 'web2.png', 2),
+(7, 'Deep learning', 'Giru', 'DeepLearning.jpg', 5),
+(8, 'Integracion continua', 'Roco el Barbaro', 'Continuous-Integration.png', 3),
 (9, 'Procesamiento del lenguaje natural', 'Andres Dias Pace', '', 5),
 (10, 'Tecnologias Web', 'Pollo Lopez', '', 4),
 (11, 'Comunicacion de Datos', 'Hugo Curti', '', 1),
@@ -114,42 +118,16 @@ INSERT INTO `materia` (`id_materia`, `nombre`, `profesor`, `imagen`, `id_carrera
 (15, 'Web2', 'Javier Romero', '', 4),
 (16, 'Comunicacion de Datos', 'El pimpollo feroz', '', 2),
 (17, 'Programacion 3', 'Laura Felice', '', 4),
-(28, 'Pickoff', 'Necro phos', '', 7),
-(29, 'Maps awareness', 'BSJ', '', 7),
-(30, 'Itemization', 'D bowie', '', 7),
-(31, 'Ingenieria de Software', 'Quirque', '', 1),
-(44, 'Redes hogareñas', 'Rolo Carretto', '', 11),
-(45, 'Soporte previsorio', 'Epicuro Gomez', '', 11),
-(46, 'Ergonomia', 'Ricardo Schelotto', '', 12),
-(47, 'Accesibilidad WEB', 'Anastasio Iñaki', '', 12),
-(48, 'Tecnologia educativa', 'Guillermo Conti', '', 6),
-(50, 'Matematica discreta', 'Emilio Alfaro', '', 6),
-(52, 'prueba1', 'prueba2', NULL, 1),
-(53, 'pierina', 'zzz', NULL, 1),
-(54, 'asas', 'cscsa', NULL, 2),
-(55, 'dadsa', 'dasda', NULL, 2),
-(56, 'test1', 'test1', NULL, 2),
-(57, 'nombre', 'zzzz', 'Array', 3),
-(58, 'nombre', 'rrrrrrrrr', 'img/task/618c1497282fb.png', 6),
-(59, 'pierina', 'prueba', 'img/materias.618c185240937.jpg', 5),
-(63, 'test1', 'test1', 'img/materia.6193c1c71c04c.jpg', 1),
-(64, 'nombre', 'hugo', 'img/materia.6193c1e10649a.jpg', 2),
-(65, 'Ramiro José', 'hugo', 'img/materia.6193c24755789.jpg', 2),
-(66, 'test2', 'prfesor', 'img/materia.6193c35e48dcf.jpg', 1),
-(67, 'nombre1', 'profe1', 'img/materia.6193c385ee285.jpg', 2),
-(68, 'nombre', 'profesor', 'img/materia.6193c40c97329.jpg', 1),
-(69, 'nombre', 'hugo', 'img/materia.6193c984c8392.jpg', 2),
-(70, 'csca', 'ascs', 'img/materia.6193ca071f5bd.jpg', 2),
-(71, 'csca', 'ascs', 'img/materia.6193cbbc3e828.jpg', 2),
-(72, 'csca', 'ascs', 'img/materia.6193ccbb1a171.jpg', 2),
-(74, 'nombre', 'hugo', 'img/materia.6193cd2b2a00b.jpg', 2),
-(75, 'nombre', 'hugo', 'img/materia.6193cd32b5b6a.jpg', 2),
-(76, 'nombre', 'hugo', 'img/materia.6193cd3dc0fd0.jpg', 2),
-(77, 'nombre', 'pppp', 'circular-flower-mandala-on-white-vector.jpg', 2),
-(78, 'algo', 'algo', 'flor de loto.jpg', 2),
-(79, 'nombre', 'profe', 'flor de loto.jpg', 1),
-(80, 'nombre', 'rrrrrrrrr', 'geometria2.jpg', 2),
-(81, 'asda', 'dasd', NULL, 5);
+(18, 'Pickoff', 'Necro phos', '', 7),
+(19, 'Maps awareness', 'BSJ', '', 7),
+(20, 'Itemization', 'D bowie', '', 7),
+(21, 'Ingenieria de Software', 'Quirque', '', 1),
+(22, 'Redes hogareñas', 'Rolo Carretto', '', 11),
+(23, 'Soporte previsorio', 'Epicuro Gomez', '', 11),
+(24, 'Ergonomia', 'Ricardo Schelotto', '', 12),
+(25, 'Accesibilidad WEB', 'Anastasio Iñaki', '', 12),
+(26, 'Tecnologia educativa', 'Guillermo Conti', '', 6),
+(27, 'Matematica discreta', 'Emilio Alfaro', '', 6);
 
 -- --------------------------------------------------------
 
@@ -219,13 +197,13 @@ ALTER TABLE `carrera`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

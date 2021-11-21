@@ -27,53 +27,32 @@ switch ($params[0]) {
         else
             $carreraController->showHome();
         break;
-
     case 'carrera':
-        if (isset($params[1]) && isset($params[2]))
-            $carreraController->filterDegreeProgram($params[1], $params[2]);
-        else
-            $materiaController->redirectHome();
+        $carreraController->filterDegreeProgram($params[1], $params[2]);
         break;
-
     case 'materias':
-        if (!isset($params[1]))
-            $materiaController->showSubjects();
-        else
-            $materiaController->redirectHome();
-        break;
-
+        $materiaController->showSubjects();
     case 'detalle':
-        // if (isset($params[2], $params[1]))
         $materiaController->filterSubject($params[2], $params[1]);
-        // else
-        //     $materiaController->redirectHome();
         break;
-
     case 'login':
         $userController->showLogin();
         break;
-
     case 'logout':
         $userController->logOut();
         break;
-
     case 'verify':
         $userController->verifyLogin();
         break;
-
     case 'registro':
         $userController->showRegistro();
         break;
-
     case 'signup':
         $userController->registrarUsuario();
         break;
-
     case 'modifyrol':
-        if (isset($params[1])) {
-            $userController->editarRol($params[1]);
-        }
-
+        $userController->editarRol($params[1]);
+        break;
     case 'panel':
         $userController->showPanel();
         break;
@@ -104,14 +83,14 @@ switch ($params[0]) {
         break;
 
     case 'borrarcarrera':
-        if (isset($params[1]))
-            $carreraController->deleteDegreeProgram($params[1]);
+
+        $carreraController->deleteDegreeProgram($params[1]);
 
         break;
 
     case 'editarcarrera':
-        if (isset($params[1]))
-            $carreraController->editDegreeProgram($params[1]);
+
+        $carreraController->editDegreeProgram($params[1]);
 
         break;
         //   ------------------------------EDITAR BORRAR MATERIA------------------------------------------------
@@ -120,24 +99,17 @@ switch ($params[0]) {
         break;
 
     case 'borrarmateria':
-        if (isset($params[1]))
-            $materiaController->deleteSubject($params[1]);
-        else
-            $materiaController->redirectHome();
-        break;
 
+        $materiaController->deleteSubject($params[1]);
+
+        break;
     case 'editarmateria':
-        if (isset($params[1]))
-            $materiaController->editSubject($params[1]);
-        else
-            $materiaController->redirectHome();
-        break;
 
-    case 'filtroavanzado':
-        $materiaController->filtroAvanzado();
+        $materiaController->editSubject($params[1]);
+
         break;
-    // case 'paginado':
-    //     $materiaController->paginaMaterias($params[1]);
+    // case 'filtroavanzado':
+    //     $materiaController->filtroAvanzado();
     //     break;
 
         //   ------------------------------AGREGAR CARRERA MATERIA------------------------------------------------

@@ -48,13 +48,12 @@ class CarreraController
     {
 
         $isAdmin = $this->helper->checkLoggedIn();
-        // if (isset($_POST['nombre'], $_POST['duracion'])) {
+
         if (!empty($_POST['nombre']) && !empty($_POST['duracion'])) {
             $this->model->addDegreeProgram($_POST['nombre'], $_POST['duracion']);
             $this->view->showLocationToAddFormDegreeProgram();
         } else {
             $this->view->formAddDegreeProgram("faltan completar campos", $isAdmin);
-            // }
         }
     }
     //MOSTRAR TABLA EDITAR Y BORRAR CARRERA
@@ -62,7 +61,7 @@ class CarreraController
     {
         $isAdmin = $this->helper->checkLoggedIn();
         $tablaCarreras = $this->model->getTableDegreeProgram();
-        $this->view->renderTableDegreePrograms($isAdmin,$tablaCarreras, $aviso);
+        $this->view->renderTableDegreePrograms($isAdmin, $tablaCarreras, $aviso);
     }
     //borrar carrera
     public function deleteDegreeProgram($id_carrera)

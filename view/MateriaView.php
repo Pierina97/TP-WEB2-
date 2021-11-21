@@ -56,7 +56,8 @@ class MateriaView
     //   ----------------------------location materia----------------------------------------    
     public function renderTableOfLocationSubjects()
     {
-        header("Location: " . BASE_URL . "tablamaterias");
+     
+        header("Location: " . BASE_URL . "tablamaterias?nroPagina=1");
     }
 
     public function showHome()
