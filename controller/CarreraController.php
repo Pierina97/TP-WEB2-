@@ -40,8 +40,13 @@ class CarreraController
     //VISTA FORMULARIO AGREGAR CARRERA
     public function formDegreeProgram()
     {
+      
         $isAdmin = $this->helper->checkLoggedIn();
+        if ($isAdmin == true) {
         $this->view->FormAddDegreeProgram("", $isAdmin);
+        } else {
+            $this->view_user->renderLogin();
+        }
     }
     //AGREGAR CARRERA
     public function addDegreeProgram()

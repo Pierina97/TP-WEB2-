@@ -60,7 +60,6 @@ switch ($params[0]) {
         $userController->borrarUsuario($params[1]);
         break;
 
-
         //   ------------------------------VISTA AGREGAR MATERIA CARRERA------------------------------------------------
 
     case 'agregarcarrera':
@@ -73,7 +72,6 @@ switch ($params[0]) {
     case 'agregar-carrera':
         $carreraController->addDegreeProgram();
         break;
-
     case 'agregar-materia':
         $materiaController->addSubject();
         break;
@@ -81,39 +79,25 @@ switch ($params[0]) {
     case 'tablacarreras':
         $carreraController->showTableOfDegreePrograms();
         break;
-
     case 'borrarcarrera':
-
         $carreraController->deleteDegreeProgram($params[1]);
-
         break;
-
     case 'editarcarrera':
-
         $carreraController->editDegreeProgram($params[1]);
-
         break;
         //   ------------------------------EDITAR BORRAR MATERIA------------------------------------------------
     case 'tablamaterias':
         $materiaController->showTableOfSubjects();
         break;
-
     case 'borrarmateria':
-
         $materiaController->deleteSubject($params[1]);
-
         break;
     case 'editarmateria':
 
         $materiaController->editSubject($params[1]);
-
         break;
-    // case 'filtroavanzado':
-    //     $materiaController->filtroAvanzado();
-    //     break;
 
         //   ------------------------------AGREGAR CARRERA MATERIA------------------------------------------------
-
     case 'agregarcarrera':
         $carreraController->formDegreeProgram();
         break;

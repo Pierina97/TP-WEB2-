@@ -14,7 +14,7 @@ class CarreraModel
         $this->db = null;
     }
 
-    
+
     //PARA LA VISTA PRINCIPAL, Y PARA EL SELECT
     function getDegreeProgram()
     {
@@ -31,14 +31,14 @@ class CarreraModel
         $tablaCarreras = $sentencia->fetchAll(PDO::FETCH_OBJ);
         return  $tablaCarreras;
     }
-  
 
 
-    public function filterDegreeProgram($id_carrera, $nombre_carrera)
+
+    public function filterDegreeProgram($id_carrera)
     {
         $sentencia = $this->db->prepare("SELECT materia.nombre, carrera.id_carrera, materia.id_materia FROM carrera INNER JOIN materia
-                                            ON carrera.id_carrera = materia.id_carrera WHERE carrera.id_carrera = ? AND carrera.nombre = ?");
-        $sentencia->execute(array($id_carrera, $nombre_carrera));
+                                            ON carrera.id_carrera = materia.id_carrera WHERE carrera.id_carrera = ?");
+        $sentencia->execute(array($id_carrera));
 
         return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }

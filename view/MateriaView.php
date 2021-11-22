@@ -24,7 +24,11 @@ class MateriaView
         $this->smarty->display("templates/detalle.tpl");
     }
 
-
+    public function renderDegreeProgram($materias, $nombre = ""){
+        $this->smarty->assign('materias', $materias);
+        $this->smarty->assign('nombre_carrera', $nombre);
+        $this->smarty->display('templates/materias.tpl');
+    }
 
     //   --------------------------FORMULARIO---------------------------------------
     //   -------------------VISTAS AGREGAR-----------------------------------

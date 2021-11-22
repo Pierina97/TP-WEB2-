@@ -34,11 +34,13 @@ class MateriaController
                 //  $user= $this->user_model->getUsers();
                 $id_usuario = $this->helper->userId();
                 $this->view->renderSubject($materia, $id_usuario);
-            } else
+            } else {
                 $this->redirectHome();
-        else
-            $this->redirectHome();
+            }
     }
+
+
+
 
     //MOSTRAR MATERIAS
     public function showSubjects()
@@ -52,66 +54,71 @@ class MateriaController
     {
 
         $isAdmin = $this->helper->checkLoggedIn();
-        $carreras = $this->carrera_model->getDegreeProgram();
-        $this->view->renderFormSubject($carreras, $isAdmin, $aviso);
+        if ($isAdmin == true) {
+            $carreras = $this->carrera_model->getDegreeProgram();
+            $this->view->renderFormSubject($carreras, $isAdmin, $aviso);
+        } else {
+            $this->view_user->renderLogin();
+        }
     }
     //INSERTAR MATERIA
     public function addSubject()
     {
-        if (!$this->searchForMatches()) {
-            if (
-                isset($_POST['nombre']) && isset($_POST['profesor']) &&
-                isset($_POST['id_carrera'])
-            ) {
+        if (
+            isset($_POST['nombre']) && isset($_POST['profesor']) &&
+            isset($_POST['id_carrera'])
+        ) {
 
-                if (
-                    $_FILES['image']['type'] == "image/jpg" ||
-                    $_FILES['image']['type'] == "image/jpeg" ||
-                    $_FILES['image']['type'] == "image/png"
-                ) {
-                    $this->model->addSubject($_POST['nombre'], $_POST['profesor'], $_FILES['image'],
-                                                                              $_POST['id_carrera']);
-                    $this->view->showLocationToAddFormSubjects();
-                }
+            if (
+                $_FILES['image']['type'] == "image/jpg" ||
+                $_FILES['image']['type'] == "image/jpeg" ||
+                $_FILES['image']['type'] == "image/png"
+            ) {
+                $this->model->addSubject(
+                    $_POST['nombre'],
+                    $_POST['profesor'],
+                    $_FILES['image'],
+                    $_POST['id_carrera']
+                );
+                $this->view->showLocationToAddFormSubjects();
             }
         }
     }
+
 
 
     //   BORRAR MATERIA
     public function deleteSubject($id)
     {
         $isAdmin = $this->helper->checkLoggedIn();
-            if ($isAdmin == true) {
-                if (isset($id)) {
+        if ($isAdmin == true) {
+            if (isset($id)) {
                 $this->model->deleteSubject($id);
                 $this->showTableOfSubjects();
-            }else{
+            } else {
                 $this->redirectHome();
             }
+        } else {
+            $this->view_user->renderLogin();
         }
     }
     //EDITAR MATERIA
     public function editSubject($id_materia)
     {
         $isAdmin = $this->helper->checkLoggedIn();
-            if ($isAdmin == true) {
-                if (isset($id)) {
+        if ($isAdmin == true) {
+            if (isset($id)) {
                 $this->model->editSubject($_POST['nombre'], $_POST['profesor'], $id_materia);
                 $this->showTableOfSubjects();
-            }else{
+            } else {
                 $this->redirectHome();
             }
+        } else {
+            $this->view_user->renderLogin();
         }
     }
 
 
-    //buscamos si hay coincidencias (ya una materia con ese nombre y ese ID)
-    private function searchForMatches()
-    {
-        $carrera = $this->model->searchForMatches($_POST['id_carrera'], $_POST['nombre']);
-        return !empty($carrera);
-    }
 
     //   ------------------------------EDITAR BORRAR MATERIAS----------------------------------------------
 
@@ -123,7 +130,7 @@ class MateriaController
         if (isset($_GET['materia-filtro']) || isset($_GET['profesor-filtro']) || isset($_GET['carrera-filtro'])) {
             $this->filtroAvanzado($isAdmin);
         }
-     
+
 
         if (!isset($_GET['nroPagina'])) {
             $nroPagina = 1;

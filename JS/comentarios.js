@@ -106,7 +106,7 @@ async function añadirComentario() {
             console.log("http 200");
             console.log(objeto);
             cargaComentarios(url);
-            //  mostrarTabla(objeto);
+           
         } else if (response.status == 201) {
             console.log("http 201");
         } else {
