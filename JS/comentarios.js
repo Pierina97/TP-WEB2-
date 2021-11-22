@@ -183,9 +183,6 @@ function ordenarPorPuntaje() {
     cargaComentarios(url);
 }
 
-// Como usuario quiero poder realizar búsquedas avanzadas de los ítems.
-// Se debe incluir un formulario de búsquedas avanzadas 
-// donde se filtren los ítems dependiendo de los atributos internos. 
-// Esta búsqueda se debe resolver del lado del servidor.
+
 
 

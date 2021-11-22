@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2021 a las 19:51:23
+-- Tiempo de generación: 22-11-2021 a las 19:04:35
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -79,11 +79,13 @@ INSERT INTO `comentario` (`id_comentario`, `comentario`, `puntaje`, `id_materia`
 (160, 'prueba1', 2, 8, 1, '2021-11-16 10:04:49'),
 (161, 'prueba1', 3, 1, 1, '2021-11-16 16:22:09'),
 (164, 'prueba2', 3, 1, 1, '2021-11-16 19:01:39'),
-(165, 'genial', 3, 1, 1, '2021-11-17 12:09:20'),
 (166, 'test3', 2, 1, 1, '2021-11-18 20:44:34'),
 (167, 'test4', 5, 1, 1, '2021-11-18 20:45:30'),
 (168, 'test5', 1, 1, 1, '2021-11-18 21:00:52'),
-(169, 'test6', 3, 1, 1, '2021-11-19 13:33:49');
+(169, 'test6', 3, 1, 1, '2021-11-19 13:33:49'),
+(170, 'excelente', 5, 1, 1, '2021-11-21 15:13:06'),
+(172, 'test7', 4, 1, 3, '2021-11-22 15:08:05'),
+(173, 'fewfew', 1, 1, 3, '2021-11-22 15:31:06');
 
 -- --------------------------------------------------------
 
@@ -95,7 +97,7 @@ CREATE TABLE `materia` (
   `id_materia` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `profesor` varchar(45) NOT NULL,
-  `imagen` varchar(200) NOT NULL,
+  `imagen` varchar(200)  NULL,
   `id_carrera` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -118,7 +120,7 @@ INSERT INTO `materia` (`id_materia`, `nombre`, `profesor`, `imagen`, `id_carrera
 (15, 'Web2', 'Javier Romero', '', 4),
 (16, 'Comunicacion de Datos', 'El pimpollo feroz', '', 2),
 (17, 'Programacion 3', 'Laura Felice', '', 4),
-(18, 'Pickoff', 'Necro phos', '', 7),
+(18, 'Pickof', 'Necro phos', '', 7),
 (19, 'Maps awareness', 'BSJ', '', 7),
 (20, 'Itemization', 'D bowie', '', 7),
 (21, 'Ingenieria de Software', 'Quirque', '', 1),
@@ -127,7 +129,9 @@ INSERT INTO `materia` (`id_materia`, `nombre`, `profesor`, `imagen`, `id_carrera
 (24, 'Ergonomia', 'Ricardo Schelotto', '', 12),
 (25, 'Accesibilidad WEB', 'Anastasio Iñaki', '', 12),
 (26, 'Tecnologia educativa', 'Guillermo Conti', '', 6),
-(27, 'Matematica discreta', 'Emilio Alfaro', '', 6);
+(27, 'Matematica discreta', 'Emilio Alfaro', '', 6),
+(102, 'pierina', 'zzzasassa', 'img/materia.619a6738e0626.jpg', 2),
+(105, 'sdsda', 'dasdad', 'dasdas.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -197,13 +201,13 @@ ALTER TABLE `carrera`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

@@ -46,26 +46,24 @@ class MateriaModel
         }
     }
     //-----------------------INSERTAR materia ------------------------------------------------     
-    //   //Insertar una imagen.
-    //   public function insertarImagen($imagen, $id_noticia)
-    //   {
-    //       $sentencia = $this->db->prepare("INSERT INTO imagen (imagen,id_noticia) VALUES (?, ?)");
-    //       $sentencia->execute([$imagen, $id_noticia]);
-    //   }
-    function  addSubject($nombre, $profesor, $imagen = null, $id_carrera)
+
+    function  addSubject($nombre, $profesor, $imagen=null, $id_carrera)
     {
+
         $pathImg = null;
         if ($imagen)
             $pathImg = $this->uploadImage($imagen);
         $sentencia = $this->db->prepare("INSERT INTO materia(nombre,profesor,imagen,id_carrera) VALUES(?,?,?,?)");
         $sentencia->execute(array($nombre, $profesor, $pathImg, $id_carrera));
     }
+
     private function uploadImage($image)
     {
         $target = "img/materia." . uniqid() . "." . strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
         move_uploaded_file($image['tmp_name'], $target);
         return $target;
     }
+
     function getTableOfSubjects()
     {
         $sentencia = $this->db->prepare('SELECT materia.id_materia, materia.nombre, materia.profesor, carrera.nombre as nombre_carrera

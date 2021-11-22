@@ -33,7 +33,8 @@ class MateriaController
                 $materia = $this->model->getSubjectById($id_materia);
                 //  $user= $this->user_model->getUsers();
                 $id_usuario = $this->helper->userId();
-                $this->view->renderSubject($materia, $id_usuario);
+                $isLoggin = $this->helper->isLoggin();
+                $this->view->renderSubject($materia, $id_usuario, $isLoggin);
             } else {
                 $this->redirectHome();
             }
@@ -70,9 +71,8 @@ class MateriaController
         ) {
 
             if (
-                $_FILES['image']['type'] == "image/jpg" ||
-                $_FILES['image']['type'] == "image/jpeg" ||
-                $_FILES['image']['type'] == "image/png"
+                isset($_FILES['image'])  && $_FILES['image']['type'] == "image/jpg" ||
+                $_FILES['image']['type'] == "image/jpeg" ||  $_FILES['image']['type'] == "image/png"
             ) {
                 $this->model->addSubject(
                     $_POST['nombre'],
@@ -80,10 +80,18 @@ class MateriaController
                     $_FILES['image'],
                     $_POST['id_carrera']
                 );
-                $this->view->showLocationToAddFormSubjects();
+            } else {
+                $this->model->addSubject(
+                    $_POST['nombre'],
+                    $_POST['profesor'],
+                    null,
+                    $_POST['id_carrera']
+                );
             }
+            $this->view->showLocationToAddFormSubjects();
         }
     }
+
 
 
 
@@ -137,16 +145,20 @@ class MateriaController
         } else {
             $nroPagina = $_GET['nroPagina'];
         }
-        $offset = ($nroPagina - 1) * 5;
-        //si no te mandaron materias se tienen que obtener materias
-        if (empty($tablasMaterias)) {
-            $tablasMaterias = $this->model->paginarMaterias($offset);
+        if (ctype_digit($nroPagina)) {
+            $offset = ($nroPagina - 1) * 5;
+            //si no te mandaron materias se tienen que obtener materias
+            if (empty($tablasMaterias)) {
+                $tablasMaterias = $this->model->paginarMaterias($offset);
+            }
+            $cantidadTotalDeMaterias = $this->model->obtenerCantidadDeMaterias();
+            //esto me permie que si tengo 11 materias la q sigue me la muestre 
+            //en un registro y luego el boton desaparece
+            $nroPagMax = ceil($cantidadTotalDeMaterias / 5);
+            $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $nroPagina, $nroPagMax);
+        } else {
+            $this->view->showHome();
         }
-        $cantidadTotalDeMaterias = $this->model->obtenerCantidadDeMaterias();
-        //esto me permie que si tengo 11 materias la q sigue me la muestre 
-        //en un registro y luego el boton desaparece
-        $nroPagMax = ceil($cantidadTotalDeMaterias / 5);
-        $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $nroPagina, $nroPagMax);
     }
 
     //filtro avanzado

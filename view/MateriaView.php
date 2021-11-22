@@ -15,10 +15,10 @@ class MateriaView
     }
 
 
-    public function renderSubject($materia, $id_usuario)
+    public function renderSubject($materia, $id_usuario,$isLoggin)
     {
 
-
+        $this->smarty->assign('isLoggin', $isLoggin);
         $this->smarty->assign('id_usuario', $id_usuario);
         $this->smarty->assign('materia', $materia);
         $this->smarty->display("templates/detalle.tpl");

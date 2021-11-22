@@ -6,16 +6,17 @@ class CarreraView {
 
     private $smarty;
  
-
     public function __construct() {
-        $this->smarty = new Smarty();
-        $this->helper = new AuthHelper();
+        $this->smarty = new Smarty();   
         $this->smarty->assign('mostrarTodo', true);
         $this->smarty->assign('nombre_carrera', "");
       
     }
 
-    public function showHome($carreras=""){
+    public function showHome($carreras="",$isAdmin="",$isLoggin=""){
+
+        $this->smarty->assign('isLoggin', $isLoggin);
+        $this->smarty->assign('isAdmin', $isAdmin);
         $this->smarty->assign('carreras', $carreras);
         $this->smarty->display('templates/carreras.tpl');
     }

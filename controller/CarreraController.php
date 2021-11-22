@@ -23,8 +23,10 @@ class CarreraController
 
     public function showHome()
     {
+        $isAdmin = $this->helper->checkIsAdmin();
+        $isLoggin=$this->helper->isLoggin();
         $carreras = $this->model->getDegreeProgram();
-        $this->view->showHome($carreras);
+        $this->view->showHome($carreras,$isAdmin,$isLoggin);
     }
 
 
