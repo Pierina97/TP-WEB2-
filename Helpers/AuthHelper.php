@@ -8,7 +8,7 @@ class AuthHelper
     }
 
 
-    function checkLoggedIn()
+   public function checkLoggedIn()
     {
 
         if (!isset($_SESSION['email'])) {
@@ -19,7 +19,8 @@ class AuthHelper
             return $isAdmin;
         }
     }
-    function checkIsAdmin()
+
+     public function checkIsAdmin()
     {
 
         if (isset($_SESSION['rol']) && ($_SESSION['rol']) == "admin") {
@@ -53,5 +54,17 @@ class AuthHelper
     {
         return  isset($_SESSION['email']);
     }
+
+    public function checkUserPanel()
+    {
+
+        if (isset($_SESSION['email'])  && $_SESSION['rol']=='admin') {
+            return true;      
+        } else {
+            header("Location: " . BASE_URL . "login");
+            die();
+        }
+    }
+    
 }
 session_abort();

@@ -30,7 +30,7 @@ class UserController
 
     public function showPanel($aviso = "")
     {
-        $isAdmin = $this->helper->checkLoggedIn();
+        $isAdmin = $this->helper->checkUserPanel();
         $users = $this->model->getUsers();
         $this->view->renderPanel($isAdmin, $aviso, $users);
     }
@@ -84,8 +84,8 @@ class UserController
             if ($checkExist) {
                 $this->view->renderRegistro("El email que quiere ingresar ya esta registrado");
             } else {
-                $this->model->insertUser($_POST['email'], $hashedPasswd, $_POST['nombre']);
-                $this->view->renderLogin('Ingresate para terminar el registro');
+                $this->model->insertUser($_POST['email'],$hashedPasswd,$_POST['nombre']);
+                $this->verifyLogin();
             }
         } else {
             $this->view->renderRegistro("Faltan completar campos");
