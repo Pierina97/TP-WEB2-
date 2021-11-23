@@ -95,7 +95,8 @@ class MateriaModel
         $sentencia->execute(array($id_carrera));
         return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
-    public function filtroModel($nombre, $profesor, $carrera)
+
+    public function filtroAvanzado($nombre, $profesor, $carrera)
     {
         $sentencia = $this->db->prepare(" SELECT materia.id_materia, materia.nombre, materia.profesor, carrera.nombre as nombre_carrera
         FROM materia INNER JOIN carrera ON carrera.id_carrera=materia.id_carrera WHERE materia.nombre LIKE ? AND materia.profesor LIKE ? AND carrera.nombre LIKE ?  ");

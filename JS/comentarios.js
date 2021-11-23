@@ -121,9 +121,10 @@ function crearComentario() {
 
     let formData = new FormData(form_comentarios);
     let fecha = form_comentarios.getAttribute('data-idfecha');
+    let id_usuario = form_comentarios.getAttribute('data-idUsuario');
     let comentario = formData.get('comentario');
     let puntaje = document.querySelector("#puntaje").value;
-    let id_usuario = form_comentarios.getAttribute('data-idUsuario');
+
     let id_materia = form_comentarios.getAttribute('data-idMateria');
 
 

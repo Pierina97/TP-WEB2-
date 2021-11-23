@@ -56,7 +56,7 @@
 
     </div>
 </div>
-<form action="tablamaterias/nroPagina={$nroPagina}" method="GET" id="formulario-filtro" class="form-alta">
+<form action="tablamaterias?nroPagina={$nroPagina}" method="GET" id="formulario-filtro" class="form-alta">
     <div class="form-group">
         <label>Materia</label>
         <input type="text" name="materia-filtro">

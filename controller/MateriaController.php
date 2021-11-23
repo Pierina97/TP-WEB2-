@@ -24,7 +24,6 @@ class MateriaController
         $this->helper = new AuthHelper();
     }
 
-
     //filtrar materias
     public function filterSubject($id_materia, $nombre)
     {
@@ -33,15 +32,13 @@ class MateriaController
                 $materia = $this->model->getSubjectById($id_materia);
                 //  $user= $this->user_model->getUsers();
                 $id_usuario = $this->helper->userId();
+                $isAdmin = $this->helper->checkLoggedIn();
                 $isLoggin = $this->helper->isLoggin();
-                $this->view->renderSubject($materia, $id_usuario, $isLoggin);
+                $this->view->renderSubject($materia, $id_usuario, $isLoggin, $isAdmin);
             } else {
                 $this->redirectHome();
             }
     }
-
-
-
 
     //MOSTRAR MATERIAS
     public function showSubjects()
@@ -91,11 +88,7 @@ class MateriaController
             $this->view->showLocationToAddFormSubjects();
         }
     }
-
-
-
-
-    //   BORRAR MATERIA
+    //BORRAR MATERIA
     public function deleteSubject($id)
     {
         $isAdmin = $this->helper->checkLoggedIn();
@@ -126,11 +119,7 @@ class MateriaController
         }
     }
 
-
-
     //   ------------------------------EDITAR BORRAR MATERIAS----------------------------------------------
-
-
 
     public function showTableOfSubjects($tablasMaterias = null)
     {
@@ -138,13 +127,12 @@ class MateriaController
         if (isset($_GET['materia-filtro']) || isset($_GET['profesor-filtro']) || isset($_GET['carrera-filtro'])) {
             $this->filtroAvanzado($isAdmin);
         }
-
-
         if (!isset($_GET['nroPagina'])) {
             $nroPagina = 1;
         } else {
             $nroPagina = $_GET['nroPagina'];
         }
+        //controla inyeccion sql 
         if (ctype_digit($nroPagina)) {
             $offset = ($nroPagina - 1) * 5;
             //si no te mandaron materias se tienen que obtener materias
@@ -152,12 +140,10 @@ class MateriaController
                 $tablasMaterias = $this->model->paginarMaterias($offset);
             }
             $cantidadTotalDeMaterias = $this->model->obtenerCantidadDeMaterias();
-            //esto me permie que si tengo 11 materias la q sigue me la muestre 
+            //esto me permite que si tengo 11 materias la q sigue me la muestre 
             //en un registro y luego el boton desaparece
             $nroPagMax = ceil($cantidadTotalDeMaterias / 5);
             $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $nroPagina, $nroPagMax);
-        } else {
-            $this->view->showHome();
         }
     }
 
@@ -165,11 +151,10 @@ class MateriaController
     public function filtroAvanzado($isAdmin)
     {
         if (isset($_GET['materia-filtro']) || isset($_GET['profesor-filtro']) || isset($_GET['carrera-filtro'])) {
-            $tablasMaterias = $this->model->filtroModel($_GET['materia-filtro'], $_GET['profesor-filtro'], $_GET['carrera-filtro']);
+            $tablasMaterias = $this->model->filtroAvanzado($_GET['materia-filtro'], $_GET['profesor-filtro'], $_GET['carrera-filtro']);
             $this->view->renderTableSubjects($tablasMaterias, $isAdmin);
         }
     }
-
 
     public function redirectHome()
     {
