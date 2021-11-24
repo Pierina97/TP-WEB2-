@@ -26,6 +26,12 @@ class ComentarioModel
         $sentencia->execute(array($id_comentario));
         return $sentencia->rowCount();
     }
+    function deleteCommentByMateria($id_materia)
+    {
+        $sentencia = $this->db->prepare("DELETE FROM comentario  WHERE id_materia=? ");
+        $sentencia->execute(array($id_materia));
+        return $sentencia->rowCount();
+    }
     function deleteCommentByUser($id_usuario)
     {
         $sentencia = $this->db->prepare("DELETE FROM comentario  WHERE id_usuario=? ");

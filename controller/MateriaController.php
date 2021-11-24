@@ -1,5 +1,6 @@
 <?php
 require_once "model\MateriaModel.php";
+require_once "model\ComentariosModel.php";
 require_once "view\MateriaView.php";
 require_once "helpers/AuthHelper.php";
 require_once "model/CarreraModel.php";
@@ -8,6 +9,7 @@ require_once "view\UserView.php";
 class MateriaController
 {
     private $model;
+    private $model_comentarios;
     private $view;
     private $view_user;
     private $helper;
@@ -19,6 +21,7 @@ class MateriaController
         $this->model = new MateriaModel();
         $this->user_model = new UserModel();
         $this->carrera_model = new CarreraModel();
+        $this->model_comentarios= new ComentarioModel();
         $this->view = new MateriaView();
         $this->view_user = new UserView();
         $this->helper = new AuthHelper();
@@ -89,6 +92,8 @@ class MateriaController
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
             if (isset($id)) {
+               
+                $this->model_comentarios->deleteCommentByMateria($id);
                 $this->model->deleteSubject($id);
                 $this->view->renderTableOfLocationSubjects();
             } else {
