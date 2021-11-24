@@ -15,7 +15,6 @@
         </ul>
     </div>
 </div>
-
 <table>
     <thead>
         <tr>

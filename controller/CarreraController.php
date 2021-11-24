@@ -24,9 +24,9 @@ class CarreraController
     public function showHome()
     {
         $isAdmin = $this->helper->checkIsAdmin();
-        $isLoggin=$this->helper->isLoggin();
+        $isLoggin = $this->helper->isLoggin();
         $carreras = $this->model->getDegreeProgram();
-        $this->view->showHome($carreras,$isAdmin,$isLoggin);
+        $this->view->showHome($carreras, $isAdmin, $isLoggin);
     }
 
 
@@ -42,10 +42,10 @@ class CarreraController
     //VISTA FORMULARIO AGREGAR CARRERA
     public function formDegreeProgram()
     {
-      
+
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
-        $this->view->FormAddDegreeProgram("", $isAdmin);
+            $this->view->FormAddDegreeProgram("", $isAdmin);
         } else {
             $this->view_user->renderLogin();
         }

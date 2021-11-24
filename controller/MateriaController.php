@@ -32,9 +32,9 @@ class MateriaController
                 $materia = $this->model->getSubjectById($id_materia);
                 //  $user= $this->user_model->getUsers();
                 $id_usuario = $this->helper->userId();
-                $isAdmin = $this->helper->checkLoggedIn();
+        
                 $isLoggin = $this->helper->isLoggin();
-                $this->view->renderSubject($materia, $id_usuario, $isLoggin, $isAdmin);
+                $this->view->renderSubject($materia, $id_usuario, $isLoggin);
             } else {
                 $this->redirectHome();
             }
@@ -92,10 +92,12 @@ class MateriaController
     public function deleteSubject($id)
     {
         $isAdmin = $this->helper->checkLoggedIn();
-        if ($isAdmin == true) {
+        if ($isAdmin == true) {         
             if (isset($id)) {
                 $this->model->deleteSubject($id);
-                $this->showTableOfSubjects();
+                $this->view->renderTableOfLocationSubjects();
+          
+            
             } else {
                 $this->redirectHome();
             }
@@ -106,14 +108,15 @@ class MateriaController
     //EDITAR MATERIA
     public function editSubject($id_materia)
     {
+   
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
-            if (isset($id)) {
+
+             if (isset($id_materia)) {
+           
                 $this->model->editSubject($_POST['nombre'], $_POST['profesor'], $id_materia);
-                $this->showTableOfSubjects();
-            } else {
-                $this->redirectHome();
-            }
+                $this->view->renderTableOfLocationSubjects();
+             }
         } else {
             $this->view_user->renderLogin();
         }
@@ -132,6 +135,7 @@ class MateriaController
         } else {
             $nroPagina = $_GET['nroPagina'];
         }
+     
         //controla inyeccion sql 
         if (ctype_digit($nroPagina)) {
             $offset = ($nroPagina - 1) * 5;

@@ -38,16 +38,16 @@ class MateriaModel
     }
 
     function searchForMatches($id_carrera, $nombre)
-    { {
+    { 
             $sentencia = $this->db->prepare('SELECT nombre, id_carrera FROM materia WHERE id_carrera = ? AND nombre = ?');
             $sentencia->execute(array($id_carrera, $nombre));
             $carreras = $sentencia->fetch(PDO::FETCH_OBJ);
             return  $carreras;
-        }
+        
     }
     //-----------------------INSERTAR materia ------------------------------------------------     
 
-    function  addSubject($nombre, $profesor, $imagen=null, $id_carrera)
+    function  addSubject($nombre, $profesor, $imagen = null, $id_carrera)
     {
 
         $pathImg = null;
@@ -85,7 +85,7 @@ class MateriaModel
     public function editSubject($nombre, $profesor, $id_materia)
     {
 
-        $sentencia = $this->db->prepare("UPDATE `materia` SET `nombre`=?,`profesor`=?WHERE `id_materia`=?");
+        $sentencia = $this->db->prepare("UPDATE `materia` SET `nombre`=?,`profesor`=? WHERE `id_materia`=?");
         $sentencia->execute(array($nombre, $profesor, $id_materia));
     }
     // buscarIdCarreraEnTablaMateria

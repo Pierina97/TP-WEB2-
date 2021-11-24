@@ -57,9 +57,13 @@
     </div>
 </div>
 <form action="tablamaterias?nroPagina={$nroPagina}" method="GET" id="formulario-filtro" class="form-alta">
-    <div class="form-group">
+  
+    <div class="col-md-6 mt-4">
+    <div class="row">
+                 <div class="col-md-6">
         <label>Materia</label>
         <input type="text" name="materia-filtro">
+    </div>
     </div>
     <div class="form-group">
         <label>Profesor</label>
@@ -69,7 +73,6 @@
             <input type="text" name="carrera-filtro">
         </div>
         <button type="submit" class="btn btn-primary">Buscar</button>
-
 </form>
 <a href="tablamaterias?nroPagina={$nroPagina}" class="btn btn-primary">Deshacer filtro</a>
 

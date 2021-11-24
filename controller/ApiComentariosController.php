@@ -31,7 +31,8 @@ class ApiComentarioController extends ApiController
     {
         $this->helper->checkLoggedIn();   
         $body = $this->getData();
-        $fecha = date("Y-m-d H:i:s");
+        // if(isset(($body->comentario, $body->puntaje, $body->id_materia, $body->id_usuario,$fecha))check
+        $fecha = date("Y-m-d H:i:s"); 
 
         $id = $this->model->addComments($body->comentario, $body->puntaje, $body->id_materia, $body->id_usuario,$fecha);
         if ($id != 0) {
@@ -39,6 +40,7 @@ class ApiComentarioController extends ApiController
         } else {
             $this->view->response("El comentario no se pudo enviar", 500);
         }   
+        
     }
 
 

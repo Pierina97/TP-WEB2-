@@ -15,16 +15,17 @@ class MateriaView
     }
 
 
-    public function renderSubject($materia, $id_usuario,$isLoggin,$isAdmin)
+    public function renderSubject($materia, $id_usuario, $isLoggin)
     {
-        $this->smarty->assign('isAdmin', $isAdmin);
+
         $this->smarty->assign('isLoggin', $isLoggin);
         $this->smarty->assign('id_usuario', $id_usuario);
         $this->smarty->assign('materia', $materia);
         $this->smarty->display("templates/detalle.tpl");
     }
 
-    public function renderDegreeProgram($materias, $nombre = ""){
+    public function renderDegreeProgram($materias, $nombre = "")
+    {
         $this->smarty->assign('materias', $materias);
         $this->smarty->assign('nombre_carrera', $nombre);
         $this->smarty->display('templates/materias.tpl');
@@ -48,7 +49,7 @@ class MateriaView
     }
 
     //   -----------------------------VISTA TABLAS MATERIA----------------------------------------
-    public function renderTableSubjects($tablaMaterias="",$isAdmin,$nroPagina=1,$nroPagMax="")
+    public function renderTableSubjects($tablaMaterias = "", $isAdmin, $nroPagina = 1, $nroPagMax = "")
     {
         $this->smarty->assign('nroPagMax', $nroPagMax);
         $this->smarty->assign('nroPagina', $nroPagina);
@@ -60,7 +61,7 @@ class MateriaView
     //   ----------------------------location materia----------------------------------------    
     public function renderTableOfLocationSubjects()
     {
-     
+
         header("Location: " . BASE_URL . "tablamaterias?nroPagina=1");
     }
 
