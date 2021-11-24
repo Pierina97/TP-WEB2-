@@ -17,7 +17,6 @@ class ApiComentarioController extends ApiController
     public function viewCommentsBySubjects($params = [])
     {
         $id_materia = $params[":ID"];
-
         $comentario = $this->model->mostrarComentarios($id_materia);
 
         if ($comentario) {
@@ -29,27 +28,30 @@ class ApiComentarioController extends ApiController
 
     public function  addComments()
     {
-        $this->helper->checkLoggedIn();   
+        $this->helper->checkLoggedIn();
         $body = $this->getData();
-        //  if(isset(($body->comentario, $body->puntaje, $body->id_materia, $body->id_usuario,$fecha))
-        $fecha = date("Y-m-d H:i:s"); 
+        $fecha = date("Y-m-d H:i:s");
+        // if (
+        //     isset($body->comentario) && isset($body->puntaje) &&
+        //     isset($body->id_materia) && isset($body->id_usuario)  && isset($fecha)
+        // ) {
 
-        $id = $this->model->addComments($body->comentario, $body->puntaje, $body->id_materia, $body->id_usuario,$fecha);
-        if ($id != 0) {
-            $this->view->response("El comentario  se insertó correctamente", 200);
-        } else {
-            $this->view->response("El comentario no se pudo enviar", 500);
-        }   
-        
+            $id = $this->model->addComments($body->comentario, $body->puntaje, $body->id_materia, $body->id_usuario, $fecha);
+            if ($id != 0) {
+                $this->view->response("El comentario  se insertó correctamente", 200);
+            } else {
+                $this->view->response("El comentario no se pudo enviar", 500);
+            }
+       // }
     }
-
 
     function deleteComment($params = null)
     {
+
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
             $id_comentario = $params[":ID"];
-                 
+
             //primero hay que ver si esta
             $comentario = $this->model->getComment($id_comentario);
 
@@ -60,6 +62,7 @@ class ApiComentarioController extends ApiController
                 $this->view->response("La comentario con el id=  $id_comentario no existe", 404);
             }
         }
+
     }
 
     // Como usuario quiero poder ordenar los comentarios por antigüedad o puntaje,
@@ -70,7 +73,7 @@ class ApiComentarioController extends ApiController
     public function  sortCommentsByAge($params = [])
     {
         // $this->helper->checkLoggedIn();
-        $id_materia = $params[":ID"];     
+        $id_materia = $params[":ID"];
         $comentarios = $this->model->sortCommentsByAge($id_materia);
         if ($comentarios) {
             $this->view->response($comentarios, 200);
@@ -83,9 +86,9 @@ class ApiComentarioController extends ApiController
     //filtrar comentarios por puntaje
     public function filterCommentsByScore($params = null)
     {
-        $id_materia = $params[":ID"];  
+        $id_materia = $params[":ID"];
         $puntaje = $params[":puntaje"];
-        $comentarios = $this->model->filterCommentsByScore($puntaje,$id_materia);
+        $comentarios = $this->model->filterCommentsByScore($puntaje, $id_materia);
 
         if ($comentarios) {
             $this->view->response($comentarios, 200);
@@ -96,9 +99,9 @@ class ApiComentarioController extends ApiController
 
     public function filtroAvanzado($params = null)
     {
-        $id_materia = $params[":ID"];  
+        $id_materia = $params[":ID"];
         $puntaje = $params[":puntaje"];
-        $comentarios = $this->model->filterCommentsByScore($puntaje,$id_materia);
+        $comentarios = $this->model->filterCommentsByScore($puntaje, $id_materia);
 
         if ($comentarios) {
             $this->view->response($comentarios, 200);
@@ -106,6 +109,4 @@ class ApiComentarioController extends ApiController
             $this->view->response("No hay comentarios con puntaje $puntaje", 404);
         }
     }
-
-   
 }

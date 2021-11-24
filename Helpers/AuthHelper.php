@@ -6,9 +6,7 @@ class AuthHelper
     public function __construct()
     {
     }
-
-
-   public function checkLoggedIn()
+    public function checkLoggedIn()
     {
 
         if (!isset($_SESSION['email'])) {
@@ -20,7 +18,7 @@ class AuthHelper
         }
     }
 
-     public function checkIsAdmin()
+    public function checkIsAdmin()
     {
 
         if (isset($_SESSION['rol']) && ($_SESSION['rol']) == "admin") {
@@ -31,8 +29,6 @@ class AuthHelper
             return false;
         }
     }
-
-
     function chequearIdAdmin($id_usuario)
     {
         //  el id que yo quiero borrar tiene que ser distinto al id de la sesion actual
@@ -58,13 +54,12 @@ class AuthHelper
     public function checkUserPanel()
     {
 
-        if (isset($_SESSION['email'])  && $_SESSION['rol']=='admin') {
-            return true;      
+        if (isset($_SESSION['email'])  && $_SESSION['rol'] == 'admin') {
+            return true;
         } else {
             header("Location: " . BASE_URL . "login");
             die();
         }
     }
-    
 }
 session_abort();

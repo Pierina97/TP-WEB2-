@@ -22,7 +22,7 @@
             <td>Usuario</td>
             <td>Comentario</td>
             <td>Puntaje</td>
-    
+
 
         </tr>
     </thead>
@@ -31,28 +31,28 @@
 </table>
 
 
-<form id="form-comentarios" data-idMateria="{$materia->id_materia}" data-idUsuario="{$isAdmin}"  data-idUsuario="{$id_usuario}"
-   class="formulario-comentarios">
+<form id="form-comentarios" data-idMateria="{$materia->id_materia}" data-idAdmin="{$isAdmin}"
+    data-idUsuario="{$id_usuario}" class="formulario-comentarios">
 
     <div class="form-group">
-    {if $isLoggin} 
-        <label>Comentar</label>
-        <textarea type="text" name="comentario" id="comentario" value="" placeholder="escriba aqui su comentario"
-            class="form-control" required></textarea>
-    </div>
+        {if $isLoggin}
+            <label>Comentar</label>
+            <textarea type="text" name="comentario" id="comentario" value="" placeholder="escriba aqui su comentario"
+                class="form-control" required></textarea>
+        </div>
 
-    <div class="form-group">
-        <label>Puntaje</label>
-        <select id="puntaje" class="form-control" required>
-            <option value="1">★</option>
-            <option value="2">★★</option>
-            <option value="3">★★★</option>
-            <option value="4">★★★★</option>
-            <option value="5">★★★★★</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label>Puntaje</label>
+            <select id="puntaje" class="form-control" required>
+                <option value="1">★</option>
+                <option value="2">★★</option>
+                <option value="3">★★★</option>
+                <option value="4">★★★★</option>
+                <option value="5">★★★★★</option>
+            </select>
+        </div>
 
-    <button type="submit" id="btn-comentar" class="btn btn-primary">comentar</button>
+        <button type="submit" id="btn-comentar" class="btn btn-primary">comentar</button>
     {/if}
 </form>
 

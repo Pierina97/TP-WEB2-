@@ -13,25 +13,26 @@ const form_comentarios = document.querySelector("#form-comentarios");
 if (form_comentarios) {
     let id_materia = form_comentarios.getAttribute('data-idMateria');
     let url = `${API_URL}/materia/${id_materia}`;
-
+  
     async function cargaComentarios(url) {
 
         try {
-
+     
             let response = await fetch(url);
             if (response.ok) {
 
-                let comentarios = await response.json();
+               let  comentarios = await response.json();
 
                 tbody.innerHTML = "";
                 for (let comentario of comentarios) {
+
                     mostrarTabla(comentario);
                 }
             } else {
-                console.log("Error - Failed URL!");
+                console.log("Error - Failed URL!", response.status);
             }
         } catch (error) {
-            console.log("Connection error");
+            console.log("Connection error", error);
         }
 
     }
@@ -54,7 +55,7 @@ if (form_comentarios) {
 
         let celda_borrar = document.createElement('td');
 
-        let admin = form_comentarios.getAttribute('data-idUsuario');
+        let admin = form_comentarios.getAttribute('data-idAdmin');
 
         let btnBorrar = document.createElement('button');
 
@@ -118,13 +119,13 @@ if (form_comentarios) {
                 "body": JSON.stringify(objeto)
             })
             if (response.ok) {
-                console.log("http 200");           
+                console.log("http 200");
                 cargaComentarios(url);
 
             } else if (response.status == 201) {
-                console.log("http 201");
+                console.log("http 201", response.status);
             } else {
-                console.log("http error");
+                console.log("http error", response.status);
             }
         } catch (error) {
             console.log(error);
@@ -138,9 +139,7 @@ if (form_comentarios) {
         let id_usuario = form_comentarios.getAttribute('data-idUsuario');
         let comentario = formData.get('comentario');
         let puntaje = document.querySelector("#puntaje").value;
-
         let id_materia = form_comentarios.getAttribute('data-idMateria');
-
 
         let comment = {
             "fecha": fecha,
@@ -148,7 +147,6 @@ if (form_comentarios) {
             "puntaje": puntaje,
             "id_materia": id_materia,
             "id_usuario": id_usuario
-
         };
         console.log(comment);
         return comment;
@@ -156,7 +154,7 @@ if (form_comentarios) {
 
     async function borrarComentario() {
         let id_comentario = this.getAttribute("data-id");
-        console.log(id_comentario);
+
         try {
             let response = await fetch(`${API_URL}/${id_comentario}`, {
                 method: "DELETE",
@@ -165,12 +163,14 @@ if (form_comentarios) {
                 }
             });
             if (response.ok) {
+                console.log(response.status);
                 cargaComentarios(url);
             } else {
-                console.log("No se pudo eliminar");
+                console.log("No se pudo eliminar", response.status);
             }
         } catch (error) {
             console.log(error);
+            console.log(response.status);
         }
     }
     //ordenar por antiguedad
@@ -187,14 +187,9 @@ if (form_comentarios) {
     });
 
     function ordenarPorPuntaje() {
-        console.log("click puntaje");
         let puntaje = document.querySelector("#orden_puntaje").value;
-        console.log(puntaje);
-
         let url = `${API_URL}/materia/${id_materia}/puntaje/${puntaje}`;
         cargaComentarios(url);
     }
-
-
 
 }
