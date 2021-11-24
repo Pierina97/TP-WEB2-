@@ -7,7 +7,7 @@
 
 const API_URL = `http://localhost/TRABAJOPRACTICOESPECIALWEB2/api/comentarios`;
 const form_comentarios = document.querySelector("#form-comentarios");
-let comentarios = [];
+
 
 /*GET*/
 if (form_comentarios) {
@@ -21,13 +21,11 @@ if (form_comentarios) {
             let response = await fetch(url);
             if (response.ok) {
 
-                comentarios = await response.json();
-                console.log(comentarios);
-                tbody.innerHTML = " ";
+                let comentarios = await response.json();
+
+                tbody.innerHTML = "";
                 for (let comentario of comentarios) {
-
                     mostrarTabla(comentario);
-
                 }
             } else {
                 console.log("Error - Failed URL!");
@@ -53,14 +51,18 @@ if (form_comentarios) {
         let celda_nombre = document.createElement('td');
         let celda_comentario = document.createElement('td');
         let celda_puntaje = document.createElement('td');
+
         let celda_borrar = document.createElement('td');
+
+        let admin = form_comentarios.getAttribute('data-idUsuario');
 
         let btnBorrar = document.createElement('button');
 
         celda_fecha.innerHTML = comentario.fecha;
         celda_nombre.innerHTML = comentario.nombre;
         celda_comentario.innerHTML = comentario.comentario;
-        celda_puntaje.innerHTML = comentario.puntaje;
+        celda_puntaje.innerHTML = starts(comentario.puntaje);
+
 
         btnBorrar.innerHTML = "Borrar";
 
@@ -77,7 +79,10 @@ if (form_comentarios) {
         filas.classList.add(`fila-${comentario.id_comentario}`);
 
         filas.appendChild(celda_borrar);
-        celda_borrar.appendChild(btnBorrar);
+
+        if (admin == true) {
+            celda_borrar.appendChild(btnBorrar);
+        }
         tbody.appendChild(filas);
 
 
@@ -87,6 +92,15 @@ if (form_comentarios) {
             e.addEventListener("click", borrarComentario);
         });
     }
+
+    function starts(puntaje) {
+        let resultado = "";
+        for (let i = 0; i < puntaje; i++) {
+            resultado += "★";
+        }
+        return resultado;
+
+    }
     /*POST*/
     form_comentarios.addEventListener('submit', e => {
         e.preventDefault();
@@ -95,7 +109,7 @@ if (form_comentarios) {
 
     async function añadirComentario() {
 
-        console.log("click");
+
         let objeto = crearComentario();
         try {
             let response = await fetch(API_URL, {
@@ -104,8 +118,7 @@ if (form_comentarios) {
                 "body": JSON.stringify(objeto)
             })
             if (response.ok) {
-                console.log("http 200");
-                console.log(objeto);
+                console.log("http 200");           
                 cargaComentarios(url);
 
             } else if (response.status == 201) {

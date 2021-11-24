@@ -22,7 +22,7 @@
             <td>Usuario</td>
             <td>Comentario</td>
             <td>Puntaje</td>
-            <td></td>
+    
 
         </tr>
     </thead>
@@ -31,8 +31,8 @@
 </table>
 
 
-<form id="form-comentarios" data-idMateria="{$materia->id_materia}" data-idUsuario="{$id_usuario}"
-    data-idHorario="{$id_usuario}" class="formulario-comentarios">
+<form id="form-comentarios" data-idMateria="{$materia->id_materia}" data-idUsuario="{$isAdmin}"  data-idUsuario="{$id_usuario}"
+   class="formulario-comentarios">
 
     <div class="form-group">
     {if $isLoggin} 

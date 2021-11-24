@@ -15,9 +15,9 @@ class MateriaView
     }
 
 
-    public function renderSubject($materia, $id_usuario, $isLoggin)
+    public function renderSubject($materia, $id_usuario, $isLoggin,$isAdmin)
     {
-
+        $this->smarty->assign('isAdmin', $isAdmin);
         $this->smarty->assign('isLoggin', $isLoggin);
         $this->smarty->assign('id_usuario', $id_usuario);
         $this->smarty->assign('materia', $materia);

@@ -56,23 +56,21 @@
 
     </div>
 </div>
-<form action="tablamaterias?nroPagina={$nroPagina}" method="GET" id="formulario-filtro" class="form-alta">
-  
-    <div class="col-md-6 mt-4">
-    <div class="row">
-                 <div class="col-md-6">
+
+<form action="tablamaterias?nroPagina={$nroPagina}" method="GET" id="formulario-filtro" class=filtro-avanzado>
+    <div class="container-item">
         <label>Materia</label>
         <input type="text" name="materia-filtro">
     </div>
-    </div>
-    <div class="form-group">
+    <div class="container-item">
         <label>Profesor</label>
         <input type="text" name="profesor-filtro">
-        <div class="form-group">
-            <label>Carrera</label>
-            <input type="text" name="carrera-filtro">
-        </div>
-        <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+    <div class="container-item">
+        <label>Carrera</label>
+        <input type="text" name="carrera-filtro">
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
 </form>
 <a href="tablamaterias?nroPagina={$nroPagina}" class="btn btn-primary">Deshacer filtro</a>
 

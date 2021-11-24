@@ -32,9 +32,9 @@ class MateriaController
                 $materia = $this->model->getSubjectById($id_materia);
                 //  $user= $this->user_model->getUsers();
                 $id_usuario = $this->helper->userId();
-        
+                $isAdmin = $this->helper->checkIsAdmin();
                 $isLoggin = $this->helper->isLoggin();
-                $this->view->renderSubject($materia, $id_usuario, $isLoggin);
+                $this->view->renderSubject($materia, $id_usuario, $isLoggin,$isAdmin);
             } else {
                 $this->redirectHome();
             }
