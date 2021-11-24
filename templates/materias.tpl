@@ -18,6 +18,6 @@
     </ul>
     </div>
 </div>
-{* <script type="text/javascript" src="js/comentarios.js"></script> *}
+
 <a href="carreras" class="volver">VOLVER</a>
 {include file='templates/footer.tpl'}

@@ -13,15 +13,15 @@ const form_comentarios = document.querySelector("#form-comentarios");
 if (form_comentarios) {
     let id_materia = form_comentarios.getAttribute('data-idMateria');
     let url = `${API_URL}/materia/${id_materia}`;
-  
+
     async function cargaComentarios(url) {
 
         try {
-     
+
             let response = await fetch(url);
             if (response.ok) {
 
-               let  comentarios = await response.json();
+                let comentarios = await response.json();
 
                 tbody.innerHTML = "";
                 for (let comentario of comentarios) {
@@ -106,6 +106,7 @@ if (form_comentarios) {
     form_comentarios.addEventListener('submit', e => {
         e.preventDefault();
         añadirComentario();
+        form_comentarios.reset()
     });
 
     async function añadirComentario() {

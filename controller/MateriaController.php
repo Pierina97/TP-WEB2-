@@ -25,27 +25,24 @@ class MateriaController
     }
 
     //filtrar materias
-    public function filterSubject($id_materia, $nombre)
+    public function filterSubject($id_materia,$nombre)
     {
-        if (isset($id_materia, $nombre))
+      
+        if (isset($id_materia) & isset($nombre)) {
             if ($this->model->getSubjectById($id_materia)) {
                 $materia = $this->model->getSubjectById($id_materia);
-                //  $user= $this->user_model->getUsers();
                 $id_usuario = $this->helper->userId();
                 $isAdmin = $this->helper->checkIsAdmin();
                 $isLoggin = $this->helper->isLoggin();
-                $this->view->renderSubject($materia, $id_usuario, $isLoggin,$isAdmin);
+         
+                $this->view->renderSubject($materia, $id_usuario, $isLoggin, $isAdmin);
             } else {
                 $this->redirectHome();
             }
+        }
     }
 
-    //MOSTRAR MATERIAS
-    public function showSubjects()
-    {
-        $materias = $this->model->getSubjects();
-        $this->view->renderSubjects($materias, false);
-    }
+
 
     //MOSTRAR FORMULARIO INSERTAR MATERIA
     public function formSubject($aviso = "")
@@ -92,12 +89,10 @@ class MateriaController
     public function deleteSubject($id)
     {
         $isAdmin = $this->helper->checkLoggedIn();
-        if ($isAdmin == true) {         
+        if ($isAdmin == true) {
             if (isset($id)) {
                 $this->model->deleteSubject($id);
                 $this->view->renderTableOfLocationSubjects();
-          
-            
             } else {
                 $this->redirectHome();
             }
@@ -108,15 +103,15 @@ class MateriaController
     //EDITAR MATERIA
     public function editSubject($id_materia)
     {
-   
+
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
 
-             if (isset($id_materia)) {
-           
+            if (isset($id_materia)) {
+
                 $this->model->editSubject($_POST['nombre'], $_POST['profesor'], $id_materia);
                 $this->view->renderTableOfLocationSubjects();
-             }
+            }
         } else {
             $this->view_user->renderLogin();
         }
@@ -135,7 +130,7 @@ class MateriaController
         } else {
             $nroPagina = $_GET['nroPagina'];
         }
-     
+
         //controla inyeccion sql 
         if (ctype_digit($nroPagina)) {
             $offset = ($nroPagina - 1) * 5;

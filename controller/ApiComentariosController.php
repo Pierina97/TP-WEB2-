@@ -25,16 +25,16 @@ class ApiComentarioController extends ApiController
             $this->view->response("No hay comentarios en esta materia", 404);
         }
     }
-
+    //Agregar un comentario
     public function  addComments()
     {
         $this->helper->checkLoggedIn();
         $body = $this->getData();
         $fecha = date("Y-m-d H:i:s");
-        // if (
-        //     isset($body->comentario) && isset($body->puntaje) &&
-        //     isset($body->id_materia) && isset($body->id_usuario)  && isset($fecha)
-        // ) {
+        if (
+            isset($body->comentario) && isset($body->puntaje) &&
+            isset($body->id_materia) && isset($body->id_usuario)  && isset($fecha)
+        ) {
 
             $id = $this->model->addComments($body->comentario, $body->puntaje, $body->id_materia, $body->id_usuario, $fecha);
             if ($id != 0) {
@@ -42,10 +42,10 @@ class ApiComentarioController extends ApiController
             } else {
                 $this->view->response("El comentario no se pudo enviar", 500);
             }
-       // }
+        }
     }
-
-    function deleteComment($params = null)
+    //Borrar un comentario
+    public function deleteComment($params = null)
     {
 
         $isAdmin = $this->helper->checkLoggedIn();
@@ -62,14 +62,10 @@ class ApiComentarioController extends ApiController
                 $this->view->response("La comentario con el id=  $id_comentario no existe", 404);
             }
         }
-
     }
 
-    // Como usuario quiero poder ordenar los comentarios por antigüedad o puntaje,
-    // ascendente o descendente. (Via API REST)
 
-
-    //ordenar los comentarios por antiguedad 
+    //ordenar los comentarios por antiguedad (fecha)
     public function  sortCommentsByAge($params = [])
     {
         // $this->helper->checkLoggedIn();
@@ -83,21 +79,8 @@ class ApiComentarioController extends ApiController
     }
 
     // Como usuario quiero poder filtrar los comentarios por cantidad de puntos.  (Via API REST)
-    //filtrar comentarios por puntaje
+
     public function filterCommentsByScore($params = null)
-    {
-        $id_materia = $params[":ID"];
-        $puntaje = $params[":puntaje"];
-        $comentarios = $this->model->filterCommentsByScore($puntaje, $id_materia);
-
-        if ($comentarios) {
-            $this->view->response($comentarios, 200);
-        } else {
-            $this->view->response("No hay comentarios con puntaje $puntaje", 404);
-        }
-    }
-
-    public function filtroAvanzado($params = null)
     {
         $id_materia = $params[":ID"];
         $puntaje = $params[":puntaje"];

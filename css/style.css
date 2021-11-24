@@ -60,15 +60,20 @@ table {
 .container-filtros{
     display:flex;
     justify-content: center;
-    width: 90%;
+    font-size: 20px;
     margin:100px;
-    padding: 30px;
+    padding: 50px;
+    padding-left: 30px;
     border: 1px solid  rgb(0,204,204);
 }
 .container-materias{
     display:flex;
     justify-content: center;
     flex-direction:column;
+}
+.text-footer{
+    color:#dee2e6;
+    font-size: 20px;
 }
 .imagen-item{
     height: 200px;
@@ -104,7 +109,7 @@ table {
         justify-content: center;
         border: 2px solid rgb(0,204,204);        
         padding: 40px;
-        margin:20px 50px;
+        margin:20px 120px;
         font-size: 20px;
     }
     .container-item{

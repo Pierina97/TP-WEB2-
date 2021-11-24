@@ -2,7 +2,7 @@
 
 
 
-<a href="materias" class="m-3"><button type="button" class="btn btn-info">Ver materias</button></a>
+{* <a href="materias" class="m-3"><button type="button" class="btn btn-info">Ver materias</button></a> *}
 
 {if $isAdmin==true || $isAdmin==false}
     <a href="tablacarreras" class="m-3"><button type="button" class="btn btn-info">Editar carreras</button></a>

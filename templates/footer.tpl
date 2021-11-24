@@ -1,7 +1,7 @@
 <footer class="page-footer d-flex justify-content-evenly align-items-center">
     <img src="imagenes/LogoExactas.png">
-    <p>Universidad Nacional Del Centro de la Provincia de Buenos Aires</p>
-    - <p>Facultad de Ciencias Exactas </p>
+    <p class="text-footer">Universidad Nacional Del Centro de la Provincia de Buenos Aires</p>
+    <p class="text-footer"> Facultad de Ciencias Exactas </p>
 
 </footer>
 

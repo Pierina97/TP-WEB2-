@@ -22,8 +22,6 @@
             <td>Usuario</td>
             <td>Comentario</td>
             <td>Puntaje</td>
-
-
         </tr>
     </thead>
     <tbody id="tbody">
@@ -71,7 +69,7 @@
     </form>
 
     <div class="filtros">
-        <label>Ordenar por fecha</label>
+        <label>Ordenar Por Antigueda</label>
         <button type="" id="btn-ordenar" class="btn btn-primary">ordenar</button>
     </div>
     <div class="filtros">
@@ -79,7 +77,7 @@
         <button type="" id="deshacer_filtro" class="btn btn-primary">Deshacer</button>
     </div>
 </div>
-
+</div>
 <a href="carrera" class="volver">VOLVER</a>
 
 {include file="templates/footer.tpl"}
