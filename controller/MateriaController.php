@@ -25,24 +25,22 @@ class MateriaController
     }
 
     //filtrar materias
-    public function filterSubject($id_materia,$nombre)
+    public function filterSubject($id_materia, $nombre)
     {
-      
+
         if (isset($id_materia) & isset($nombre)) {
             if ($this->model->getSubjectById($id_materia)) {
                 $materia = $this->model->getSubjectById($id_materia);
                 $id_usuario = $this->helper->userId();
                 $isAdmin = $this->helper->checkIsAdmin();
                 $isLoggin = $this->helper->isLoggin();
-         
+
                 $this->view->renderSubject($materia, $id_usuario, $isLoggin, $isAdmin);
             } else {
                 $this->redirectHome();
             }
         }
     }
-
-
 
     //MOSTRAR FORMULARIO INSERTAR MATERIA
     public function formSubject($aviso = "")

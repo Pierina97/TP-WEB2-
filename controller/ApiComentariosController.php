@@ -11,8 +11,6 @@ class ApiComentarioController extends ApiController
         $this->model = new ComentarioModel();
         $this->helper = new AuthHelper();
     }
-
-
     //ver comentarios por materias
     public function viewCommentsBySubjects($params = [])
     {
@@ -35,13 +33,14 @@ class ApiComentarioController extends ApiController
             isset($body->comentario) && isset($body->puntaje) &&
             isset($body->id_materia) && isset($body->id_usuario)  && isset($fecha)
         ) {
-
             $id = $this->model->addComments($body->comentario, $body->puntaje, $body->id_materia, $body->id_usuario, $fecha);
             if ($id != 0) {
                 $this->view->response("El comentario  se insertó correctamente", 200);
             } else {
                 $this->view->response("El comentario no se pudo enviar", 500);
             }
+        }else{
+            $this->view->response("El comentario no se pudo enviar",404);
         }
     }
     //Borrar un comentario
@@ -68,7 +67,7 @@ class ApiComentarioController extends ApiController
     //ordenar los comentarios por antiguedad (fecha)
     public function  sortCommentsByAge($params = [])
     {
-        // $this->helper->checkLoggedIn();
+      
         $id_materia = $params[":ID"];
         $comentarios = $this->model->sortCommentsByAge($id_materia);
         if ($comentarios) {
@@ -84,7 +83,7 @@ class ApiComentarioController extends ApiController
     {
         $id_materia = $params[":ID"];
         $puntaje = $params[":puntaje"];
-        $comentarios = $this->model->filterCommentsByScore($puntaje, $id_materia);
+        $comentarios = $this->model->filterCommentsByScore($puntaje,$id_materia);
 
         if ($comentarios) {
             $this->view->response($comentarios, 200);

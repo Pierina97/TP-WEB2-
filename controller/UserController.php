@@ -1,4 +1,5 @@
 <?php
+require_once "./model/ComentariosModel.php";
 require_once "./model/UserModel.php";
 require_once "./view/UserView.php";
 require_once "./Helpers/AuthHelper.php";
@@ -7,12 +8,15 @@ class UserController
 {
 
     private $model;
+    private $model_comentarios;
     private $view;
     private $helper;
+
 
     function __construct()
     {
         $this->model = new UserModel();
+        $this->model_comentarios = new ComentarioModel();
         $this->view = new UserView();
         $this->helper = new AuthHelper();
     }
@@ -44,6 +48,7 @@ class UserController
             //  el id que yo quiero borrar tiene que ser distinto al id de la sesion actual
             $borraAdmin = $this->helper->chequearIdAdmin($id_usuario);
             if ($borraAdmin === false) {
+                $this->model_comentarios->deleteCommentByUser($id_usuario);
                 $this->model->borrarUsuario($id_usuario);
                 $this->view->panelLocation();
             } else {

@@ -33,7 +33,7 @@
                 </form>
             {/foreach}
         </table>
-
+{* FLECHITAS PAGINACION *}
         <div class="contenedor-paginacion">
             <ul class="paginacion">
 
@@ -56,8 +56,8 @@
 
     </div>
 </div>
-
-<form action="tablamaterias?nroPagina={$nroPagina}" method="GET" id="formulario-filtro" class=filtro-avanzado>
+{* FORMULARIO FILTRO AVANZADO: *}
+<form action="tablamaterias?nroPagina={$nroPagina}" method="GET" id="formulario-filtro" class="filtro-avanzado">
     <div class="container-item">
         <label>Materia</label>
         <input type="text" name="materia-filtro">
@@ -71,12 +71,13 @@
         <input type="text" name="carrera-filtro">
     </div>
     <button type="submit" class="btn btn-primary">Buscar</button>
+    <a href="tablamaterias?nroPagina={$nroPagina}" class="btn btn-primary">Deshacer filtro</a>
 </form>
-<a href="tablamaterias?nroPagina={$nroPagina}" class="btn btn-primary">Deshacer filtro</a>
 
 
 
 
-<a href="carreras" class="btn btn-primary">VOLVER</a>
+
+<a href="carreras" class="volver">VOLVER</a>
 
 {include file="templates/footer.tpl"}

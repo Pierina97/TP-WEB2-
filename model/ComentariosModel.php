@@ -22,16 +22,21 @@ class ComentarioModel
     }
     function deleteComment($id_comentario)
     {
-        $sentencia = $this->db->prepare("DELETE FROM comentario  WHERE id_comentario=?");
+        $sentencia = $this->db->prepare("DELETE FROM comentario  WHERE id_comentario=? ");
         $sentencia->execute(array($id_comentario));
         return $sentencia->rowCount();
     }
-
-    public function addComments($comentario, $puntaje, $id_materia, $id_usuario,$fecha)
+    function deleteCommentByUser($id_usuario)
+    {
+        $sentencia = $this->db->prepare("DELETE FROM comentario  WHERE id_usuario=? ");
+        $sentencia->execute(array($id_usuario));
+        return $sentencia->rowCount();
+    }
+    public function addComments($comentario, $puntaje, $id_materia, $id_usuario, $fecha)
     {
 
         $sentencia = $this->db->prepare("INSERT INTO comentario(comentario,puntaje,id_materia,id_usuario,fecha) VALUES(?,?,?,?,?)");
-        $sentencia->execute(array($comentario, $puntaje, $id_materia, $id_usuario,$fecha));
+        $sentencia->execute(array($comentario, $puntaje, $id_materia, $id_usuario, $fecha));
         return $this->db->lastInsertId();
     }
 
@@ -45,11 +50,11 @@ class ComentarioModel
 
     // Como usuario quiero poder filtrar los comentarios por cantidad de puntos.  (Via API REST)
     //filtrar comentarios por puntaje
-    public function filterCommentsByScore($puntaje,$id_materia)
+    public function filterCommentsByScore($puntaje, $id_materia)
     {
         $sentencia = $this->db->prepare("SELECT  usuario.nombre, comentario.comentario, comentario.puntaje, comentario.id_comentario, comentario.fecha FROM usuario INNER JOIN comentario 
         ON usuario.id_usuario = comentario.id_usuario  WHERE puntaje=? AND id_materia=?");
-        $sentencia->execute(array($puntaje,$id_materia));
+        $sentencia->execute(array($puntaje, $id_materia));
         $comentarios = $sentencia->fetchAll(PDO::FETCH_OBJ);
         return $comentarios;
     }
@@ -58,12 +63,11 @@ class ComentarioModel
     //ordenar los comentarios por antiguedad 
     public function sortCommentsByAge($id_materia)
     {
-        
+
         $sentencia = $this->db->prepare("SELECT  usuario.nombre, comentario.comentario, comentario.puntaje, comentario.id_comentario, comentario.fecha FROM usuario INNER JOIN comentario 
                                         ON usuario.id_usuario = comentario.id_usuario  WHERE id_materia=? ORDER BY comentario.fecha DESC");
         $sentencia->execute([$id_materia]);
         $comentarios = $sentencia->fetchAll(PDO::FETCH_OBJ);
         return $comentarios;
-  
     }
 }
