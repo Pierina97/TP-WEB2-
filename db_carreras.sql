@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-11-2021 a las 22:33:08
+-- Tiempo de generación: 25-11-2021 a las 02:57:07
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -77,7 +77,6 @@ INSERT INTO `comentario` (`id_comentario`, `comentario`, `puntaje`, `id_materia`
 (160, 'prueba1', 2, 8, 1, '2021-11-16 10:04:49'),
 (169, 'test6', 3, 1, 1, '2021-11-19 13:33:49'),
 (172, 'test7', 4, 1, 3, '2021-11-22 15:08:05'),
-(199, 'test5', 2, 1, 1, '2021-11-23 21:54:38'),
 (202, 'muy buena la materia', 2, 3, 3, '2021-11-24 15:26:56'),
 (203, 'genial', 4, 3, 3, '2021-11-24 15:27:06'),
 (243, 'muy buena', 4, 1, 1, '2021-11-24 18:28:50'),
@@ -87,7 +86,10 @@ INSERT INTO `comentario` (`id_comentario`, `comentario`, `puntaje`, `id_materia`
 (247, 'excelente', 5, 7, 3, '2021-11-24 19:11:45'),
 (248, 'excelente!!', 5, 26, 1, '2021-11-24 20:57:17'),
 (249, 'muy buena', 4, 26, 1, '2021-11-24 20:57:23'),
-(250, 'malisima', 1, 26, 1, '2021-11-24 20:57:31');
+(250, 'malisima', 1, 26, 1, '2021-11-24 20:57:31'),
+(254, 'scasas', 2, 25, 20, '2021-11-24 23:17:11'),
+(269, 'admin', 3, 1, 1, '2021-11-25 01:46:08'),
+(274, 'test1', 1, 7, 1, '2021-11-25 01:58:37');
 
 -- --------------------------------------------------------
 
@@ -108,11 +110,11 @@ CREATE TABLE `materia` (
 --
 
 INSERT INTO `materia` (`id_materia`, `nombre`, `profesor`, `imagen`, `id_carrera`) VALUES
-(1, 'Algebra Lineal', 'Karina Paz', 'algebralineal1.png', 1),
-(2, 'POO', 'Luis Berdun', 'poo.jpeg', 1),
-(3, 'Web2', 'Javier Romero', 'web2.png', 2),
-(7, 'Deep learning', 'Giru', 'DeepLearning.jpg', 5),
-(8, 'Integracion continua', 'Roco el Barbaro', 'Continuous-Integration.png', 3),
+(1, 'Algebra Lineal', 'Karina Paz', 'img/materia/algebralineal1.png', 1),
+(2, 'POO', 'Luis Berdun', 'img/materia/poo.jpeg', 1),
+(3, 'Web2', 'Javier Romero', 'img/materia/web2.png', 2),
+(7, 'Deep learning', 'Giru', 'img/materia/DeepLearning.jpg', 5),
+(8, 'Integracion continua', 'Roco el Barbaro', 'img/materia/Continuous-Integration.png', 3),
 (9, 'Procesamiento del lenguaje natural', 'Andres Dias Pace', '', 5),
 (10, 'Tecnologias Web', 'Pollo Lopez', '', 4),
 (11, 'Comunicacion de Datos', 'Hugo Curti', '', 1),
@@ -154,7 +156,9 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `rol`, `passwd`, `email`) VALUES
 (1, 'admin', 'admin', '$argon2id$v=19$m=65536,t=4,p=1$TFdHQVpEV2VxU0NtU0pBLg$xSv/VFYUWROATCzaExI1KnB3E2kWjKGhqPX6hfS7c5Y', 'admin@gmail.com'),
 (2, 'pierina97', 'usuario', '$argon2id$v=19$m=65536,t=4,p=1$T1ZaZk03Sm1Wb0ZSd2dWbg$J9qEL121MJe991v8gt64ZN6pgxGlFyB05weuQbu0VJc', 'pierina97@hotmail.com'),
-(3, 'usuario', 'usuario', '$argon2id$v=19$m=65536,t=4,p=1$QXhqNkZUSUhFcVFqaUtqbA$sEcfj8ctrfS0sQsxX0o8/pwh0PVhrddBLRP/3WVrnoA', 'usuario@gmail.com');
+(3, 'usuario', 'usuario', '$argon2id$v=19$m=65536,t=4,p=1$QXhqNkZUSUhFcVFqaUtqbA$sEcfj8ctrfS0sQsxX0o8/pwh0PVhrddBLRP/3WVrnoA', 'usuario@gmail.com'),
+(20, 'pepa', 'admin', '$argon2id$v=19$m=65536,t=4,p=1$aTdORWg4eHNRY3RGalZ2TA$8KMxM5ugS3SIuwacMR6FtaUPQ+Iks7kxWYsp0+8hU44', 'pepa@gmail.com'),
+(21, 'ana', 'usuario', '$argon2id$v=19$m=65536,t=4,p=1$UnJVRTRFb1BjMS5rb0Vxeg$+k2LVq/F8ibIltJnm0P+d76msrEL0ZF1fgBnsl/TPKE', 'ana@gmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -201,19 +205,19 @@ ALTER TABLE `carrera`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
+  MODIFY `id_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=275;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id_materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_usuario` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Restricciones para tablas volcadas
