@@ -14,13 +14,15 @@ class ApiComentarioController extends ApiController
     //ver comentarios por materias
     public function viewCommentsBySubjects($params = [])
     {
-        $id_materia = $params[":ID"];
-        $comentario = $this->model->mostrarComentarios($id_materia);
+        if (isset($params[":ID"])) {
+            $id_materia = $params[":ID"];
+            $comentario = $this->model->mostrarComentarios($id_materia);
 
-        if ($comentario) {
-            $this->view->response($comentario, 200);
-        } else {
-            $this->view->response("No hay comentarios en esta materia", 404);
+            if ($comentario) {
+                $this->view->response($comentario, 200);
+            } else {
+                $this->view->response("No hay comentarios en esta materia", 404);
+            }
         }
     }
     //Agregar un comentario
@@ -39,8 +41,8 @@ class ApiComentarioController extends ApiController
             } else {
                 $this->view->response("El comentario no se pudo enviar", 500);
             }
-        }else{
-            $this->view->response("El comentario no se pudo enviar",404);
+        } else {
+            $this->view->response("El comentario no se pudo enviar", 404);
         }
     }
     //Borrar un comentario
@@ -49,16 +51,18 @@ class ApiComentarioController extends ApiController
 
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
-            $id_comentario = $params[":ID"];
+            if (!empty($params[":ID"])) {
+                $id_comentario = $params[":ID"];
 
-            //primero hay que ver si esta
-            $comentario = $this->model->getComment($id_comentario);
+                //primero hay que ver si esta
+                $comentario = $this->model->getComment($id_comentario);
 
-            if ($comentario) {
-                $this->model->deleteComment($id_comentario);
-                $this->view->response("La comentario con el id=  $id_comentario fue borrada", 200);
-            } else {
-                $this->view->response("La comentario con el id=  $id_comentario no existe", 404);
+                if ($comentario) {
+                    $this->model->deleteComment($id_comentario);
+                    $this->view->response("La comentario con el id=  $id_comentario fue borrada", 200);
+                } else {
+                    $this->view->response("La comentario con el id=  $id_comentario no existe", 404);
+                }
             }
         }
     }
@@ -67,13 +71,14 @@ class ApiComentarioController extends ApiController
     //ordenar los comentarios por antiguedad (fecha)
     public function  sortCommentsByAge($params = [])
     {
-      
-        $id_materia = $params[":ID"];
-        $comentarios = $this->model->sortCommentsByAge($id_materia);
-        if ($comentarios) {
-            $this->view->response($comentarios, 200);
-        } else {
-            $this->view->response("No hay comentarios para mostrar", 404);
+        if (!empty($params[":ID"])) {
+            $id_materia = $params[":ID"];
+            $comentarios = $this->model->sortCommentsByAge($id_materia);
+            if ($comentarios) {
+                $this->view->response($comentarios, 200);
+            } else {
+                $this->view->response("No hay comentarios para mostrar", 404);
+            }
         }
     }
 
@@ -81,14 +86,16 @@ class ApiComentarioController extends ApiController
 
     public function filterCommentsByScore($params = null)
     {
-        $id_materia = $params[":ID"];
-        $puntaje = $params[":puntaje"];
-        $comentarios = $this->model->filterCommentsByScore($puntaje,$id_materia);
+        if (!empty($params[":ID"]) && !empty($params[":puntaje"])) {
+            $id_materia = $params[":ID"];
+            $puntaje = $params[":puntaje"];
+            $comentarios = $this->model->filterCommentsByScore($puntaje, $id_materia);
 
-        if ($comentarios) {
-            $this->view->response($comentarios, 200);
-        } else {
-            $this->view->response("No hay comentarios con puntaje $puntaje", 404);
+            if ($comentarios) {
+                $this->view->response($comentarios, 200);
+            } else {
+                $this->view->response("No hay comentarios con puntaje $puntaje", 404);
+            }
         }
     }
 }

@@ -49,7 +49,7 @@ class ComentarioModel
     public function mostrarComentarios($id_materia)
     {
         $sentencia = $this->db->prepare("SELECT  usuario.nombre, comentario.comentario, comentario.puntaje, comentario.id_comentario, comentario.fecha FROM usuario INNER JOIN comentario 
-                                         ON usuario.id_usuario = comentario.id_usuario  WHERE id_materia=?");
+                                         ON usuario.id_usuario = comentario.id_usuario  WHERE id_materia=?  ORDER BY  comentario.fecha ASC");
         $sentencia->execute(array($id_materia));
         return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }

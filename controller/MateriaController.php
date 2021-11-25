@@ -21,7 +21,7 @@ class MateriaController
         $this->model = new MateriaModel();
         $this->user_model = new UserModel();
         $this->carrera_model = new CarreraModel();
-        $this->model_comentarios= new ComentarioModel();
+        $this->model_comentarios = new ComentarioModel();
         $this->view = new MateriaView();
         $this->view_user = new UserView();
         $this->helper = new AuthHelper();
@@ -44,12 +44,12 @@ class MateriaController
             }
         }
     }
-   //MOSTRAR MATERIAS
-   public function showSubjects()
-   {
-       $materias = $this->model->getSubjects();
-       $this->view->renderSubjects($materias, false);
-   }
+    //MOSTRAR MATERIAS
+    public function showSubjects()
+    {
+        $materias = $this->model->getSubjects();
+        $this->view->renderSubjects($materias, false);
+    }
     //MOSTRAR FORMULARIO INSERTAR MATERIA
     public function formSubject($aviso = "")
     {
@@ -97,7 +97,7 @@ class MateriaController
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
             if (isset($id)) {
-               
+
                 $this->model_comentarios->deleteCommentByMateria($id);
                 $this->model->deleteSubject($id);
                 $this->view->renderTableOfLocationSubjects();

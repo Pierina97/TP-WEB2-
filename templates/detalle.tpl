@@ -4,7 +4,7 @@
 <div class="container-materias">
     <div class="text-center mt-3">
         {if  {$materia->imagen} }
-            <img src="img/materia/{$materia->imagen}" class="imagen-item">
+            <img src="{$materia->imagen}" class="imagen-item">
         {/if}
     </div>
 
@@ -69,7 +69,7 @@
     </form>
 
     <div class="filtros">
-        <label>Ordenar Por Antigueda</label>
+        <label>Ordenar Por Antiguedad(descendente)</label>
         <button type="" id="btn-ordenar" class="btn btn-primary">ordenar</button>
     </div>
     <div class="filtros">

@@ -13,7 +13,7 @@ const form_comentarios = document.querySelector("#form-comentarios");
 if (form_comentarios) {
     let id_materia = form_comentarios.getAttribute('data-idMateria');
     let url = `${API_URL}/materia/${id_materia}`;
-
+   
     async function cargaComentarios(url) {
 
         try {
@@ -22,7 +22,7 @@ if (form_comentarios) {
             if (response.ok) {
 
                 let comentarios = await response.json();
-
+                console.log(comentarios);
                 tbody.innerHTML = "";
                 for (let comentario of comentarios) {
 
@@ -121,6 +121,7 @@ if (form_comentarios) {
             })
             if (response.ok) {
                 console.log("http 200");
+          
                 cargaComentarios(url);
 
             } else if (response.status == 201) {

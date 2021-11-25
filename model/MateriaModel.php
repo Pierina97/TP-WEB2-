@@ -59,7 +59,7 @@ class MateriaModel
 
     private function uploadImage($image)
     {
-        $target = "img/materia." . uniqid() . "." . strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
+        $target = "img/materia/" . uniqid() . "." . strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
         move_uploaded_file($image['tmp_name'], $target);
         return $target;
     }
