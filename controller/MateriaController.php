@@ -44,7 +44,12 @@ class MateriaController
             }
         }
     }
-
+   //MOSTRAR MATERIAS
+   public function showSubjects()
+   {
+       $materias = $this->model->getSubjects();
+       $this->view->renderSubjects($materias, false);
+   }
     //MOSTRAR FORMULARIO INSERTAR MATERIA
     public function formSubject($aviso = "")
     {

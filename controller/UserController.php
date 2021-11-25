@@ -89,7 +89,7 @@ class UserController
             if ($checkExist) {
                 $this->view->renderRegistro("El email que quiere ingresar ya esta registrado");
             } else {
-                $this->model->insertUser($_POST['email'],$hashedPasswd,$_POST['nombre']);
+                $this->model->insertUser($_POST['email'],$hashedPasswd, $_POST['nombre']);
                 $this->verifyLogin();
             }
         } else {

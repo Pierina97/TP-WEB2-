@@ -30,7 +30,9 @@ switch ($params[0]) {
     case 'carrera':
         $carreraController->filterDegreeProgram($params[1], $params[2]);
         break;
-
+    case 'materias':
+        $materiaController->showSubjects();
+        break;
     case 'detalle':
         $materiaController->filterSubject($params[2], $params[1]);
         break;

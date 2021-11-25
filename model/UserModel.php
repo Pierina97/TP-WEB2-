@@ -9,12 +9,17 @@ class UserModel
         $this->db = new PDO('mysql:host=localhost;' . 'dbname=db_carreras;charset=utf8', 'root', '');
     }
 
-    public function insertUser($email, $passwd, $nombre)
+    public function insertUser($email, $passwd,$nombre)
     {
         $sentencia = $this->db->prepare("INSERT INTO usuario(email, passwd, nombre) VALUES(?, ?, ?)");
         $sentencia->execute(array($email, $passwd, $nombre));
     }
 
+    // public function verifyExistEmail($email)
+    // {
+    //     $sentencia = $this->db->prepare("INSERT INTO usuario(email, passwd, nombre) VALUES(?, ?, ?)");
+    //     $sentencia->execute(array($email));
+    // }
     public function getUser($email)
     {
         $sentencia = $this->db->prepare("SELECT * FROM usuario WHERE email = ?");
