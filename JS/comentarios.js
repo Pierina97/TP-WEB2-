@@ -25,7 +25,6 @@ if (form_comentarios) {
                 console.log(comentarios);
                 tbody.innerHTML = "";
                 for (let comentario of comentarios) {
-
                     mostrarTabla(comentario);
                 }
             } else {
@@ -41,7 +40,6 @@ if (form_comentarios) {
     document.querySelector("#deshacer_filtro").addEventListener("click", e => {
         cargaComentarios(url);
     });
-
 
     function mostrarTabla(comentario) {
 
@@ -62,11 +60,10 @@ if (form_comentarios) {
         celda_fecha.innerHTML = comentario.fecha;
         celda_nombre.innerHTML = comentario.nombre;
         celda_comentario.innerHTML = comentario.comentario;
-        celda_puntaje.innerHTML = starts(comentario.puntaje);
-
+        celda_puntaje.innerHTML = stars(comentario.puntaje);
 
         btnBorrar.innerHTML = "Borrar";
-
+        
         btnBorrar.setAttribute('data-id', comentario.id_comentario);
 
         btnBorrar.classList.add('btn-borrar');
@@ -94,7 +91,7 @@ if (form_comentarios) {
         });
     }
 
-    function starts(puntaje) {
+    function stars(puntaje) {
         let resultado = "";
         for (let i = 0; i < puntaje; i++) {
             resultado += "★";

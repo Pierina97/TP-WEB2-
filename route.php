@@ -102,9 +102,9 @@ switch ($params[0]) {
     case 'agregarcarrera':
         $carreraController->formDegreeProgram();
         break;
-    case 'agregarmateria':
-        $materiaController->formSubject();
-        break;
+    // case 'agregarmateria':
+    //     $materiaController->formSubject();
+    //     break;
 
 
     default:

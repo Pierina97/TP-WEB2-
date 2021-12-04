@@ -45,15 +45,16 @@ class UserController
 
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
-            //  el id que yo quiero borrar tiene que ser distinto al id de la sesion actual
+       
             $borraAdmin = $this->helper->chequearIdAdmin($id_usuario);
-            if ($borraAdmin === false) {
+            if ($borraAdmin === false) { 
+              
+                 
                 $this->model_comentarios->deleteCommentByUser($id_usuario);
                 $this->model->borrarUsuario($id_usuario);
                 $this->view->panelLocation();
             } else {
-
-                $this->showPanel("No  puede borrar su propio estado");
+                $this->showPanel("No puede borrar su propio estado");
             }
         } else {
             $this->view->showHome();
@@ -64,7 +65,7 @@ class UserController
     {
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
-            //  el id que yo quiero editar tiene que ser distinto al id de la sesion actual    
+
             $editaAdmin = $this->helper->chequearIdAdmin($id_usuario);
             if ($editaAdmin === false) {
                 if (isset($_POST['rol']) && !empty($_POST['rol'])) {
@@ -102,9 +103,9 @@ class UserController
         if (!empty($_POST['email']) && !empty($_POST['password'])) {
             $email = $_POST['email'];
             $password = $_POST['password'];
-            // Obtengo el usuario de la base de datos
+       
             $user = $this->model->getUser($email);
-            // Si el usuario existe y las contraseñas coinciden
+         
             if ($user && password_verify($password, $user->passwd)) {
                 session_start();
                 $_SESSION['id_usuario'] = $user->id_usuario;

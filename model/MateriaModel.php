@@ -56,7 +56,8 @@ class MateriaModel
         $sentencia = $this->db->prepare("INSERT INTO materia(nombre,profesor,imagen,id_carrera) VALUES(?,?,?,?)");
         $sentencia->execute(array($nombre, $profesor, $pathImg, $id_carrera));
     }
-
+    //  nombre único según el nombre de la imagen y le agrega la ruta donde van a estar las imágenes
+    //antes de insertar en la base d datos
     private function uploadImage($image)
     {
         $target = "img/materia/" . uniqid() . "." . strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
@@ -118,6 +119,6 @@ class MateriaModel
     {
         $sentencia = $this->db->prepare("SELECT COUNT(*) FROM materia");
         $sentencia->execute();
-        return $sentencia->fetchColumn();   //retorna la primera columna de la primera fila (0,0)
+        return $sentencia->fetchColumn();   //retorna la primera columna de la primera fila (1,1)
     }
 }

@@ -80,25 +80,30 @@ class MateriaController
                     $_FILES['image'],
                     $_POST['id_carrera']
                 );
-            } else {
-                $this->model->addSubject(
-                    $_POST['nombre'],
-                    $_POST['profesor'],
-                    null,
-                    $_POST['id_carrera']
-                );
             }
-            $this->view->showLocationToAddFormSubjects();
+        } elseif (
+            isset($_POST['nombre']) && isset($_POST['profesor']) &&
+            isset($_POST['id_carrera'])
+        ) {
+            $this->model->addSubject(
+                $_POST['nombre'],
+                $_POST['profesor'],
+                null,
+                $_POST['id_carrera']
+            );
         }
+        $this->view->showLocationToAddFormSubjects();
     }
+
     //BORRAR MATERIA
     public function deleteSubject($id)
     {
         $isAdmin = $this->helper->checkLoggedIn();
         if ($isAdmin == true) {
             if (isset($id)) {
-
+                //primero borro los comentarios por la fk
                 $this->model_comentarios->deleteCommentByMateria($id);
+                //despues borro las materias
                 $this->model->deleteSubject($id);
                 $this->view->renderTableOfLocationSubjects();
             } else {
@@ -126,7 +131,7 @@ class MateriaController
     }
 
     //   ------------------------------EDITAR BORRAR MATERIAS----------------------------------------------
-
+    //tanto para el filtro como para el paginado
     public function showTableOfSubjects($tablasMaterias = null)
     {
         $isAdmin = $this->helper->checkLoggedIn();
@@ -140,6 +145,7 @@ class MateriaController
         }
 
         //controla inyeccion sql 
+        //da true si es un string numerico si es un entero da false, como la pasamos por la url es string
         if (ctype_digit($nroPagina)) {
             $offset = ($nroPagina - 1) * 5;
             //si no te mandaron materias se tienen que obtener materias
@@ -149,6 +155,7 @@ class MateriaController
             $cantidadTotalDeMaterias = $this->model->obtenerCantidadDeMaterias();
             //esto me permite que si tengo 11 materias la q sigue me la muestre 
             //en un registro y luego el boton desaparece
+            //ceil: rendondea para arriba , entonces nro pag le agerga una pag mas
             $nroPagMax = ceil($cantidadTotalDeMaterias / 5);
             $this->view->renderTableSubjects($tablasMaterias, $isAdmin, $nroPagina, $nroPagMax);
         }

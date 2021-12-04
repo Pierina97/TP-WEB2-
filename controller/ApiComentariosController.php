@@ -30,7 +30,9 @@ class ApiComentarioController extends ApiController
     {
         $this->helper->checkLoggedIn();
         $body = $this->getData();
+
         $fecha = date("Y-m-d H:i:s");
+
         if (
             isset($body->comentario) && isset($body->puntaje) &&
             isset($body->id_materia) && isset($body->id_usuario)  && isset($fecha)

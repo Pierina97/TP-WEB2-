@@ -43,8 +43,8 @@
 
                             <ion-icon name="chevron-back-outline"></ion-icon>
                         </a></li>
-                {/if}
-                {if $nroPagina< $nroPagMax}
+                {/if} 
+                {if $nroPagina < $nroPagMax}
                     <li><a href="tablamaterias?nroPagina={$nroPagina+1}" class="pagina-link">
 
                             <ion-icon name="chevron-forward-outline"></ion-icon>
