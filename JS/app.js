@@ -1,19 +1,34 @@
 "use strict";
 
-// document.addEventListener("DOMContentLoaded", iniciarPagina);
+let app = new Vue({
+    //elemtno que quiero que tenga alcance
+    el: "#app-comentarios",
+    //que variable quiero pasarle a este html
+    data: {
+        comentarios: []
+ 
+    },
+    methods:{
+        eliminarComentario:function(comentario){
+        borrarComentario(comentario);
+        }
+    }
 
-// function iniciarPagina() {
+ 
+});
 
 
-const API_URL = `http://localhost/TRABAJOPRACTICOESPECIALWEB2/api/comentarios`;
+const API_URL = `api/comentarios`;
 const form_comentarios = document.querySelector("#form-comentarios");
+let admin = form_comentarios.getAttribute('data-idAdmin');
 
 
-/*GET*/
-if (form_comentarios) {
+
     let id_materia = form_comentarios.getAttribute('data-idMateria');
     let url = `${API_URL}/materia/${id_materia}`;
    
+
+
     async function cargaComentarios(url) {
 
         try {
@@ -23,10 +38,8 @@ if (form_comentarios) {
 
                 let comentarios = await response.json();
                 console.log(comentarios);
-                tbody.innerHTML = "";
-                for (let comentario of comentarios) {
-                    mostrarTabla(comentario);
-                }
+                app.comentarios=comentarios;
+     
             } else {
                 console.log("Error - Failed URL!", response.status);
             }
@@ -41,64 +54,8 @@ if (form_comentarios) {
         cargaComentarios(url);
     });
 
-    function mostrarTabla(comentario) {
+   
 
-        let tbody = document.querySelector('#tbody');
-        let filas = document.createElement('tr');
-
-        let celda_fecha = document.createElement('td');
-        let celda_nombre = document.createElement('td');
-        let celda_comentario = document.createElement('td');
-        let celda_puntaje = document.createElement('td');
-
-        let celda_borrar = document.createElement('td');
-
-        let admin = form_comentarios.getAttribute('data-idAdmin');
-
-        let btnBorrar = document.createElement('button');
-
-        celda_fecha.innerHTML = comentario.fecha;
-        celda_nombre.innerHTML = comentario.nombre;
-        celda_comentario.innerHTML = comentario.comentario;
-        celda_puntaje.innerHTML = stars(comentario.puntaje);
-
-        btnBorrar.innerHTML = "Borrar";
-        
-        btnBorrar.setAttribute('data-id', comentario.id_comentario);
-
-        btnBorrar.classList.add('btn-borrar');
-
-        filas.appendChild(celda_fecha);
-        filas.appendChild(celda_nombre);
-        filas.appendChild(celda_comentario);
-        filas.appendChild(celda_puntaje);
-
-
-        filas.classList.add(`fila-${comentario.id_comentario}`);
-
-        filas.appendChild(celda_borrar);
-
-        if (admin == true) {
-            celda_borrar.appendChild(btnBorrar);
-        }
-        tbody.appendChild(filas);
-
-
-
-        let botonesBorrar = document.querySelectorAll(".btn-borrar");
-        botonesBorrar.forEach(e => {
-            e.addEventListener("click",borrarComentario);
-        });
-    }
-
-    function stars(puntaje) {
-        let resultado = "";
-        for (let i = 0; i < puntaje; i++) {
-            resultado += "★";
-        }
-        return resultado;
-
-    }
     /*POST*/
     form_comentarios.addEventListener('submit', e => {
         e.preventDefault();
@@ -119,7 +76,7 @@ if (form_comentarios) {
             if (response.ok) {
                 console.log("http 200");
           
-                cargaComentarios(url);
+                 cargaComentarios(url);
 
             } else if (response.status == 201) {
                 console.log("http 201", response.status);
@@ -151,8 +108,9 @@ if (form_comentarios) {
         return comment;
     }
 
-    async function borrarComentario() {
-        let id_comentario = this.getAttribute("data-id");
+
+    async function borrarComentario(id_comentario) {
+
 
         try {
             let response = await fetch(`${API_URL}/${id_comentario}`, {
@@ -191,4 +149,4 @@ if (form_comentarios) {
         cargaComentarios(url);
     }
 
-}
+

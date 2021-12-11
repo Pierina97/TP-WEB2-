@@ -15,18 +15,39 @@
         </ul>
     </div>
 </div>
-<table>
-    <thead>
-        <tr>
-            <td>Hora</td>
-            <td>Usuario</td>
-            <td>Comentario</td>
-            <td>Puntaje</td>
-        </tr>
-    </thead>
-    <tbody id="tbody">
-    </tbody>
-</table>
+
+{literal}
+    <div id="app-comentarios">
+
+        <table>
+            <thead>
+                <tr>
+                    <td>Hora</td>
+                    <td>Usuario</td>
+                    <td>Comentario</td>
+                    <td>Puntaje</td>
+                    <td>Borrar</td>
+                </tr>
+            </thead>
+
+
+            <tr v-for="comentario in comentarios">
+                <td>{{comentario.fecha}} </td>
+                <td>{{comentario.nombre}}</td>
+                <td>{{comentario.comentario}}</td>
+                <td>{{comentario.puntaje}}</td>
+          <td> <button @click="eliminarComentario(comentario.id_comentario)">Borrar</button></td>
+
+            </tr>
+
+
+        </table>
+
+    </div>
+
+
+{/literal}
+
 
 
 <form id="form-comentarios" data-idMateria="{$materia->id_materia}" data-idAdmin="{$isAdmin}"
@@ -55,8 +76,8 @@
 </form>
 
 <div class="container-filtros">
-    <form id="form_ordenar_puntaje" class="formulario_puntaje" data-idMateria="{$materia->id_materia}  data-idUsuario="
-        {$id_usuario}>
+    <form id="form_ordenar_puntaje" class="formulario_puntaje" data-idMateria="{$materia->id_materia}" data-idUsuario="
+        {$id_usuario}">
         <select id="orden_puntaje" class="form-control">
             <option value="1">★</option>
             <option value="2">★★</option>
@@ -79,5 +100,5 @@
 </div>
 </div>
 <a href="carrera" class="volver">VOLVER</a>
-
+<script src="./JS/app.js"></script>
 {include file="templates/footer.tpl"}
